@@ -1,0 +1,523 @@
+
+<style>
+.card{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:10px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px}
+.row4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:10px}
+.label{font-size:12px;color:var(--color-text-secondary);margin-bottom:4px}
+.val{font-size:14px;font-weight:500;color:var(--color-text-primary)}
+.badge{display:inline-block;font-size:11px;padding:2px 9px;border-radius:20px;font-weight:500}
+.badge-green{background:var(--color-background-success);color:var(--color-text-success)}
+.badge-red{background:var(--color-background-danger);color:var(--color-text-danger)}
+.badge-warn{background:var(--color-background-warning);color:var(--color-text-warning)}
+.badge-blue{background:var(--color-background-info);color:var(--color-text-info)}
+.badge-purple{background:#EEEDFE;color:#3C3489}
+.tbl{width:100%;border-collapse:collapse;font-size:13px;table-layout:fixed}
+.tbl th{font-weight:500;color:var(--color-text-secondary);font-size:11px;padding:7px 4px;border-bottom:0.5px solid var(--color-border-tertiary);text-align:center;background:var(--color-background-secondary)}
+.tbl td{padding:7px 4px;border-bottom:0.5px solid var(--color-border-tertiary);text-align:center;color:var(--color-text-primary);font-size:12px}
+.tbl tr:last-child td{border-bottom:none}
+.row-best{background:#E1F5EE}
+.row-good{background:#EAF3DE}
+.row-warn{background:#FAEEDA}
+.row-bad{background:#FCEBEB}
+.item-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:0.5px solid var(--color-border-tertiary);font-size:13px}
+.item-row:last-child{border-bottom:none}
+.metric{text-align:center}
+.metric-num{font-size:20px;font-weight:500;color:var(--color-text-primary)}
+.metric-label{font-size:11px;color:var(--color-text-secondary);margin-top:2px}
+.bar-bg{background:var(--color-background-tertiary);border-radius:4px;height:7px;margin-top:5px}
+.bar{height:7px;border-radius:4px}
+.comp-card{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 14px}
+.comp-label{font-size:11px;color:var(--color-text-secondary);margin-bottom:3px}
+.comp-val{font-size:14px;font-weight:500;color:var(--color-text-primary)}
+.comp-sub{font-size:11px;color:var(--color-text-secondary);margin-top:2px}
+.update-tag{display:inline-block;font-size:10px;padding:1px 7px;border-radius:10px;font-weight:500;background:#EEEDFE;color:#3C3489;margin-left:6px}
+.timeline-item{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.timeline-item:last-child{border-bottom:none}
+.timeline-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.timeline-body{font-size:13px;color:var(--color-text-secondary);line-height:1.6}
+.timeline-title{font-weight:500;color:var(--color-text-primary);margin-bottom:2px}
+.section-divider{border-top:2px solid var(--color-border-secondary);margin:16px 0 10px;padding-top:4px}
+.section-title{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:10px;letter-spacing:-0.3px}
+</style>
+
+<div style="padding:0.25rem 0;">
+
+<!-- ==================== PART 1: 기본 정보 ==================== -->
+<div class="card">
+  <div style="font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:12px;">종합 분석 리포트 — 2024타경11985 <span class="badge badge-purple">최종</span></div>
+  <div class="row3">
+    <div class="metric">
+      <div class="metric-num">20.52평</div>
+      <div class="metric-label">전용면적 (67.83㎡)</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num">8.73억</div>
+      <div class="metric-label">감정가 (24.11.25)</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num">2.994억</div>
+      <div class="metric-label">4차 최저가 (34%)</div>
+    </div>
+  </div>
+  <div style="border-top:0.5px solid var(--color-border-tertiary);margin-top:10px;padding-top:10px;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;font-size:12px;">
+    <div><span style="color:var(--color-text-secondary);">소재지</span><br>동탄2 그랑파사쥬<br>5층 5019호</div>
+    <div><span style="color:var(--color-text-secondary);">준공</span><br>2022.12 (3년차)<br>소유자: (주)베라솔</div>
+    <div><span style="color:var(--color-text-secondary);">매각기일</span><br><b style="font-weight:500;color:var(--color-text-danger);">2026.04.13(월)</b><br>수원지방법원</div>
+    <div><span style="color:var(--color-text-secondary);">임장 특이사항</span><br><b style="font-weight:500;color:var(--color-text-success);">코너 호수뷰</b><br>옆 학원 확장 중</div>
+  </div>
+</div>
+
+<!-- ==================== PART 2: 입지 분석 ==================== -->
+<div class="card">
+  <div class="section-title">입지 분석 <span class="update-tag">임장 반영</span></div>
+  <div class="item-row"><span style="color:var(--color-text-success);">+ 동탄호수공원 직접 뷰 — 코너 위치 조망권 확보</span><span class="badge badge-green">강점</span></div>
+  <div class="item-row"><span style="color:var(--color-text-success);">+ 동탄대로 50m 도로 접면 — 가시성 우수</span><span class="badge badge-green">강점</span></div>
+  <div class="item-row"><span style="color:var(--color-text-success);">+ 5층 대부분 입점 (영화관·학원·병원·식당) — 공실 2~3개뿐</span><span class="badge badge-green">강점</span></div>
+  <div class="item-row"><span style="color:var(--color-text-success);">+ 4층 거의 만실 (병원·학원·필라테스·스파)</span><span class="badge badge-green">강점</span></div>
+  <div class="item-row"><span style="color:var(--color-text-success);">+ 3층 병원·학원·식당 — 일부 공실 외 활성화</span><span class="badge badge-green">강점</span></div>
+  <div class="item-row"><span style="color:var(--color-text-success);">+ 건물 전체 월세 매물 17건 — 대규모 상가 대비 공실률 낮음</span><span class="badge badge-green">강점</span></div>
+  <div class="item-row"><span style="color:var(--color-text-success);">+ 씨앤에이논술 "중등관 확장 오픈" — 잠재 임차 수요</span><span class="badge badge-purple">기회</span></div>
+  <div class="item-row"><span style="color:var(--color-text-warning);">△ 경매물건 인접 방향에 공실 집중 (같은 쪽 2개 공실)</span><span class="badge badge-warn">주의</span></div>
+  <div class="item-row"><span style="color:var(--color-text-warning);">△ 전용률 41% — 계약 대비 실사용 면적 낮음</span><span class="badge badge-warn">주의</span></div>
+  <div class="item-row"><span style="color:var(--color-text-danger);">− 5층 상가 — 1층 대비 집객력 구조적 제한</span><span class="badge badge-warn">구조적</span></div>
+  <div class="item-row"><span style="color:var(--color-text-danger);">− 지하철 역세권 불명확</span><span class="badge badge-warn">주의</span></div>
+</div>
+
+<!-- ==================== PART 3: 권리 분석 ==================== -->
+<div class="card">
+  <div class="section-title">권리 분석</div>
+  <div class="row2">
+    <div>
+      <div class="label">말소기준등기</div>
+      <div class="val">2023.04.18 하나은행 근저당</div>
+      <div style="font-size:12px;color:var(--color-text-secondary);margin-top:4px;">채권액 12억 포함 총 18.44억 → <b style="font-weight:500;color:var(--color-text-success);">전부 소멸</b></div>
+    </div>
+    <div>
+      <div class="label">임차인 / 명도</div>
+      <div class="val">없음 (공실) <span class="badge badge-green">즉시 임대 가능</span></div>
+      <div style="font-size:12px;color:var(--color-text-secondary);margin-top:4px;">전입세대 없음 / 명도 절차 불필요</div>
+    </div>
+  </div>
+  <div style="font-size:12px;margin-top:10px;padding-top:10px;border-top:0.5px solid var(--color-border-tertiary);line-height:1.7;color:var(--color-text-secondary);">
+    등기부: 근저당(하나은행 12억) + 근저당(세현제삼차 1.44억) + 가압류(푸른새마을금고 5억) + 압류(화성시) — 전부 소멸<br>
+    소유자 (주)베라솔이 채무자 겸 소유자. 파산/회생 여부 미확인이나 권리관계 단순.
+  </div>
+</div>
+
+<!-- ==================== PART 4: 미납관리비 ==================== -->
+<div class="card">
+  <div class="section-title">미납관리비 추정</div>
+  <div class="row3" style="margin-bottom:0;">
+    <div class="comp-card" style="text-align:center;">
+      <div class="comp-label">월 관리비 추정</div>
+      <div style="font-size:18px;font-weight:500;">약 41만</div>
+      <div class="comp-sub">전용 20.52평 × @2만</div>
+    </div>
+    <div class="comp-card" style="text-align:center;">
+      <div class="comp-label">현실적 추정 (18개월)</div>
+      <div style="font-size:18px;font-weight:500;color:var(--color-text-warning);">약 740만</div>
+      <div class="comp-sub">경매개시(24.10)~현재</div>
+    </div>
+    <div class="comp-card" style="text-align:center;">
+      <div class="comp-label">보수적 추정 (36개월)</div>
+      <div style="font-size:18px;font-weight:500;color:var(--color-text-danger);">약 1,480만</div>
+      <div class="comp-sub">소유권이전(23.04)~현재</div>
+    </div>
+  </div>
+  <div style="font-size:12px;color:var(--color-text-secondary);margin-top:12px;padding-top:10px;border-top:0.5px solid var(--color-border-tertiary);line-height:1.7;">
+    미납관리비는 <b style="font-weight:500;color:var(--color-text-danger);">낙찰자 승계</b> — 실투입금에 직접 추가. 관리사무소 확인 필수.<br>
+    아래 모든 수익률 계산은 현실적 추정(740만) 기준, 보수적(1,480만) 시 실투입금 +740만·수익률 −0.4~0.5%p.
+  </div>
+</div>
+
+<!-- ==================== PART 5: 동일건물 시세 ==================== -->
+<div class="card">
+  <div class="section-title">동일건물 임대 시세 (3~5층 매물 + 임장 확인)</div>
+  <table class="tbl">
+    <tr><th>층</th><th>전용면적</th><th>보증금</th><th>월세</th><th>평당월세</th><th>상태</th></tr>
+    <tr><td>5층</td><td>12.25평</td><td>1,000만</td><td>100만</td><td style="font-weight:500;">@8.16만</td><td><span class="badge badge-warn">공실</span></td></tr>
+    <tr><td>5층</td><td>50.02평</td><td>6,000만</td><td>380만</td><td style="font-weight:500;">@7.60만</td><td><span class="badge badge-warn">공실</span></td></tr>
+    <tr><td>4층</td><td>10.14평</td><td>1,000만</td><td>90만</td><td style="font-weight:500;">@8.88만</td><td><span class="badge badge-warn">공실</span></td></tr>
+    <tr><td>3층</td><td>6.58평</td><td>1,000만</td><td>70만</td><td style="font-weight:500;">@10.64만</td><td><span class="badge badge-warn">공실</span></td></tr>
+    <tr><td>3층</td><td>50.72평</td><td>1,000만</td><td>480만</td><td style="font-weight:500;">@9.46만</td><td><span class="badge badge-warn">공실</span></td></tr>
+  </table>
+
+  <div style="margin-top:12px;padding-top:10px;border-top:0.5px solid var(--color-border-tertiary);">
+    <div style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:6px;">경매물건(5층 20.52평) 임대시세 추정</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+      <div class="comp-card" style="text-align:center;border:0.5px solid var(--color-border-tertiary);">
+        <div class="comp-label">보수적 (@7.0만)</div>
+        <div style="font-size:16px;font-weight:500;color:var(--color-text-warning);">월 144만</div>
+        <div class="comp-sub">보증금 1,000만</div>
+      </div>
+      <div class="comp-card" style="text-align:center;border:2px solid var(--color-border-info);">
+        <div class="comp-label" style="color:var(--color-text-info);">기본 (@7.5만) ★</div>
+        <div style="font-size:16px;font-weight:500;color:var(--color-text-primary);">월 154만</div>
+        <div class="comp-sub">보증금 1,000만</div>
+      </div>
+      <div class="comp-card" style="text-align:center;border:0.5px solid var(--color-border-tertiary);">
+        <div class="comp-label">낙관적 (@8.0만)</div>
+        <div style="font-size:16px;font-weight:500;color:var(--color-text-success);">월 164만</div>
+        <div class="comp-sub">보증금 1,000만</div>
+      </div>
+    </div>
+    <div style="font-size:11px;color:var(--color-text-secondary);margin-top:8px;line-height:1.6;">
+      5층 소형(12평) @8.16 vs 대형(50평) @7.60 → 중형(20평) @7.5~8.0 추정<br>
+      호가 미체결 감안 약 5~10% 할인 → 실체결 @7.0~7.5만 채택
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PART 6: 입찰 시나리오 ==================== -->
+<div class="card">
+  <div class="section-title">시나리오별 입찰가 및 수익률 (미납관리비 740만 기준)</div>
+  <table class="tbl">
+    <tr>
+      <th style="width:13%;">시나리오</th>
+      <th style="width:9%;">입찰가</th>
+      <th style="width:7%;">감정比</th>
+      <th style="width:9%;">취등록세</th>
+      <th style="width:8%;">대출<br>(80%)</th>
+      <th style="width:8%;">미납<br>관리비</th>
+      <th style="width:11%;">실투입금</th>
+      <th style="width:9%;">매매<br>수익률</th>
+      <th style="width:9%;">순현금<br>흐름(월)</th>
+      <th style="width:9%;">실투자<br>수익률</th>
+      <th style="width:8%;">판단</th>
+    </tr>
+    <tr class="row-best">
+      <td><b>최저가</b><br><span style="font-size:10px;color:#085041;">04.13</span></td>
+      <td>3.0억</td>
+      <td>34%</td>
+      <td>1,380만</td>
+      <td>2.4억</td>
+      <td>740만</td>
+      <td><b>4,870만</b></td>
+      <td>5.6%</td>
+      <td>+62만</td>
+      <td style="font-weight:500;color:#085041;">15.3%</td>
+      <td><span class="badge badge-green">추천</span></td>
+    </tr>
+    <tr class="row-best">
+      <td><b>적정</b><br><span style="font-size:10px;color:#085041;">04.13</span></td>
+      <td>3.3억</td>
+      <td>38%</td>
+      <td>1,518만</td>
+      <td>2.64억</td>
+      <td>740만</td>
+      <td><b>5,308만</b></td>
+      <td>5.1%</td>
+      <td>+53만</td>
+      <td style="font-weight:500;color:#085041;">12.0%</td>
+      <td><span class="badge badge-green">추천</span></td>
+    </tr>
+    <tr class="row-good">
+      <td><b>중간</b><br><span style="font-size:10px;">04.13</span></td>
+      <td>3.5억</td>
+      <td>40%</td>
+      <td>1,610만</td>
+      <td>2.8억</td>
+      <td>740만</td>
+      <td><b>5,600만</b></td>
+      <td>4.8%</td>
+      <td>+47만</td>
+      <td style="font-weight:500;">10.1%</td>
+      <td><span class="badge badge-green">양호</span></td>
+    </tr>
+    <tr class="row-warn">
+      <td><b>공격적</b><br><span style="font-size:10px;">04.13</span></td>
+      <td>3.8억</td>
+      <td>44%</td>
+      <td>1,748만</td>
+      <td>3.04억</td>
+      <td>740만</td>
+      <td><b>6,238만</b></td>
+      <td>4.4%</td>
+      <td>+38만</td>
+      <td style="font-weight:500;">7.3%</td>
+      <td><span class="badge badge-warn">주의</span></td>
+    </tr>
+    <tr class="row-bad">
+      <td><b>과열</b><br><span style="font-size:10px;color:#A32D2D;">경쟁 시</span></td>
+      <td>4.3억</td>
+      <td>49%</td>
+      <td>1,978만</td>
+      <td>3.44억</td>
+      <td>740만</td>
+      <td><b>7,068만</b></td>
+      <td>3.9%</td>
+      <td>+23만</td>
+      <td style="font-weight:500;">3.9%</td>
+      <td><span class="badge badge-red">비추천</span></td>
+    </tr>
+  </table>
+  <div style="font-size:11px;color:var(--color-text-secondary);margin-top:8px;line-height:1.7;">
+    * 월세 154만(@7.5만/평) / 대출이자 4.6% / 보증금 1,000만 / 예비비(이자 2개월) 포함<br>
+    * 실투입금 = 입찰가 + 취등록세 + 미납관리비 − 대출 − 보증금 + 예비비<br>
+    * 매매수익률 = 연 월세 ÷ (입찰가 + 취등록세 + 미납관리비) / 실투자수익률 = 연 순현금흐름 ÷ 실투입금
+  </div>
+</div>
+
+<!-- ==================== PART 7: 민감도 ==================== -->
+<div class="card">
+  <div class="section-title">민감도 분석 — 입찰가 × 월세 × 미납관리비</div>
+  <table class="tbl">
+    <tr>
+      <th>입찰가</th>
+      <th>보수적<br>월144만</th>
+      <th>기본<br>월154만</th>
+      <th>낙관적<br>월164만</th>
+      <th>실투입금<br>(미납740만)</th>
+      <th>실투입금<br>(미납1,480만)</th>
+    </tr>
+    <tr class="row-best">
+      <td style="font-weight:500;">3.0억 (34%)</td>
+      <td>5.2%</td>
+      <td style="font-weight:500;">5.6%</td>
+      <td>5.9%</td>
+      <td>4,870만</td>
+      <td>5,610만</td>
+    </tr>
+    <tr class="row-best">
+      <td style="font-weight:500;">3.3억 (38%)</td>
+      <td>4.7%</td>
+      <td style="font-weight:500;">5.1%</td>
+      <td>5.4%</td>
+      <td>5,308만</td>
+      <td>6,048만</td>
+    </tr>
+    <tr class="row-good">
+      <td style="font-weight:500;">3.5억 (40%)</td>
+      <td>4.4%</td>
+      <td style="font-weight:500;">4.8%</td>
+      <td>5.1%</td>
+      <td>5,600만</td>
+      <td>6,340만</td>
+    </tr>
+    <tr class="row-warn">
+      <td style="font-weight:500;">3.8억 (44%)</td>
+      <td>4.0%</td>
+      <td style="font-weight:500;">4.4%</td>
+      <td>4.7%</td>
+      <td>6,238만</td>
+      <td>6,978만</td>
+    </tr>
+    <tr class="row-bad">
+      <td style="font-weight:500;">4.3억 (49%)</td>
+      <td>3.5%</td>
+      <td style="font-weight:500;">3.9%</td>
+      <td>4.2%</td>
+      <td>7,068만</td>
+      <td>7,808만</td>
+    </tr>
+  </table>
+</div>
+
+<!-- ==================== PART 8: 출구전략 ==================== -->
+<div class="card">
+  <div class="section-title">출구전략 — 매도가 추정 및 근거</div>
+  
+  <div style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:8px;">매도가 추정 근거 (4가지 방법론)</div>
+  
+  <table class="tbl">
+    <tr>
+      <th style="width:22%;">추정 방법</th>
+      <th style="width:30%;">산출 근거</th>
+      <th style="width:16%;">평당 매매가</th>
+      <th style="width:16%;">20.52평 기준</th>
+      <th style="width:16%;">신뢰도</th>
+    </tr>
+    <tr>
+      <td style="text-align:left;padding-left:8px;font-weight:500;">① 비교매물 접근</td>
+      <td style="text-align:left;font-size:11px;">옆동 3층 @3,375만 → 5층 할인(−15~20%)</td>
+      <td>@2,700~2,870만</td>
+      <td style="font-weight:500;">5.5~5.9억</td>
+      <td><span class="badge badge-warn">중</span></td>
+    </tr>
+    <tr>
+      <td style="text-align:left;padding-left:8px;font-weight:500;">② 감정가 할인</td>
+      <td style="text-align:left;font-size:11px;">감정가 @4,255만 × 55~65%</td>
+      <td>@2,340~2,766만</td>
+      <td style="font-weight:500;">4.8~5.7억</td>
+      <td><span class="badge badge-blue">참고</span></td>
+    </tr>
+    <tr>
+      <td style="text-align:left;padding-left:8px;font-weight:500;">③ 수익환원법<br><span style="font-size:10px;color:var(--color-text-secondary);">(cap 5.0%)</span></td>
+      <td style="text-align:left;font-size:11px;">연 임대료 1,848만 ÷ 5.0%</td>
+      <td>@1,801만</td>
+      <td style="font-weight:500;">3.70억</td>
+      <td><span class="badge badge-green">높음</span></td>
+    </tr>
+    <tr>
+      <td style="text-align:left;padding-left:8px;font-weight:500;">④ 수익환원법<br><span style="font-size:10px;color:var(--color-text-secondary);">(cap 4.5%)</span></td>
+      <td style="text-align:left;font-size:11px;">연 임대료 1,848만 ÷ 4.5%</td>
+      <td>@2,001만</td>
+      <td style="font-weight:500;">4.11억</td>
+      <td><span class="badge badge-green">높음</span></td>
+    </tr>
+  </table>
+
+  <div style="background:var(--color-background-info);border-radius:var(--border-radius-md);padding:10px 14px;font-size:12px;color:var(--color-text-info);margin-top:12px;line-height:1.7;">
+    <b style="font-weight:500;">매도가 추정 근거 설명</b><br>
+    ① <b style="font-weight:500;">비교매물</b>: 옆동 3층 매매 호가 3.5억(전용 10.37평, @3,375만/평). 3층→5층 할인 15~20% 적용. 단, 3층 매물도 미체결 호가이므로 과대 추정 가능성 있음.<br>
+    ② <b style="font-weight:500;">감정가 할인</b>: 감정가 8.73억(24.11 기준)의 55~65% 적용. 4차 유찰까지 온 시장 상황 반영. 소유자 매입가(23.04, 거래가 9.985억)는 고점 매입으로 참고 부적합.<br>
+    ③④ <b style="font-weight:500;">수익환원법</b>: 실제 수익(월세 154만 × 12 = 1,848만)을 cap rate로 나눈 가치. 동탄 5층 상가 cap rate 4.5~5.5% 범위에서 산출. <span style="font-weight:500;">가장 객관적인 방법이나, 임대가 확정되어야 매수자가 신뢰.</span>
+  </div>
+
+  <div style="margin-top:14px;padding-top:12px;border-top:0.5px solid var(--color-border-tertiary);">
+    <div style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:8px;">매도 시나리오별 차익 분석 (미납관리비 740만 기준)</div>
+    <table class="tbl">
+      <tr>
+        <th style="width:12%;">매도가</th>
+        <th style="width:12%;">매도 근거</th>
+        <th colspan="3" style="text-align:center;">입찰가별 매도차익 (세전)</th>
+        <th style="width:15%;">양도세 후<br>순차익 추정</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th></th>
+        <th>3.0억 낙찰</th>
+        <th>3.3억 낙찰</th>
+        <th>3.5억 낙찰</th>
+        <th style="font-size:10px;">(3.3억, 2년 보유)</th>
+      </tr>
+      <tr class="row-warn">
+        <td style="font-weight:500;">3.7억</td>
+        <td style="font-size:10px;">수익환원<br>(cap 5.0%)</td>
+        <td style="color:var(--color-text-success);font-weight:500;">+5,880만</td>
+        <td style="color:var(--color-text-success);font-weight:500;">+2,760만</td>
+        <td style="color:var(--color-text-warning);font-weight:500;">+680만</td>
+        <td style="font-size:11px;">약 +1,900만</td>
+      </tr>
+      <tr class="row-good">
+        <td style="font-weight:500;">4.5억</td>
+        <td style="font-size:10px;">감정가 할인<br>중간값</td>
+        <td style="color:var(--color-text-success);font-weight:500;">+1.39억</td>
+        <td style="color:var(--color-text-success);font-weight:500;">+1.07억</td>
+        <td style="color:var(--color-text-success);font-weight:500;">+8,680만</td>
+        <td style="font-size:11px;">약 +7,400만</td>
+      </tr>
+      <tr class="row-best">
+        <td style="font-weight:500;">5.5억</td>
+        <td style="font-size:10px;">비교매물<br>접근</td>
+        <td style="color:var(--color-text-success);font-weight:500;">+2.39억</td>
+        <td style="color:var(--color-text-success);font-weight:500;">+2.07억</td>
+        <td style="color:var(--color-text-success);font-weight:500;">+1.87억</td>
+        <td style="font-size:11px;">약 +1.4억</td>
+      </tr>
+    </table>
+    <div style="font-size:11px;color:var(--color-text-secondary);margin-top:6px;line-height:1.6;">
+      * 매도차익 = 매도가 − (입찰가 + 취등록세 + 미납관리비) / 중개수수료·양도세 미포함<br>
+      * 양도세 후 순차익: 2년 보유, 기본세율(6~45%) 적용 추정. 1년 미만 보유 시 70%, 1~2년 60% 중과<br>
+      * <b style="font-weight:500;">핵심: 수익환원법 기준(3.7억)이 최소 매도가 하한선 → 3.3억 낙찰 시에도 +2,760만 차익 확보</b>
+    </div>
+  </div>
+
+  <div style="margin-top:14px;padding-top:12px;border-top:0.5px solid var(--color-border-tertiary);">
+    <div style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:8px;">출구전략 리스크 평가</div>
+    <div class="item-row"><span style="color:var(--color-text-success);">+ 감정가 8.73억 대비 34~40%에 매입 — 충분한 안전마진 확보</span><span class="badge badge-green">안전</span></div>
+    <div class="item-row"><span style="color:var(--color-text-success);">+ 수익환원법 최저 3.7억 > 최대 입찰가 3.5억 — 원금 손실 가능성 낮음</span><span class="badge badge-green">안전</span></div>
+    <div class="item-row"><span style="color:var(--color-text-success);">+ 임차인 확보 후 매도 시 매수자 신뢰도 상승</span><span class="badge badge-green">강점</span></div>
+    <div class="item-row"><span style="color:var(--color-text-warning);">△ 비교매물(3층) 호가 3.5억도 미체결 → 매도에 시간 소요 가능</span><span class="badge badge-warn">주의</span></div>
+    <div class="item-row"><span style="color:var(--color-text-warning);">△ 5층 대형(20평) 매수자 풀 제한적 — 투자자 대상 매각 필요</span><span class="badge badge-warn">주의</span></div>
+    <div class="item-row"><span style="color:var(--color-text-danger);">− 소유자 매입가 9.985억 → 시장 고점 대비 현재 가치 50% 이상 하락</span><span class="badge badge-red">시장 리스크</span></div>
+  </div>
+</div>
+
+<!-- ==================== PART 9: 타임라인 ==================== -->
+<div class="card">
+  <div class="section-title">입찰 전략 및 타임라인</div>
+
+  <div class="timeline-item">
+    <div class="timeline-dot" style="background:#1D9E75;"></div>
+    <div class="timeline-body">
+      <div class="timeline-title">추천 입찰 구간: 3.0~3.5억 (감정가 34~40%) <span class="badge badge-green">적극 검토</span></div>
+      미납관리비 740만 기준 실투입금 4,870~5,600만 / 수익률 4.8~5.6%<br>
+      3회 연속 유찰 → 경쟁 약할 가능성. <b style="font-weight:500;">3.0~3.3억이 최적 구간.</b><br>
+      3.5억(40%)까지는 수익환원법 매도가(3.7억) 대비 안전마진 유지.
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-dot" style="background:#534AB7;"></div>
+    <div class="timeline-body">
+      <div class="timeline-title">씨앤에이논술 확장 시나리오 <span class="badge badge-purple">기회</span></div>
+      5017호에서 운영 중, "중등관 확장 오픈" 현수막 부착 상태.<br>
+      5019호(경매물건)로 확장 시 장기 안정 임차 확보. 낙찰 후 즉시 제안.<br>
+      학원 임대 시 @8만 이상 + 장기계약 기대 → 수익률·출구전략 모두 상향.
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-dot" style="background:#BA7517;"></div>
+    <div class="timeline-body">
+      <div class="timeline-title">출구전략 로드맵</div>
+      <b style="font-weight:500;">시나리오 A (임대 유지)</b>: 월 +47~62만 순현금흐름 확보, 장기 보유<br>
+      <b style="font-weight:500;">시나리오 B (2~3년 후 매도)</b>: 임차인 확보 상태에서 수익형 물건으로 매각<br>
+      &nbsp;&nbsp;→ 수익환원법 기준 3.7~4.1억 / 비교매물 기준 5.0~5.5억<br>
+      &nbsp;&nbsp;→ 3.3억 낙찰 기준 세전 차익 +2,760만~2.07억<br>
+      <b style="font-weight:500;">시나리오 C (조기 매도)</b>: 2년 미만 양도세 중과(60%) 감안 비추천
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-dot" style="background:#E24B4A;"></div>
+    <div class="timeline-body">
+      <div class="timeline-title">입찰 전 최종 체크리스트 <span class="badge badge-red">필수</span></div>
+      1. <b style="font-weight:500;">미납관리비 정확 금액</b> — 그랑파사쥬 관리사무소 전화<br>
+      2. <b style="font-weight:500;">경락잔금대출 80%</b> — 은행 2~3곳 사전 상담<br>
+      3. <b style="font-weight:500;">씨앤에이논술 확장 의향</b> — 031-378-7404 전화/방문<br>
+      4. <b style="font-weight:500;">5019호 단독 vs 5019+5020호</b> — 법원 물건명세서 재확인<br>
+      5. <b style="font-weight:500;">월 관리비 정확 금액</b> — 임차인 전가 가능 여부 확인
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PART 10: 종합 평가 ==================== -->
+<div style="background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;border:0.5px solid var(--color-border-tertiary);">
+  <div style="font-size:14px;font-weight:500;margin-bottom:10px;">종합 평가 <span class="badge badge-purple">최종</span></div>
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:12px;">
+    <div style="text-align:center;">
+      <div style="font-size:12px;color:var(--color-text-secondary);">입지</div>
+      <div class="bar-bg"><div class="bar" style="width:70%;background:#378ADD;"></div></div>
+      <div style="font-size:12px;color:var(--color-text-secondary);">70</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:12px;color:var(--color-text-secondary);">권리</div>
+      <div class="bar-bg"><div class="bar" style="width:95%;background:#1D9E75;"></div></div>
+      <div style="font-size:12px;color:var(--color-text-secondary);">95</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:12px;color:var(--color-text-secondary);">수익성</div>
+      <div class="bar-bg"><div class="bar" style="width:68%;background:#EF9F27;"></div></div>
+      <div style="font-size:12px;color:var(--color-text-secondary);">68</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:12px;color:var(--color-text-secondary);">출구</div>
+      <div class="bar-bg"><div class="bar" style="width:72%;background:#378ADD;"></div></div>
+      <div style="font-size:12px;color:var(--color-text-secondary);">72</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:12px;color:var(--color-text-secondary);">예산</div>
+      <div class="bar-bg"><div class="bar" style="width:60%;background:#EF9F27;"></div></div>
+      <div style="font-size:12px;color:var(--color-text-secondary);">60</div>
+    </div>
+  </div>
+  <div style="font-size:13px;color:var(--color-text-secondary);line-height:1.8;border-top:0.5px solid var(--color-border-tertiary);padding-top:10px;">
+    <b style="font-weight:500;color:var(--color-text-primary);">핵심 강점:</b>
+    권리관계 깨끗(전부 소멸, 공실로 명도 불필요), 감정가 대비 34%까지 하락한 가격, 임장 확인 결과 건물 활성도 양호, 호수뷰 코너 위치의 차별화, 옆 학원 확장 가능성.<br><br>
+
+    <b style="font-weight:500;color:var(--color-text-primary);">핵심 리스크:</b>
+    실투입금 5,000~6,000만원대(기존 분석 물건 대비 2~3배), 5층 구조적 집객 한계, 미납관리비 불확실성(740~1,480만), 매도 시 5층 대형물건 매수자 풀 제한.<br><br>
+
+    <b style="font-weight:500;color:var(--color-text-primary);">최종 판단:</b>
+    4차(04.13)에서 <b style="font-weight:500;color:var(--color-text-success);">3.0~3.3억 입찰 추천</b>.
+    수익환원법 기준 매도 하한선(3.7억)이 입찰가를 상회하므로 원금 손실 리스크가 낮고,
+    비교매물 기준 매도 시 상당한 차익이 기대됩니다.
+    다만 이 판단은 <b style="font-weight:500;color:var(--color-text-danger);">경락잔금대출 80% 확보</b>와 <b style="font-weight:500;color:var(--color-text-danger);">미납관리비 확인</b>이 전제입니다.
+    두 가지가 불리하게 나올 경우 실투입금이 7,000만원대로 늘어나 투자 매력이 크게 감소합니다.
+  </div>
+</div>
+
+</div>

@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>2024타경85450 리치프라자3 111호·206호 분석 리포트</title>
+<style>
+:root {
+  --color-text-primary:#1a1a2e;--color-text-secondary:#5a6a7a;
+  --color-text-success:#085041;--color-text-danger:#A32D2D;
+  --color-text-warning:#7a4f00;--color-text-info:#1a4a7a;
+  --color-background-secondary:#f4f6f8;--color-background-success:#E1F5EE;
+  --color-background-danger:#FCEBEB;--color-background-warning:#FAEEDA;
+  --color-background-info:#EBF3FC;--color-background-tertiary:#e2e8f0;
+  --color-border-tertiary:#dde3ec;--color-border-secondary:#c4ccd6;
+  --color-border-info:#378ADD;--border-radius-lg:12px;--border-radius-md:8px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:-apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+  background:#f0f2f5;color:var(--color-text-primary);
+  padding:14px;font-size:14px;-webkit-text-size-adjust:100%;
+}
+.page{max-width:860px;margin:0 auto;}
+.card{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px 15px;margin-bottom:10px;background:#fff;}
+
+/* Badge */
+.badge{display:inline-block;font-size:11px;padding:2px 9px;border-radius:20px;font-weight:500;white-space:nowrap;}
+.badge-green{background:var(--color-background-success);color:var(--color-text-success);}
+.badge-red{background:var(--color-background-danger);color:var(--color-text-danger);}
+.badge-warn{background:var(--color-background-warning);color:var(--color-text-warning);}
+.badge-blue{background:var(--color-background-info);color:var(--color-text-info);}
+.badge-purple{background:#EEEDFE;color:#3C3489;}
+
+/* Grid — 모바일 1열 기본 */
+.row2{display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:10px;}
+.row3{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.label{font-size:12px;color:var(--color-text-secondary);margin-bottom:4px;}
+.val{font-size:14px;font-weight:500;}
+
+/* Metrics */
+.metrics-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;}
+.metric{text-align:center;}
+.metric-num{font-size:20px;font-weight:600;}
+.metric-label{font-size:11px;color:var(--color-text-secondary);margin-top:2px;}
+
+/* Info grid under metrics */
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;border-top:0.5px solid var(--color-border-tertiary);padding-top:10px;margin-top:10px;}
+
+/* Comp cards */
+.comp-grid{display:grid;grid-template-columns:1fr;gap:8px;}
+.comp-card{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 13px;}
+.comp-label{font-size:11px;color:var(--color-text-secondary);margin-bottom:3px;}
+.comp-sub{font-size:11px;color:var(--color-text-secondary);margin-top:2px;}
+
+/* Item rows */
+.item-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:0.5px solid var(--color-border-tertiary);font-size:13px;gap:8px;}
+.item-row:last-child{border-bottom:none;}
+.item-row span:first-child{flex:1;}
+
+/* Tables — 가로 스크롤 */
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.scroll-hint{text-align:center;font-size:11px;color:var(--color-text-secondary);padding:5px 0;margin-bottom:4px;}
+.tbl{width:100%;border-collapse:collapse;font-size:12px;min-width:480px;}
+.tbl th{font-weight:500;color:var(--color-text-secondary);font-size:10px;padding:7px 6px;border-bottom:0.5px solid var(--color-border-tertiary);text-align:center;background:var(--color-background-secondary);white-space:nowrap;}
+.tbl td{padding:7px 6px;border-bottom:0.5px solid var(--color-border-tertiary);text-align:center;color:var(--color-text-primary);font-size:11px;white-space:nowrap;}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl td:first-child{text-align:left;white-space:normal;}
+.row-best{background:#E1F5EE;}.row-good{background:#EAF3DE;}
+.row-warn{background:#FAEEDA;}.row-bad{background:#FCEBEB;}
+
+/* Bar */
+.bar-bg{background:var(--color-background-tertiary);border-radius:4px;height:7px;margin-top:5px;}
+.bar{height:7px;border-radius:4px;}
+
+/* Update tag */
+.update-tag{display:inline-block;font-size:10px;padding:1px 7px;border-radius:10px;font-weight:500;background:#EEEDFE;color:#3C3489;margin-left:6px;}
+
+/* Timeline */
+.timeline-item{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:0.5px solid var(--color-border-tertiary);}
+.timeline-item:last-child{border-bottom:none;}
+.timeline-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.timeline-body{font-size:13px;color:var(--color-text-secondary);line-height:1.6;}
+.timeline-title{font-weight:600;color:var(--color-text-primary);margin-bottom:3px;}
+
+/* Section title */
+.section-title{font-size:14px;font-weight:600;color:var(--color-text-primary);margin-bottom:10px;letter-spacing:-0.3px;}
+
+/* 물건 구분 헤더 */
+.obj-header{font-size:15px;font-weight:700;padding:11px 15px;border-radius:var(--border-radius-lg);margin-bottom:10px;line-height:1.4;}
+.obj-1f{background:linear-gradient(135deg,#E1F5EE,#f0faf6);border-left:4px solid #1D9E75;color:#085041;}
+.obj-2f{background:linear-gradient(135deg,#EBF3FC,#f0f6ff);border-left:4px solid #378ADD;color:#1a4a7a;}
+.divider-section{border-top:3px solid var(--color-border-secondary);margin:22px 0 14px;padding-top:6px;}
+
+/* ≥600px: row2 2열, comp-grid 3열 */
+@media(min-width:600px){
+  body{padding:18px;}
+  .row2{grid-template-columns:1fr 1fr;}
+  .comp-grid{grid-template-columns:repeat(3,1fr);}
+  .info-grid{grid-template-columns:repeat(4,1fr);}
+  .eval-grid{grid-template-columns:1fr 1fr !important;}
+}
+/* ≥860px: row3 3열 */
+@media(min-width:860px){
+  body{padding:20px;}
+  .row3{grid-template-columns:repeat(3,1fr);}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ─── 공통 헤더 ─── -->
+<div class="card">
+  <div style="font-size:15px;font-weight:700;margin-bottom:12px;line-height:1.4;">
+    종합 분석 리포트 — 2024타경85450<br>
+    <span class="badge badge-green">현장조사 반영</span> <span class="badge badge-purple">동일건물 2개 물건</span>
+  </div>
+  <div style="background:var(--color-background-info);border-radius:var(--border-radius-md);padding:11px 13px;font-size:13px;color:var(--color-text-info);line-height:1.8;">
+    <b>공통사항:</b> 리치프라자3 · 수원시 영통구 이의동 1248-2 · 광교역 남동측 인근<br>
+    소유자: 리치아이㈜ / 채권자: 유에셋대부㈜<br>
+    매각기일: <b style="color:var(--color-text-danger);">2026.04.13(월) — 그랑파사쥬와 동일 매각일 ⚠</b><br>
+    말소기준등기: 2017.04.25 → 두 임차인 모두 <b>대항력 없음</b> / 투기과열지구·조정대상지역
+  </div>
+
+  <div style="margin-top:12px;padding-top:10px;border-top:0.5px solid var(--color-border-tertiary);">
+    <div style="font-size:12px;font-weight:600;color:var(--color-text-secondary);margin-bottom:8px;">공통 유찰 이력 / 예정 (두 물건 동일)</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;font-size:11px;text-align:center;">
+      <div style="background:#FCEBEB;border-radius:8px;padding:7px 4px;opacity:0.6;"><div style="font-weight:600;color:var(--color-text-danger);">1~3차 유찰</div><div style="color:var(--color-text-secondary);">25.09~25.11</div><div style="font-weight:500;">100→49%</div></div>
+      <div style="background:#FAEEDA;border-radius:8px;padding:7px 4px;border:1.5px solid #EF9F27;"><div style="font-weight:600;color:var(--color-text-warning);">4차 ← 현재</div><div style="color:var(--color-text-secondary);">26.04.13</div><div style="font-weight:600;">34%</div></div>
+      <div style="background:#f4f6f8;border-radius:8px;padding:7px 4px;"><div style="font-weight:500;color:var(--color-text-secondary);">5차 예정</div><div style="color:var(--color-text-secondary);">26.05.18</div><div style="font-weight:500;">24%</div></div>
+      <div style="background:#f4f6f8;border-radius:8px;padding:7px 4px;"><div style="font-weight:500;color:var(--color-text-secondary);">6차 예정</div><div style="color:var(--color-text-secondary);">26.06.22</div><div style="font-weight:500;">17%</div></div>
+    </div>
+  </div>
+
+  <!-- 04.13 경보 -->
+  <div style="margin-top:12px;background:var(--color-background-danger);border-radius:var(--border-radius-md);padding:10px 13px;font-size:13px;color:var(--color-text-danger);line-height:1.7;">
+    <b>⚠ 04.13 동일 매각일 경보</b><br>
+    그랑파사쥬(경매 9계) + 리치프라자3(경매 17계) — 수원지법 본원 동일 날짜<br>
+    두 물건 동시 입찰 시 보증금 각각 준비 필요 (9계·17계 창구 별도)
+  </div>
+</div>
+
+<!-- ════════════════════════════
+     PART A : 111호 (1층)
+════════════════════════════ -->
+<div class="obj-header obj-1f">🏪 111호 — 1층 · 18.82평 · 로드밀 카페 영업중<br><span style="font-size:13px;font-weight:500;">4차 최저가 3.742억 (34%) → 5차(05.18) 2.619억 타겟</span></div>
+
+<!-- A-1 기본 정보 -->
+<div class="card">
+  <div class="section-title">기본 정보 — 111호 (1층)</div>
+  <div class="metrics-row">
+    <div class="metric"><div class="metric-num">18.82평</div><div class="metric-label">전용 (62.23㎡)</div></div>
+    <div class="metric"><div class="metric-num">10.91억</div><div class="metric-label">감정가</div></div>
+    <div class="metric"><div class="metric-num">3.742억</div><div class="metric-label">4차 최저가 (34%)</div></div>
+  </div>
+  <div class="info-grid">
+    <div><span style="color:var(--color-text-secondary);font-size:11px;">층/용도</span><br><b style="color:var(--color-text-success);">1층 / 휴게음식점</b><br>로드밀 카페</div>
+    <div><span style="color:var(--color-text-secondary);font-size:11px;">임차인</span><br>ONOZEKI YOICHI<br>등록 2022.11.18</div>
+    <div><span style="color:var(--color-text-secondary);font-size:11px;">임차 조건</span><br>보증금 5,000만<br>월세 150만</div>
+    <div><span style="color:var(--color-text-secondary);font-size:11px;">평당 감정가</span><br>@5,796만/평<br>4차 @1,988만</div>
+  </div>
+</div>
+
+<!-- A-2 입지 -->
+<div class="card">
+  <div class="section-title">입지 분석 <span class="update-tag">현장조사 반영</span></div>
+  <div class="item-row"><span style="color:var(--color-text-success);">+ 광교역 남동측 인근 — 신분당선 역세권</span><span class="badge badge-green">핵심 강점</span></div>
+  <div class="item-row"><span style="color:var(--color-text-success);">+ 1층 — 집객력 최상급</span><span class="badge badge-green">핵심 강점</span></div>
+  <div class="item-row"><span style="color:var(--color-text-success);">+ 현장조사: 광교테크노벨리·경기대·대형마트 인근</span><span class="badge badge-green">강점</span></div>
+  <div class="item-row"><span style="color:var(--color-text-success);">+ 건물 상태 매우 양호 / 주차 300대+</span><span class="badge badge-green">강점</span></div>
+  <div class="item-row"><span style="color:var(--color-text-success);">+ 로드밀 카페 영업 중 — 즉시 임대수익</span><span class="badge badge-purple">기회</span></div>
+  <div class="item-row"><span style="color:var(--color-text-warning);">△ 투기과열지구 — 80% LTV 가능 여부 확인</span><span class="badge badge-warn">확인필요</span></div>
+  <div class="item-row"><span style="color:var(--color-text-warning);">△ 전용률 30% — 실사용 면적 체감 협소</span><span class="badge badge-warn">주의</span></div>
+  <div class="item-row"><span style="color:var(--color-text-warning);">△ 동일 1층 렌트프리 매물 존재</span><span class="badge badge-warn">주의</span></div>
+</div>
+
+<!-- A-3 권리 -->
+<div class="card">
+  <div class="section-title">권리 분석</div>
+  <div class="row2">
+    <div>
+      <div class="label">말소기준등기</div>
+      <div class="val">2017.04.25 유에셋대부㈜ 근저당</div>
+      <div style="font-size:12px;color:var(--color-text-secondary);margin-top:4px;">채권 60억 → <b style="color:var(--color-text-success);">전부 소멸</b></div>
+    </div>
+    <div>
+      <div class="label">임차인 / 대항력</div>
+      <div class="val" style="color:var(--color-text-success);">ONOZEKI YOICHI <span class="badge badge-green">대항력 없음</span></div>
+      <div style="font-size:12px;color:var(--color-text-secondary);margin-top:4px;">사업등록 2022.11.18 (말소기준 이후)</div>
+    </div>
+  </div>
+  <div style="font-size:12px;margin-top:10px;padding-top:10px;border-top:0.5px solid var(--color-border-tertiary);line-height:1.7;color:var(--color-text-secondary);">
+    임차인 보증금 5,000만 후순위 배당 → <b style="color:var(--color-text-danger);">전액 미배당 가능성 높음.</b> 단, 대항력 없으므로 낙찰자 인수 의무 없음.<br>
+    ⚠ 투기과열지구 — 경락잔금대출 80% LTV 은행 사전 확인 필수.
+  </div>
+  <div style="margin-top:10px;padding:10px 12px;background:var(--color-background-warning);border-radius:var(--border-radius-md);font-size:13px;color:var(--color-text-warning);line-height:1.7;">
+    <b>임차인 협상 시나리오</b><br>
+    A. <b>계약 유지</b> — 보증금 5,000만·월 150만 승계, 즉시 수익<br>
+    B. <b>재협상</b> — 시세 기준(@9.5만/평) 월 179만 신규 계약<br>
+    C. <b>명도</b> — 보증금 5,000만 반환 부담 발생
+  </div>
+</div>
+
+<!-- A-4 미납관리비 -->
+<div class="card">
+  <div class="section-title">미납관리비 추정</div>
+  <div class="row3" style="margin-bottom:0;">
+    <div class="comp-card" style="text-align:center;"><div class="comp-label">월 관리비</div><div style="font-size:18px;font-weight:600;">약 37~45만</div><div class="comp-sub">전용 18.82평 기준</div></div>
+    <div class="comp-card" style="text-align:center;"><div class="comp-label">현실적 (16개월)</div><div style="font-size:18px;font-weight:600;color:var(--color-text-warning);">약 590~720만</div><div class="comp-sub">경매개시(24.10)~현재</div></div>
+    <div class="comp-card" style="text-align:center;"><div class="comp-label">낙관적 (임차 납부)</div><div style="font-size:18px;font-weight:600;color:var(--color-text-success);">소액 또는 0</div><div class="comp-sub">영업중 납부 가능성</div></div>
+  </div>
+</div>
+
+<!-- A-5 임대 시세 -->
+<div class="card">
+  <div class="section-title">1층 임대 시세 (네이버 + 현장조사)</div>
+  <div class="scroll-hint">← 좌우로 스크롤하세요 →</div>
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <tr><th>구분</th><th>전용면적</th><th>보증금</th><th>월세</th><th>평당</th><th>비고</th></tr>
+      <tr><td>1층 (네이버A)</td><td>14.98평</td><td>2,000만</td><td>150만</td><td>@10.01만</td><td>렌트프리 가능 (공실)</td></tr>
+      <tr><td>1층 (네이버B)</td><td>14.98평</td><td>3,000만</td><td>180만</td><td>@12.02만</td><td>권리금 없음</td></tr>
+      <tr style="background:var(--color-background-success);"><td><b>현물건</b></td><td>18.82평</td><td>5,000만</td><td>150만</td><td>@7.97만</td><td>로드밀 영업중</td></tr>
+      <tr><td>현장조사</td><td>유사상가</td><td>3,000만</td><td>180만</td><td>@약9~10만</td><td>인근 부동산 제시</td></tr>
+    </table>
+  </div>
+  <div style="font-size:12px;font-weight:600;margin:12px 0 6px;">111호(1층 18.82평) 임대 시세 추정</div>
+  <div class="comp-grid">
+    <div class="comp-card" style="text-align:center;border:0.5px solid var(--color-border-tertiary);"><div class="comp-label">현 임차 유지</div><div style="font-size:16px;font-weight:600;color:var(--color-text-warning);">월 150만</div><div class="comp-sub">보증금 5,000만 (@7.97만)</div></div>
+    <div class="comp-card" style="text-align:center;border:2px solid var(--color-border-info);"><div class="comp-label" style="color:var(--color-text-info);">기본 (@9.5만) ★</div><div style="font-size:16px;font-weight:600;">월 179만</div><div class="comp-sub">보증금 3,000만</div></div>
+    <div class="comp-card" style="text-align:center;border:0.5px solid var(--color-border-tertiary);"><div class="comp-label">낙관적 (@12만)</div><div style="font-size:16px;font-weight:600;color:var(--color-text-success);">월 226만</div><div class="comp-sub">현장조사 상단</div></div>
+  </div>
+</div>
+
+<!-- A-6 입찰 시나리오 -->
+<div class="card">
+  <div class="section-title">111호 시나리오별 입찰가 및 수익률</div>
+  <div class="scroll-hint">← 좌우로 스크롤하세요 →</div>
+  <div class="tbl-wrap">
+    <table class="tbl" style="min-width:560px;">
+      <tr><th>시나리오</th><th>입찰가</th><th>감정比</th><th>취등록세</th><th>대출(80%)</th><th>실투입금</th><th>매매수익률</th><th>순현금흐름</th><th>실투자수익률</th><th>판단</th></tr>
+      <tr class="row-warn"><td><b>4차 최저<br>04.13</b></td><td>3.742억</td><td>34%</td><td>1,721만</td><td>2.994억</td><td><b>1.03억</b></td><td>4.3%</td><td>+26만</td><td style="color:var(--color-text-warning);font-weight:600;">3.0%</td><td><span class="badge badge-warn">검토</span></td></tr>
+      <tr class="row-best"><td><b>5차 최저<br>05.18 ★</b></td><td>2.619억</td><td>24%</td><td>1,205만</td><td>2.096억</td><td><b>7,724만</b></td><td>6.2%</td><td>+53만</td><td style="color:var(--color-text-success);font-weight:700;">8.2%</td><td><span class="badge badge-green">추천</span></td></tr>
+      <tr class="row-best"><td><b>5차 적정<br>05.18</b></td><td>3.0억</td><td>27%</td><td>1,380만</td><td>2.4억</td><td><b>8,580만</b></td><td>5.4%</td><td>+39만</td><td style="color:var(--color-text-success);font-weight:600;">5.5%</td><td><span class="badge badge-green">양호</span></td></tr>
+    </table>
+  </div>
+  <div style="font-size:12px;color:var(--color-text-secondary);margin-top:8px;line-height:1.7;">
+    * 월세 179만(@9.5만, 재계약 기준) / 대출이자 4.6% / 보증금 3,000만 / 예비비 포함<br>
+    * <b style="color:var(--color-text-danger);">4차(3.742억)에서 실투입금 1억+ / 수익률 3% — 5차(05.18) 타겟 권고</b>
+  </div>
+</div>
+
+<!-- A-7 출구전략 -->
+<div class="card">
+  <div class="section-title">111호 출구전략</div>
+  <div class="scroll-hint">← 좌우로 스크롤하세요 →</div>
+  <div class="tbl-wrap">
+    <table class="tbl" style="min-width:480px;">
+      <tr><th style="text-align:left;padding-left:8px;">추정 방법</th><th>산출 근거</th><th>18.82평 기준</th><th>신뢰도</th></tr>
+      <tr><td style="text-align:left;padding-left:8px;font-weight:600;">① 현장조사</td><td>인근 부동산 "4~5억"</td><td style="font-weight:600;">4.0~5.0억</td><td><span class="badge badge-green">높음</span></td></tr>
+      <tr><td style="text-align:left;padding-left:8px;font-weight:600;">② 감정가 할인</td><td>10.91억 × 35~50%</td><td style="font-weight:600;">3.8~5.5억</td><td><span class="badge badge-blue">참고</span></td></tr>
+      <tr><td style="text-align:left;padding-left:8px;font-weight:600;">③ 수익환원 (4.5%)</td><td>연 2,148만 ÷ 4.5%</td><td style="font-weight:600;color:var(--color-text-success);">4.76억</td><td><span class="badge badge-green">높음</span></td></tr>
+      <tr><td style="text-align:left;padding-left:8px;font-weight:600;">④ 수익환원 (4.0%)</td><td>연 2,148만 ÷ 4.0%</td><td style="font-weight:600;color:var(--color-text-success);">5.36억</td><td><span class="badge badge-green">높음</span></td></tr>
+    </table>
+  </div>
+  <div style="font-size:13px;margin-top:10px;padding:10px 12px;background:var(--color-background-success);border-radius:var(--border-radius-md);color:var(--color-text-success);line-height:1.7;">
+    현장조사 + 수익환원법 일치: <b>4~5억 매도가 현실적.</b><br>
+    5차(2.62억) 낙찰 시 안전마진 2~2.4억 — 파이프라인 최강 출구 조건.
+  </div>
+</div>
+
+<!-- ════════════════════════════
+     PART B : 206호 (2층)
+════════════════════════════ -->
+<div class="divider-section"></div>
+<div class="obj-header obj-2f">🏢 206호 — 2층 · 33.74평 · LG럭셔리뷰티 영업중<br><span style="font-size:13px;font-weight:500;">4차 최저가 2.137억 (34%) → 즉시 입찰 추천 ★</span></div>
+
+<!-- B-1 기본 정보 -->
+<div class="card">
+  <div class="section-title">기본 정보 — 206호 (2층)</div>
+  <div class="metrics-row">
+    <div class="metric"><div class="metric-num">33.74평</div><div class="metric-label">전용 (111.54㎡)</div></div>
+    <div class="metric"><div class="metric-num">6.23억</div><div class="metric-label">감정가</div></div>
+    <div class="metric"><div class="metric-num">2.137억</div><div class="metric-label">4차 최저가 (34%)</div></div>
+  </div>
+  <div class="info-grid">
+    <div><span style="color:var(--color-text-secondary);font-size:11px;">층/용도</span><br><b>2층 / 의원</b><br>LG럭셔리뷰티</div>
+    <div><span style="color:var(--color-text-secondary);font-size:11px;">임차인</span><br>㈜럭셔리뷰티광교점<br>등록 2021.01.14</div>
+    <div><span style="color:var(--color-text-secondary);font-size:11px;">임차 조건</span><br>보증금 2,000만<br>월세 180만</div>
+    <div><span style="color:var(--color-text-secondary);font-size:11px;">평당 감정가</span><br>@1,846만/평<br>4차 @633만</div>
+  </div>
+</div>
+
+<!-- B-2 입지 -->
+<div class="card">
+  <div class="section-title">입지 분석 — 206호</div>
+  <div class="item-row"><span style="color:var(--color-text-success);">+ 광교역 역세권 (111호와 동일 건물)</span><span class="badge badge-green">강점</span></div>
+  <div class="item-row"><span style="color:var(--color-text-success);">+ LG럭셔리뷰티 영업 중 — 즉시 임대수익</span><span class="badge badge-purple">기회</span></div>
+  <div class="item-row"><span style="color:var(--color-text-success);">+ 전용 33.74평 대형 — 중대형 업종 수용 가능</span><span class="badge badge-green">강점</span></div>
+  <div class="item-row"><span style="color:var(--color-text-success);">+ 4차 최저가 2.137억 — 파이프라인 최저 취득가 수준</span><span class="badge badge-green">강점</span></div>
+  <div class="item-row"><span style="color:var(--color-text-warning);">△ 2층 — 1층 대비 집객력 구조적 제한</span><span class="badge badge-warn">구조적</span></div>
+  <div class="item-row"><span style="color:var(--color-text-warning);">△ 투기과열지구 LTV 80% 확인 필요</span><span class="badge badge-warn">확인필요</span></div>
+</div>
+
+<!-- B-3 권리 -->
+<div class="card">
+  <div class="section-title">권리 분석 — 206호</div>
+  <div class="row2">
+    <div>
+      <div class="label">말소기준등기</div>
+      <div class="val">2017.04.25 유에셋대부㈜ (111호 동일)</div>
+      <div style="font-size:12px;color:var(--color-text-secondary);margin-top:4px;"><b style="color:var(--color-text-success);">전부 소멸</b></div>
+    </div>
+    <div>
+      <div class="label">임차인 / 대항력</div>
+      <div class="val" style="color:var(--color-text-success);">㈜럭셔리뷰티광교점 <span class="badge badge-green">대항력 없음</span></div>
+      <div style="font-size:12px;color:var(--color-text-secondary);margin-top:4px;">사업등록 2021.01.14 (말소기준 이후)</div>
+    </div>
+  </div>
+  <div style="font-size:12px;margin-top:10px;padding-top:10px;border-top:0.5px solid var(--color-border-tertiary);line-height:1.7;color:var(--color-text-secondary);">
+    임차인 보증금 2,000만 — 채권 60억 우선 배당으로 미배당 가능성 높음. 대항력 없으므로 낙찰자 인수 의무 없음.
+  </div>
+</div>
+
+<!-- B-4 임대 시세 -->
+<div class="card">
+  <div class="section-title">2층 임대 시세</div>
+  <div class="scroll-hint">← 좌우로 스크롤하세요 →</div>
+  <div class="tbl-wrap">
+    <table class="tbl" style="min-width:440px;">
+      <tr><th>구분</th><th>전용면적</th><th>보증금</th><th>월세</th><th>평당</th><th>비고</th></tr>
+      <tr><td>3층 (네이버A)</td><td>23.12평</td><td>2,000만</td><td>142만</td><td>@6.14만</td><td>매매 3억 / 사무실</td></tr>
+      <tr><td>3층 (네이버B)</td><td>24.42평</td><td>2,000만</td><td>170만</td><td>@6.96만</td><td>즉시입주</td></tr>
+      <tr style="background:var(--color-background-success);"><td><b>현물건</b></td><td>33.74평</td><td>2,000만</td><td>180만</td><td>@5.34만</td><td>LG럭셔리뷰티 영업중</td></tr>
+    </table>
+  </div>
+  <div style="font-size:12px;font-weight:600;margin:12px 0 6px;">206호(2층 33.74평) 임대 시세 추정</div>
+  <div class="comp-grid">
+    <div class="comp-card" style="text-align:center;border:0.5px solid var(--color-border-tertiary);"><div class="comp-label">현 임차 유지</div><div style="font-size:16px;font-weight:600;color:var(--color-text-warning);">월 180만</div><div class="comp-sub">보증금 2,000만 (@5.34만)</div></div>
+    <div class="comp-card" style="text-align:center;border:2px solid var(--color-border-info);"><div class="comp-label" style="color:var(--color-text-info);">기본 (@6.5만) ★</div><div style="font-size:16px;font-weight:600;">월 219만</div><div class="comp-sub">보증금 2,000만</div></div>
+    <div class="comp-card" style="text-align:center;border:0.5px solid var(--color-border-tertiary);"><div class="comp-label">낙관적 (@7.5만)</div><div style="font-size:16px;font-weight:600;color:var(--color-text-success);">월 253만</div><div class="comp-sub">재계약 상단</div></div>
+  </div>
+</div>
+
+<!-- B-5 입찰 시나리오 -->
+<div class="card">
+  <div class="section-title">206호 시나리오별 입찰가 및 수익률</div>
+  <div class="scroll-hint">← 좌우로 스크롤하세요 →</div>
+  <div class="tbl-wrap">
+    <table class="tbl" style="min-width:560px;">
+      <tr><th>시나리오</th><th>입찰가</th><th>감정比</th><th>취등록세</th><th>대출(80%)</th><th>실투입금</th><th>매매수익률</th><th>순현금흐름</th><th>실투자수익률</th><th>판단</th></tr>
+      <tr class="row-best"><td><b>4차 최저<br>04.13 ★</b></td><td>2.137억</td><td>34%</td><td>983만</td><td>1.710억</td><td><b>5,623만</b></td><td>10.8%</td><td>+89만</td><td style="color:var(--color-text-success);font-weight:700;">19.0%</td><td><span class="badge badge-green">추천</span></td></tr>
+      <tr class="row-best"><td><b>4차 적정<br>04.13 ★</b></td><td>2.5억</td><td>40%</td><td>1,150만</td><td>2.0억</td><td><b>6,350만</b></td><td>9.2%</td><td>+74만</td><td style="color:var(--color-text-success);font-weight:700;">14.0%</td><td><span class="badge badge-green">추천</span></td></tr>
+      <tr class="row-good"><td><b>4차 상단<br>04.13</b></td><td>3.0억</td><td>48%</td><td>1,380만</td><td>2.4억</td><td><b>7,380만</b></td><td>7.7%</td><td>+54만</td><td style="font-weight:600;">8.8%</td><td><span class="badge badge-green">양호</span></td></tr>
+      <tr class="row-best"><td><b>5차 최저<br>05.18</b></td><td>1.496억</td><td>24%</td><td>688만</td><td>1.197억</td><td><b>4,368만</b></td><td>15.4%</td><td>+118만</td><td style="color:var(--color-text-success);font-weight:700;">32.4%</td><td><span class="badge badge-green">최적</span></td></tr>
+    </table>
+  </div>
+  <div style="font-size:12px;color:var(--color-text-secondary);margin-top:8px;line-height:1.7;">
+    * 월세 219만(@6.5만/평, 재계약 기준) / 대출이자 4.6% / 보증금 2,000만 / 예비비 포함<br>
+    * <b style="color:var(--color-text-success);">206호는 4차(04.13)에서 수익률 14~19% — 즉시 입찰 가능</b>
+  </div>
+</div>
+
+<!-- B-6 출구전략 -->
+<div class="card">
+  <div class="section-title">206호 출구전략</div>
+  <div class="scroll-hint">← 좌우로 스크롤하세요 →</div>
+  <div class="tbl-wrap">
+    <table class="tbl" style="min-width:460px;">
+      <tr><th style="text-align:left;padding-left:8px;">추정 방법</th><th>산출 근거</th><th>33.74평 기준</th><th>신뢰도</th></tr>
+      <tr><td style="text-align:left;padding-left:8px;font-weight:600;">① 비교매물</td><td>3층 @662만 → 2층 프리미엄</td><td>2.36~2.70억</td><td><span class="badge badge-warn">참고</span></td></tr>
+      <tr><td style="text-align:left;padding-left:8px;font-weight:600;">② 감정가 할인</td><td>6.23억 × 40~55%</td><td>2.49~3.43억</td><td><span class="badge badge-blue">참고</span></td></tr>
+      <tr><td style="text-align:left;padding-left:8px;font-weight:600;">③ 수익환원 (5.0%)</td><td>연 2,628만 ÷ 5.0%</td><td style="font-weight:600;color:var(--color-text-success);">5.25억</td><td><span class="badge badge-green">높음</span></td></tr>
+      <tr><td style="text-align:left;padding-left:8px;font-weight:600;">④ 수익환원 (4.5%)</td><td>연 2,628만 ÷ 4.5%</td><td style="font-weight:600;color:var(--color-text-success);">5.84억</td><td><span class="badge badge-green">높음</span></td></tr>
+    </table>
+  </div>
+  <div style="font-size:13px;margin-top:10px;padding:10px 12px;background:var(--color-background-info);border-radius:var(--border-radius-md);color:var(--color-text-info);line-height:1.7;">
+    <b>핵심 해석:</b> 현장조사 "유사 상가 4~5억"(1층 기준) → 2층은 <b>3.5~4.5억이 현실적.</b><br>
+    4차(2.137억) 낙찰 시 수익환원법 기준 +3억 안전마진 확보.
+  </div>
+</div>
+
+<!-- ─── 통합 전략 ─── -->
+<div class="card">
+  <div class="section-title">통합 입찰 전략 — 111호 vs 206호 비교</div>
+  <div class="scroll-hint">← 좌우로 스크롤하세요 →</div>
+  <div class="tbl-wrap">
+    <table class="tbl" style="min-width:380px;">
+      <tr><th style="text-align:left;padding-left:8px;">항목</th><th>111호 (1층)</th><th>206호 (2층)</th></tr>
+      <tr><td style="text-align:left;padding-left:8px;font-weight:600;">4차 최저가</td><td>3.742억</td><td style="font-weight:700;color:var(--color-text-success);">2.137억</td></tr>
+      <tr><td style="text-align:left;padding-left:8px;font-weight:600;">실투입금(4차)</td><td style="color:var(--color-text-warning);">1.03억</td><td style="font-weight:700;color:var(--color-text-success);">5,623만</td></tr>
+      <tr><td style="text-align:left;padding-left:8px;font-weight:600;">수익률(4차)</td><td>3.0% — 낮음</td><td style="font-weight:700;color:var(--color-text-success);">19.0% — 우수</td></tr>
+      <tr><td style="text-align:left;padding-left:8px;font-weight:600;">구조 강점</td><td style="font-weight:600;color:var(--color-text-success);">1층 집객력 최상</td><td>2층 대형 면적</td></tr>
+      <tr><td style="text-align:left;padding-left:8px;font-weight:600;">현 임차 월세</td><td>150만</td><td style="font-weight:600;color:var(--color-text-success);">180만</td></tr>
+      <tr><td style="text-align:left;padding-left:8px;font-weight:600;">수익환원 출구</td><td style="font-weight:600;color:var(--color-text-success);">4.76~5.36억</td><td>5.25~5.84억</td></tr>
+      <tr><td style="text-align:left;padding-left:8px;font-weight:600;">추천 전략</td><td>5차(05.18) 타겟</td><td style="font-weight:700;color:var(--color-text-success);">4차(04.13) 즉시 ★</td></tr>
+    </table>
+  </div>
+  <div style="background:var(--color-background-success);border-radius:var(--border-radius-md);padding:12px 14px;font-size:13px;color:var(--color-text-success);line-height:1.8;margin-top:12px;">
+    <b>최종 판단:</b><br>
+    <b>206호(2층) 4차(04.13) 2.137~2.5억 — 파이프라인 전체 최우선 즉시 입찰 추천.</b><br>
+    실투입금 5,623만, 수익률 19%, 안전마진 3억 이상. 투기과열지구 LTV 확인 후 진입.<br><br>
+    <b>111호(1층) 4차 실투입금 1억+ 부담 → 5차(05.18) 2.62~3.0억 타겟.</b><br>
+    1층 역세권 출구 매력은 파이프라인 최강. 투기과열지구 대출 확인 선결.
+  </div>
+</div>
+
+<!-- 공통 체크리스트 -->
+<div class="card">
+  <div class="section-title">공통 입찰 전 체크리스트</div>
+  <div class="timeline-item">
+    <div class="timeline-dot" style="background:#E24B4A;"></div>
+    <div class="timeline-body">
+      <div class="timeline-title">04.13 동일 매각일 — 3건 동시 경보 <span class="badge badge-red">즉시</span></div>
+      수원지법 본원 경매 9계(그랑파사쥬)·17계(리치프라자3) 동일 날짜.<br>
+      동시 입찰 원하면 각 보증금 별도 준비. 보증금 합계: 2,994만 + 2,137만 + α.
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-dot" style="background:#E24B4A;"></div>
+    <div class="timeline-body">
+      <div class="timeline-title">1순위 체크리스트 <span class="badge badge-red">필수</span></div>
+      1. <b>투기과열지구 80% LTV 가능 여부</b> — 은행 2~3곳 사전 상담<br>
+      2. <b>임장 필수</b> — 광교역 도보 거리·건물 위치·임차인 영업 상태 직접 확인<br>
+      3. <b>미납관리비 확인</b> — 관리사무소<br>
+      4. <b>배당예상표 확인</b> — 임차인 보증금 배당 여부<br>
+      5. <b>물번 전체(2024타경85450) 확인</b> — 동일 건물 다수 매각 시 배당 구조 영향 가능
+    </div>
+  </div>
+</div>
+
+<!-- 종합 평가 -->
+<div style="display:grid;grid-template-columns:1fr;gap:10px;" class="eval-grid">
+  <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:14px;border:0.5px solid var(--color-border-tertiary);">
+    <div style="font-size:13px;font-weight:600;margin-bottom:10px;">111호 종합 평가</div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:10px;">
+      <div style="text-align:center;"><div style="font-size:11px;color:var(--color-text-secondary);">입지</div><div class="bar-bg"><div class="bar" style="width:88%;background:#1D9E75;"></div></div><div style="font-size:11px;">88</div></div>
+      <div style="text-align:center;"><div style="font-size:11px;color:var(--color-text-secondary);">권리</div><div class="bar-bg"><div class="bar" style="width:88%;background:#1D9E75;"></div></div><div style="font-size:11px;">88</div></div>
+      <div style="text-align:center;"><div style="font-size:11px;color:var(--color-text-secondary);">수익성</div><div class="bar-bg"><div class="bar" style="width:60%;background:#EF9F27;"></div></div><div style="font-size:11px;">60</div></div>
+      <div style="text-align:center;"><div style="font-size:11px;color:var(--color-text-secondary);">출구</div><div class="bar-bg"><div class="bar" style="width:90%;background:#1D9E75;"></div></div><div style="font-size:11px;">90</div></div>
+      <div style="text-align:center;"><div style="font-size:11px;color:var(--color-text-secondary);">예산</div><div class="bar-bg"><div class="bar" style="width:50%;background:#EF9F27;"></div></div><div style="font-size:11px;">50</div></div>
+    </div>
+    <div style="font-size:13px;color:var(--color-text-secondary);line-height:1.7;">1층 역세권 최강 출구. 4차 실투입금 1억+ 부담. <b style="color:var(--color-text-success);">5차(05.18) 2.62~3.0억 타겟.</b></div>
+  </div>
+  <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:14px;border:0.5px solid var(--color-border-tertiary);">
+    <div style="font-size:13px;font-weight:600;margin-bottom:10px;">206호 종합 평가</div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:10px;">
+      <div style="text-align:center;"><div style="font-size:11px;color:var(--color-text-secondary);">입지</div><div class="bar-bg"><div class="bar" style="width:80%;background:#378ADD;"></div></div><div style="font-size:11px;">80</div></div>
+      <div style="text-align:center;"><div style="font-size:11px;color:var(--color-text-secondary);">권리</div><div class="bar-bg"><div class="bar" style="width:90%;background:#1D9E75;"></div></div><div style="font-size:11px;">90</div></div>
+      <div style="text-align:center;"><div style="font-size:11px;color:var(--color-text-secondary);">수익성</div><div class="bar-bg"><div class="bar" style="width:85%;background:#1D9E75;"></div></div><div style="font-size:11px;">85</div></div>
+      <div style="text-align:center;"><div style="font-size:11px;color:var(--color-text-secondary);">출구</div><div class="bar-bg"><div class="bar" style="width:82%;background:#1D9E75;"></div></div><div style="font-size:11px;">82</div></div>
+      <div style="text-align:center;"><div style="font-size:11px;color:var(--color-text-secondary);">예산</div><div class="bar-bg"><div class="bar" style="width:82%;background:#1D9E75;"></div></div><div style="font-size:11px;">82</div></div>
+    </div>
+    <div style="font-size:13px;color:var(--color-text-secondary);line-height:1.7;">4차(04.13) 즉시 추천. 실투입금 5,623만, 수익률 19%. <b style="color:var(--color-text-success);">LTV 확인만 선결.</b></div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

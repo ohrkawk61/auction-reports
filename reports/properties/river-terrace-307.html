@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2025타경52126 리버테라스 307호 분석 리포트</title>
+<style>
+:root {
+  --color-text-primary: #1a1a2e;
+  --color-text-secondary: #5a6a7a;
+  --color-text-success: #085041;
+  --color-text-danger: #A32D2D;
+  --color-text-warning: #7a4f00;
+  --color-text-info: #1a4a7a;
+  --color-background-secondary: #f4f6f8;
+  --color-background-success: #E1F5EE;
+  --color-background-danger: #FCEBEB;
+  --color-background-warning: #FAEEDA;
+  --color-background-info: #EBF3FC;
+  --color-background-tertiary: #e2e8f0;
+  --color-border-tertiary: #dde3ec;
+  --color-border-secondary: #c4ccd6;
+  --color-border-info: #378ADD;
+  --border-radius-lg: 12px;
+  --border-radius-md: 8px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; background: #f0f2f5; color: var(--color-text-primary); padding: 16px; }
+.page { max-width: 860px; margin: 0 auto; }
+.card { border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-bottom: 10px; background: #fff; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.row4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+.label { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px; }
+.val { font-size: 14px; font-weight: 500; color: var(--color-text-primary); }
+.badge { display: inline-block; font-size: 11px; padding: 2px 9px; border-radius: 20px; font-weight: 500; }
+.badge-green { background: var(--color-background-success); color: var(--color-text-success); }
+.badge-red { background: var(--color-background-danger); color: var(--color-text-danger); }
+.badge-warn { background: var(--color-background-warning); color: var(--color-text-warning); }
+.badge-blue { background: var(--color-background-info); color: var(--color-text-info); }
+.badge-purple { background: #EEEDFE; color: #3C3489; }
+.badge-gray { background: #edf0f3; color: #5a6a7a; }
+.tbl { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
+.tbl th { font-weight: 500; color: var(--color-text-secondary); font-size: 11px; padding: 7px 4px; border-bottom: 0.5px solid var(--color-border-tertiary); text-align: center; background: var(--color-background-secondary); }
+.tbl td { padding: 7px 4px; border-bottom: 0.5px solid var(--color-border-tertiary); text-align: center; color: var(--color-text-primary); font-size: 12px; }
+.tbl tr:last-child td { border-bottom: none; }
+.row-best { background: #E1F5EE; }
+.row-good { background: #EAF3DE; }
+.row-warn { background: #FAEEDA; }
+.row-bad { background: #FCEBEB; }
+.item-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 0.5px solid var(--color-border-tertiary); font-size: 13px; }
+.item-row:last-child { border-bottom: none; }
+.metric { text-align: center; }
+.metric-num { font-size: 20px; font-weight: 500; color: var(--color-text-primary); }
+.metric-label { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; }
+.bar-bg { background: var(--color-background-tertiary); border-radius: 4px; height: 7px; margin-top: 5px; }
+.bar { height: 7px; border-radius: 4px; }
+.comp-card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 10px 14px; }
+.comp-label { font-size: 11px; color: var(--color-text-secondary); margin-bottom: 3px; }
+.comp-val { font-size: 14px; font-weight: 500; color: var(--color-text-primary); }
+.comp-sub { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; }
+.update-tag { display: inline-block; font-size: 10px; padding: 1px 7px; border-radius: 10px; font-weight: 500; background: #EEEDFE; color: #3C3489; margin-left: 6px; }
+.timeline-item { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.timeline-item:last-child { border-bottom: none; }
+.timeline-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+.timeline-body { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; }
+.timeline-title { font-weight: 500; color: var(--color-text-primary); margin-bottom: 2px; }
+.section-title { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 10px; letter-spacing: -0.3px; }
+.section-divider { border-top: 2px solid var(--color-border-secondary); margin: 16px 0 10px; padding-top: 4px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ==================== PART 1: 기본 정보 ==================== -->
+<div class="card">
+  <div style="font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:12px;">
+    종합 분석 리포트 — 2025타경52126 <span class="badge badge-warn">임장전</span>
+  </div>
+  <div class="row3">
+    <div class="metric">
+      <div class="metric-num">21.63평</div>
+      <div class="metric-label">전용면적 (71.5㎡, 307호+창고)</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num">6.14억</div>
+      <div class="metric-label">감정가 (25.05.15)</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num">4.298억</div>
+      <div class="metric-label">2차 최저가 (70%)</div>
+    </div>
+  </div>
+  <div style="border-top:0.5px solid var(--color-border-tertiary);margin-top:10px;padding-top:10px;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;font-size:12px;">
+    <div><span style="color:var(--color-text-secondary);">소재지</span><br>하남 미사<br>리버테라스 3층 307호</div>
+    <div><span style="color:var(--color-text-secondary);">준공</span><br>2016.10.12 (9년차)<br>소유자: 이산복</div>
+    <div><span style="color:var(--color-text-secondary);">매각기일</span><br><b style="font-weight:500;color:var(--color-text-danger);">2026.04.06(월)</b><br>수원지법 성남지원</div>
+    <div><span style="color:var(--color-text-secondary);">물건 특성</span><br><b style="font-weight:500;">307호+창고 일괄</b><br>공실 (전 의원)</div>
+  </div>
+  <!-- 유찰 이력 -->
+  <div style="border-top:0.5px solid var(--color-border-tertiary);margin-top:12px;padding-top:10px;">
+    <div style="font-size:12px;font-weight:500;color:var(--color-text-secondary);margin-bottom:8px;">유찰 이력 / 예정</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;font-size:11px;text-align:center;">
+      <div style="background:#FCEBEB;border-radius:8px;padding:6px;">
+        <div style="font-weight:500;color:var(--color-text-danger);">1차 유찰</div>
+        <div style="color:var(--color-text-secondary);">26.02.27</div>
+        <div style="font-weight:500;">6.14억</div>
+      </div>
+      <div style="background:#FAEEDA;border-radius:8px;padding:6px;border:1.5px solid #EF9F27;">
+        <div style="font-weight:500;color:var(--color-text-warning);">2차 ← 현재</div>
+        <div style="color:var(--color-text-secondary);">26.04.06</div>
+        <div style="font-weight:500;">4.298억 (70%)</div>
+      </div>
+      <div style="background:#f4f6f8;border-radius:8px;padding:6px;">
+        <div style="font-weight:500;color:var(--color-text-secondary);">3차 예정</div>
+        <div style="color:var(--color-text-secondary);">26.05.11</div>
+        <div style="font-weight:500;">3.009억 (49%)</div>
+      </div>
+      <div style="background:#E1F5EE;border-radius:8px;padding:6px;">
+        <div style="font-weight:500;color:var(--color-text-success);">4차 예정</div>
+        <div style="color:var(--color-text-secondary);">26.06.15</div>
+        <div style="font-weight:500;">2.106억 (34%)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PART 2: 입지 분석 ==================== -->
+<div class="card">
+  <div class="section-title">입지 분석 <span class="update-tag">데이터 기반 (임장전)</span></div>
+  <div class="item-row"><span style="color:var(--color-text-success);">+ 미사역(5호선) 도보 5분 이내 — 지하철 역세권 확인</span><span class="badge badge-green">강점</span></div>
+  <div class="item-row"><span style="color:var(--color-text-success);">+ 미사강변중앙로(22m 4차선) 도로 접면 — 가시성 양호</span><span class="badge badge-green">강점</span></div>
+  <div class="item-row"><span style="color:var(--color-text-success);">+ 미사호수공원 인접 — 유동인구 및 주거 배후 수요</span><span class="badge badge-green">강점</span></div>
+  <div class="item-row"><span style="color:var(--color-text-success);">+ 대규모 아파트단지 배후 — 하남미사 신도시 상주인구</span><span class="badge badge-green">강점</span></div>
+  <div class="item-row"><span style="color:var(--color-text-success);">+ 층고 7.2m 복층구조 + 테라스 — 차별화 요소</span><span class="badge badge-purple">기회</span></div>
+  <div class="item-row"><span style="color:var(--color-text-success);">+ 307호 + 창고(2.28평) 일괄 — 수납·부속 공간 확보</span><span class="badge badge-green">강점</span></div>
+  <div class="item-row"><span style="color:var(--color-text-warning);">△ 3층 — 1층 대비 집객력 구조적 제한</span><span class="badge badge-warn">구조적</span></div>
+  <div class="item-row"><span style="color:var(--color-text-warning);">△ 전용률 27% (19.35/71.5㎡) — 실사용 면적 협소 체감</span><span class="badge badge-warn">주의</span></div>
+  <div class="item-row"><span style="color:var(--color-text-warning);">△ 전 업종 의원 → 임차 가능 업종 사전 확인 필요</span><span class="badge badge-warn">확인필요</span></div>
+  <div class="item-row"><span style="color:var(--color-text-danger);">− 인근 유사물건(에코브리지) 5~6차 유찰, 28% 낙찰 — 이 지역 3층 상가 수요 낮음</span><span class="badge badge-red">시장 리스크</span></div>
+  <div class="item-row"><span style="color:var(--color-text-danger);">− 네이버 매물(3층) 입주 2027.03 — 공실 장기화 선례</span><span class="badge badge-red">주의</span></div>
+</div>
+
+<!-- ==================== PART 3: 권리 분석 ==================== -->
+<div class="card">
+  <div class="section-title">권리 분석</div>
+  <div class="row2">
+    <div>
+      <div class="label">말소기준등기</div>
+      <div class="val">2017.02.01 중소기업은행 근저당</div>
+      <div style="font-size:12px;color:var(--color-text-secondary);margin-top:4px;">채권 4.56억 + 3,600만 = 4.92억 → <b style="font-weight:500;color:var(--color-text-success);">전부 소멸</b></div>
+    </div>
+    <div>
+      <div class="label">임차인 / 명도</div>
+      <div class="val">없음 (공실) <span class="badge badge-green">즉시 임대 가능</span></div>
+      <div style="font-size:12px;color:var(--color-text-secondary);margin-top:4px;">임차인 현황 없음 / 명도 절차 불필요</div>
+    </div>
+  </div>
+  <div style="font-size:12px;margin-top:10px;padding-top:10px;border-top:0.5px solid var(--color-border-tertiary);line-height:1.7;color:var(--color-text-secondary);">
+    등기부: 근저당(IBK 4.56억, 말소기준) + 근저당(IBK 3,600만) + 임의경매(청구액 4.15억) — 전부 소멸<br>
+    소유자=채무자(이산복). 임차인 없음 확인(현황조사서·배당요구 없음). <b style="font-weight:500;color:var(--color-text-success);">권리관계 단순·깨끗.</b><br>
+    ※ 현장 방문 시 폐문부재 — 점유관계 임장 현장 직접 재확인 권고
+  </div>
+</div>
+
+<!-- ==================== PART 4: 미납관리비 추정 ==================== -->
+<div class="card">
+  <div class="section-title">미납관리비 추정</div>
+  <div class="row3" style="margin-bottom:0;">
+    <div class="comp-card" style="text-align:center;">
+      <div class="comp-label">월 관리비 추정</div>
+      <div style="font-size:18px;font-weight:500;">약 43만</div>
+      <div class="comp-sub">전용 21.63평 × @2만</div>
+    </div>
+    <div class="comp-card" style="text-align:center;">
+      <div class="comp-label">현실적 추정 (18개월)</div>
+      <div style="font-size:18px;font-weight:500;color:var(--color-text-warning);">약 780만</div>
+      <div class="comp-sub">경매개시(25.05)~현재</div>
+    </div>
+    <div class="comp-card" style="text-align:center;">
+      <div class="comp-label">보수적 추정 (36개월)</div>
+      <div style="font-size:18px;font-weight:500;color:var(--color-text-danger);">약 1,560만</div>
+      <div class="comp-sub">공실 추정시점~현재</div>
+    </div>
+  </div>
+  <div style="font-size:12px;color:var(--color-text-secondary);margin-top:12px;padding-top:10px;border-top:0.5px solid var(--color-border-tertiary);line-height:1.7;">
+    미납관리비는 <b style="font-weight:500;color:var(--color-text-danger);">낙찰자 승계</b> — 실투입금에 직접 추가. 관리사무소 확인 필수.<br>
+    아래 모든 수익률 계산은 현실적 추정(780만) 기준. 보수적(1,560만) 시 실투입금 +780만·수익률 0.4~0.6%p 하락.
+  </div>
+</div>
+
+<!-- ==================== PART 5: 유사물건 매각 선례 + 시세 ==================== -->
+<div class="card">
+  <div class="section-title">인근 유사물건 매각 선례 및 임대 시세</div>
+
+  <!-- 에코브리지 선례 -->
+  <div style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:8px;">① 매각 선례 — 에코브리지 303-1호 (2024타경71256) <span class="badge badge-red">핵심 참고</span></div>
+  <table class="tbl" style="margin-bottom:10px;">
+    <tr><th>차수</th><th>매각기일</th><th>최저가</th><th>결과</th><th>비고</th></tr>
+    <tr><td>1차</td><td>25.08.11</td><td>5.67억 (100%)</td><td><span class="badge badge-red">유찰</span></td><td></td></tr>
+    <tr><td>2차</td><td>25.09.15</td><td>3.969억 (70%)</td><td><span class="badge badge-red">유찰</span></td><td></td></tr>
+    <tr><td>3차</td><td>25.10.20</td><td>2.778억 (49%)</td><td><span class="badge badge-red">유찰</span></td><td></td></tr>
+    <tr><td>4차</td><td>25.11.24</td><td>1.945억 (34%)</td><td><span class="badge badge-red">유찰</span></td><td></td></tr>
+    <tr class="row-warn"><td>5차</td><td>26.01.12</td><td>1.361억 (24%)</td><td><span class="badge badge-warn">매각→미납</span></td><td>1.8억 (31.75%)</td></tr>
+    <tr class="row-best"><td>6차</td><td>26.03.23</td><td>1.361억 (24%)</td><td><span class="badge badge-green">매각</span></td><td><b>1.611억 (28.4%)</b> / 3명</td></tr>
+  </table>
+  <div style="background:var(--color-background-danger);border-radius:var(--border-radius-md);padding:10px 14px;font-size:12px;color:var(--color-text-danger);margin-bottom:14px;line-height:1.7;">
+    <b style="font-weight:500;">⚠ 시사점:</b> 감정가 5.67억 물건이 6차 유찰 끝에 1.611억(28%)에 낙찰. 전용 15.65평 → 낙찰가 @1,030만/평.<br>
+    본건(전용 21.63평)과 구조 유사 — <b style="font-weight:500;">이 지역 3층 상가의 실수요 낙찰 레벨이 감정가 대비 28~35% 수준임을 강력히 시사.</b><br>
+    2차(70%)·3차(49%) 구간은 시장 수요 없을 가능성 높음 → <b style="font-weight:500;">3차 이상 기다리는 전략 권고.</b>
+  </div>
+
+  <!-- 네이버 시세 -->
+  <div style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:8px;">② 네이버 임대 시세 — 리버테라스 3층 매물</div>
+  <table class="tbl" style="margin-bottom:10px;">
+    <tr><th>전용면적</th><th>보증금</th><th>월세</th><th>평당월세</th><th>입주</th><th>특이사항</th></tr>
+    <tr><td>11.47평</td><td>1,000만</td><td>95만</td><td style="font-weight:500;">@8.28만</td><td>2027.03</td><td>층고7.2m 복층·테라스</td></tr>
+  </table>
+  <div style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:6px;">③ 네이버 매매 시세 — 리버테라스 3층</div>
+  <table class="tbl" style="margin-bottom:10px;">
+    <tr><th>전용면적</th><th>매매가</th><th>평당매매가</th><th>특이사항</th></tr>
+    <tr><td>11.47평</td><td>3.3억</td><td style="font-weight:500;">@2,877만</td><td>호가 (미체결 추정)</td></tr>
+  </table>
+
+  <!-- 경매물건 임대 추정 -->
+  <div style="margin-top:12px;padding-top:10px;border-top:0.5px solid var(--color-border-tertiary);">
+    <div style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:6px;">경매물건(3층 전용 21.63평) 임대 시세 추정</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+      <div class="comp-card" style="text-align:center;border:0.5px solid var(--color-border-tertiary);">
+        <div class="comp-label">보수적 (@7.0만)</div>
+        <div style="font-size:16px;font-weight:500;color:var(--color-text-warning);">월 151만</div>
+        <div class="comp-sub">보증금 1,000만</div>
+      </div>
+      <div class="comp-card" style="text-align:center;border:2px solid var(--color-border-info);">
+        <div class="comp-label" style="color:var(--color-text-info);">기본 (@7.5만) ★</div>
+        <div style="font-size:16px;font-weight:500;color:var(--color-text-primary);">월 162만</div>
+        <div class="comp-sub">보증금 1,000만</div>
+      </div>
+      <div class="comp-card" style="text-align:center;border:0.5px solid var(--color-border-tertiary);">
+        <div class="comp-label">낙관적 (@8.5만)</div>
+        <div style="font-size:16px;font-weight:500;color:var(--color-text-success);">월 184만</div>
+        <div class="comp-sub">복층·테라스 프리미엄</div>
+      </div>
+    </div>
+    <div style="font-size:11px;color:var(--color-text-secondary);margin-top:8px;line-height:1.6;">
+      네이버 매물 @8.28만(11평 소형) 대비 대형 할인, 호가→실체결 5~10% 할인 감안 → 기본 @7.5만 채택<br>
+      복층·테라스 특수성(층고7.2m)으로 카페·스튜디오·공방 등 업종 시 @8.0~8.5만 가능 — 임장 후 재확인 필요<br>
+      ※ 입주 2027.03 매물 존재 → 공실 장기화 리스크 있음. 임차인 사전 확보가 핵심.
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PART 6: 입찰 시나리오 ==================== -->
+<div class="card">
+  <div class="section-title">시나리오별 입찰가 및 수익률 (미납관리비 780만 기준)</div>
+  <table class="tbl">
+    <tr>
+      <th style="width:13%;">시나리오</th>
+      <th style="width:8%;">입찰가</th>
+      <th style="width:7%;">감정比</th>
+      <th style="width:9%;">취등록세</th>
+      <th style="width:8%;">대출<br>(80%)</th>
+      <th style="width:8%;">미납<br>관리비</th>
+      <th style="width:11%;">실투입금</th>
+      <th style="width:9%;">매매<br>수익률</th>
+      <th style="width:9%;">순현금<br>흐름(월)</th>
+      <th style="width:9%;">실투자<br>수익률</th>
+      <th style="width:9%;">판단</th>
+    </tr>
+    <tr class="row-bad">
+      <td><b>2차</b><br><span style="font-size:10px;color:#A32D2D;">04.06</span></td>
+      <td>4.3억</td>
+      <td>70%</td>
+      <td>1,978만</td>
+      <td>3.44억</td>
+      <td>780만</td>
+      <td><b>7,128만</b></td>
+      <td>4.1%</td>
+      <td>+17만</td>
+      <td style="font-weight:500;color:#A32D2D;">2.9%</td>
+      <td><span class="badge badge-red">비추천</span></td>
+    </tr>
+    <tr class="row-bad">
+      <td><b>2차 하단</b><br><span style="font-size:10px;color:#A32D2D;">04.06</span></td>
+      <td>3.5억</td>
+      <td>57%</td>
+      <td>1,610만</td>
+      <td>2.8억</td>
+      <td>780만</td>
+      <td><b>5,660만</b></td>
+      <td>5.0%</td>
+      <td>+40만</td>
+      <td style="font-weight:500;color:#A32D2D;">8.5%</td>
+      <td><span class="badge badge-red">패찰 가능</span></td>
+    </tr>
+    <tr class="row-warn">
+      <td><b>3차 상단</b><br><span style="font-size:10px;">05.11</span></td>
+      <td>3.0억</td>
+      <td>49%</td>
+      <td>1,380만</td>
+      <td>2.4억</td>
+      <td>780만</td>
+      <td><b>4,840만</b></td>
+      <td>5.8%</td>
+      <td>+53만</td>
+      <td style="font-weight:500;">13.1%</td>
+      <td><span class="badge badge-warn">검토</span></td>
+    </tr>
+    <tr class="row-best">
+      <td><b>3차 적정</b><br><span style="font-size:10px;color:#085041;">05.11</span></td>
+      <td>2.7억</td>
+      <td>44%</td>
+      <td>1,242만</td>
+      <td>2.16억</td>
+      <td>780만</td>
+      <td><b>4,302만</b></td>
+      <td>6.4%</td>
+      <td>+63만</td>
+      <td style="font-weight:500;color:#085041;">17.5%</td>
+      <td><span class="badge badge-green">추천</span></td>
+    </tr>
+    <tr class="row-best">
+      <td><b>4차 최저</b><br><span style="font-size:10px;color:#085041;">06.15</span></td>
+      <td>2.11억</td>
+      <td>34%</td>
+      <td>971만</td>
+      <td>1.688억</td>
+      <td>780만</td>
+      <td><b>3,343만</b></td>
+      <td>8.2%</td>
+      <td>+90만</td>
+      <td style="font-weight:500;color:#085041;">32.4%</td>
+      <td><span class="badge badge-green">최적</span></td>
+    </tr>
+    <tr class="row-best">
+      <td><b>4차 적정</b><br><span style="font-size:10px;color:#085041;">06.15</span></td>
+      <td>2.4억</td>
+      <td>39%</td>
+      <td>1,104만</td>
+      <td>1.92억</td>
+      <td>780만</td>
+      <td><b>3,764만</b></td>
+      <td>7.2%</td>
+      <td>+78만</td>
+      <td style="font-weight:500;color:#085041;">24.9%</td>
+      <td><span class="badge badge-green">추천</span></td>
+    </tr>
+  </table>
+  <div style="font-size:11px;color:var(--color-text-secondary);margin-top:8px;line-height:1.7;">
+    * 월세 162만(@7.5만/평) / 대출이자 4.6% / 보증금 1,000만 / 예비비(이자 2개월) 포함<br>
+    * 실투입금 = 입찰가 + 취등록세 + 미납관리비 − 대출 − 보증금 + 예비비<br>
+    * 매매수익률 = 연 월세 ÷ (입찰가 + 취등록세 + 미납관리비) / 실투자수익률 = 연 순현금흐름 ÷ 실투입금<br>
+    * <b style="font-weight:500;color:var(--color-text-danger);">에코브리지 선례: 동일 지역 유사 물건이 5~6차 유찰 후 28~31% 낙찰 → 경쟁 낮은 4차 이후가 현실적</b>
+  </div>
+</div>
+
+<!-- ==================== PART 7: 민감도 ==================== -->
+<div class="card">
+  <div class="section-title">민감도 분석 — 입찰가 × 월세 × 미납관리비</div>
+  <table class="tbl">
+    <tr>
+      <th>입찰가</th>
+      <th>보수적<br>월151만</th>
+      <th>기본<br>월162만</th>
+      <th>낙관적<br>월184만</th>
+      <th>실투입금<br>(미납780만)</th>
+      <th>실투입금<br>(미납1,560만)</th>
+    </tr>
+    <tr class="row-bad">
+      <td style="font-weight:500;">4.3억 (70%)</td>
+      <td style="color:var(--color-text-danger);">2.7%</td>
+      <td style="font-weight:500;">2.9%</td>
+      <td>3.7%</td>
+      <td>7,128만</td>
+      <td>7,908만</td>
+    </tr>
+    <tr class="row-bad">
+      <td style="font-weight:500;">3.5억 (57%)</td>
+      <td style="color:var(--color-text-danger);">7.3%</td>
+      <td style="font-weight:500;">8.5%</td>
+      <td>11.3%</td>
+      <td>5,660만</td>
+      <td>6,440만</td>
+    </tr>
+    <tr class="row-warn">
+      <td style="font-weight:500;">3.0억 (49%)</td>
+      <td>10.9%</td>
+      <td style="font-weight:500;">13.1%</td>
+      <td>18.3%</td>
+      <td>4,840만</td>
+      <td>5,620만</td>
+    </tr>
+    <tr class="row-best">
+      <td style="font-weight:500;">2.7억 (44%)</td>
+      <td>14.4%</td>
+      <td style="font-weight:500;">17.5%</td>
+      <td>24.2%</td>
+      <td>4,302만</td>
+      <td>5,082만</td>
+    </tr>
+    <tr class="row-best">
+      <td style="font-weight:500;">2.4억 (39%)</td>
+      <td>20.0%</td>
+      <td style="font-weight:500;">24.9%</td>
+      <td>34.6%</td>
+      <td>3,764만</td>
+      <td>4,544만</td>
+    </tr>
+    <tr class="row-best">
+      <td style="font-weight:500;">2.11억 (34%)</td>
+      <td>27.0%</td>
+      <td style="font-weight:500;">32.4%</td>
+      <td>46.8%</td>
+      <td>3,343만</td>
+      <td>4,123만</td>
+    </tr>
+  </table>
+</div>
+
+<!-- ==================== PART 8: 출구전략 ==================== -->
+<div class="card">
+  <div class="section-title">출구전략 — 매도가 추정 및 근거</div>
+
+  <div style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:8px;">매도가 추정 근거 (4가지 방법론)</div>
+  <table class="tbl">
+    <tr>
+      <th style="width:22%;">추정 방법</th>
+      <th style="width:30%;">산출 근거</th>
+      <th style="width:16%;">평당 매매가</th>
+      <th style="width:16%;">21.63평 기준</th>
+      <th style="width:16%;">신뢰도</th>
+    </tr>
+    <tr>
+      <td style="text-align:left;padding-left:8px;font-weight:500;">① 비교매물 접근</td>
+      <td style="text-align:left;font-size:11px;">네이버 3층 11평 @2,877만 → 대형 할인 −10%</td>
+      <td>@2,590만</td>
+      <td style="font-weight:500;">5.6억</td>
+      <td><span class="badge badge-warn">호가 기준</span></td>
+    </tr>
+    <tr>
+      <td style="text-align:left;padding-left:8px;font-weight:500;">② 감정가 할인</td>
+      <td style="text-align:left;font-size:11px;">감정가 6.14억 × 40~55%</td>
+      <td>@1,136~1,560만</td>
+      <td style="font-weight:500;">2.46~3.37억</td>
+      <td><span class="badge badge-blue">참고</span></td>
+    </tr>
+    <tr>
+      <td style="text-align:left;padding-left:8px;font-weight:500;">③ 수익환원법<br><span style="font-size:10px;color:var(--color-text-secondary);">(cap 5.0%)</span></td>
+      <td style="text-align:left;font-size:11px;">연 임대료 1,944만 ÷ 5.0%</td>
+      <td>@1,795만</td>
+      <td style="font-weight:500;">3.88억</td>
+      <td><span class="badge badge-green">높음</span></td>
+    </tr>
+    <tr>
+      <td style="text-align:left;padding-left:8px;font-weight:500;">④ 수익환원법<br><span style="font-size:10px;color:var(--color-text-secondary);">(cap 4.5%)</span></td>
+      <td style="text-align:left;font-size:11px;">연 임대료 1,944만 ÷ 4.5%</td>
+      <td>@1,994만</td>
+      <td style="font-weight:500;">4.31억</td>
+      <td><span class="badge badge-green">높음</span></td>
+    </tr>
+    <tr>
+      <td style="text-align:left;padding-left:8px;font-weight:500;">⑤ 에코브리지 선례 역산</td>
+      <td style="text-align:left;font-size:11px;">낙찰가 1.611억/15.65평 → @1,030만 × 21.63평</td>
+      <td>@1,030만</td>
+      <td style="font-weight:500;">2.23억</td>
+      <td><span class="badge badge-red">하방 참고</span></td>
+    </tr>
+  </table>
+
+  <div style="background:var(--color-background-info);border-radius:var(--border-radius-md);padding:10px 14px;font-size:12px;color:var(--color-text-info);margin-top:12px;line-height:1.7;">
+    <b style="font-weight:500;">핵심 해석:</b><br>
+    ① 비교매물(5.6억)은 <b>미체결 호가</b> — 과대 추정 가능성 높음. 참고만.<br>
+    ② 감정가 할인법: 이미 시장에서 5~6차까지 유찰된 지역이므로 감정가의 40~55% 현실 반영.<br>
+    ③④ <b>수익환원법이 가장 객관적:</b> 임차인 확보 시 3.9~4.3억 수익형 매각 가능.<br>
+    ⑤ 에코브리지 낙찰가 역산(2.23억)은 공실 상태·경쟁 없는 최저 하방선. <b style="font-weight:500;">2.4억 이하 낙찰 시 원금 손실 위험 낮음.</b>
+  </div>
+
+  <div style="margin-top:14px;padding-top:12px;border-top:0.5px solid var(--color-border-tertiary);">
+    <div style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:8px;">매도 시나리오별 차익 분석 (미납관리비 780만 기준)</div>
+    <table class="tbl">
+      <tr>
+        <th style="width:12%;">매도가</th>
+        <th style="width:14%;">매도 근거</th>
+        <th colspan="3" style="text-align:center;">입찰가별 매도차익 (세전)</th>
+        <th style="width:15%;">양도세 후<br>순차익 추정</th>
+      </tr>
+      <tr>
+        <th></th><th></th>
+        <th>2.7억 낙찰</th>
+        <th>2.4억 낙찰</th>
+        <th>2.11억 낙찰</th>
+        <th style="font-size:10px;">(2.7억, 2년 보유)</th>
+      </tr>
+      <tr class="row-warn">
+        <td style="font-weight:500;">3.9억</td>
+        <td style="font-size:10px;">수익환원<br>(cap 5.0%)</td>
+        <td style="color:var(--color-text-success);font-weight:500;">+8,000만</td>
+        <td style="color:var(--color-text-success);font-weight:500;">+1.12억</td>
+        <td style="color:var(--color-text-success);font-weight:500;">+1.43억</td>
+        <td style="font-size:11px;">약 +5,500만</td>
+      </tr>
+      <tr class="row-good">
+        <td style="font-weight:500;">4.3억</td>
+        <td style="font-size:10px;">수익환원<br>(cap 4.5%)</td>
+        <td style="color:var(--color-text-success);font-weight:500;">+1.18억</td>
+        <td style="color:var(--color-text-success);font-weight:500;">+1.50억</td>
+        <td style="color:var(--color-text-success);font-weight:500;">+1.81억</td>
+        <td style="font-size:11px;">약 +8,100만</td>
+      </tr>
+      <tr class="row-best">
+        <td style="font-weight:500;">5.0억</td>
+        <td style="font-size:10px;">비교매물<br>할인 매각</td>
+        <td style="color:var(--color-text-success);font-weight:500;">+1.88억</td>
+        <td style="color:var(--color-text-success);font-weight:500;">+2.20억</td>
+        <td style="color:var(--color-text-success);font-weight:500;">+2.51억</td>
+        <td style="font-size:11px;">약 +1.3억</td>
+      </tr>
+    </table>
+    <div style="font-size:11px;color:var(--color-text-secondary);margin-top:6px;line-height:1.6;">
+      * 매도차익 = 매도가 − (입찰가 + 취등록세 + 미납관리비) / 중개수수료·양도세 미포함<br>
+      * 양도세 후 순차익: 2년 보유 기본세율(6~45%) 추정. 1년 미만 70%, 1~2년 60% 중과<br>
+      * <b style="font-weight:500;">수익환원법 3.9억이 최소 매도가 하한선 → 2.7억 낙찰 시도 +8,000만 세전 차익</b>
+    </div>
+  </div>
+
+  <div style="margin-top:14px;padding-top:12px;border-top:0.5px solid var(--color-border-tertiary);">
+    <div style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:8px;">출구전략 리스크 평가</div>
+    <div class="item-row"><span style="color:var(--color-text-success);">+ 3~4차 낙찰 시 감정가 대비 44~34% — 충분한 안전마진</span><span class="badge badge-green">안전</span></div>
+    <div class="item-row"><span style="color:var(--color-text-success);">+ 수익환원법 하한(3.9억) > 3차 상단 낙찰가(3.0억) — 원금 손실 가능성 낮음</span><span class="badge badge-green">안전</span></div>
+    <div class="item-row"><span style="color:var(--color-text-success);">+ 층고 7.2m 복층·테라스 — 카페·스튜디오·공방 등 프리미엄 업종 유치 가능</span><span class="badge badge-green">강점</span></div>
+    <div class="item-row"><span style="color:var(--color-text-warning);">△ 인근 매물 입주 2027.03 — 공실 장기화 경쟁 가능</span><span class="badge badge-warn">주의</span></div>
+    <div class="item-row"><span style="color:var(--color-text-warning);">△ 3층 상업시설 — 매수자 풀 제한적, 투자자 대상 매각 필요</span><span class="badge badge-warn">주의</span></div>
+    <div class="item-row"><span style="color:var(--color-text-danger);">− 에코브리지 5~6차 유찰 선례 — 이 지역 상가 수요층 얕음</span><span class="badge badge-red">시장 리스크</span></div>
+    <div class="item-row"><span style="color:var(--color-text-danger);">− 소유자 매입가 미확인이나 감정가 6.14억 물건이 경매로 → 시장가 하락 중</span><span class="badge badge-red">시장 리스크</span></div>
+  </div>
+</div>
+
+<!-- ==================== PART 9: 타임라인 ==================== -->
+<div class="card">
+  <div class="section-title">입찰 전략 및 타임라인</div>
+
+  <div class="timeline-item">
+    <div class="timeline-dot" style="background:#E24B4A;"></div>
+    <div class="timeline-body">
+      <div class="timeline-title">2차(04.06) — 비추천 <span class="badge badge-red">SKIP</span></div>
+      최저가 4.298억(70%)에서 수익률 2.9% — 실투입금 7,100만원대로 수익성 없음.<br>
+      에코브리지 선례 감안 시 경쟁자도 없을 가능성 높음. <b style="font-weight:500;">패스 권고.</b>
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-dot" style="background:#BA7517;"></div>
+    <div class="timeline-body">
+      <div class="timeline-title">3차(05.11) — 조건부 검토 <span class="badge badge-warn">임장 후 판단</span></div>
+      3.0억 이하 입찰 시 수익률 13%+, 실투입금 4,840만. 3차 최저가는 3.009억(49%).<br>
+      <b style="font-weight:500;">입찰 경쟁이 예상되거나 임장에서 임차 수요가 확인될 경우 진입 검토.</b><br>
+      입찰가 2.7~3.0억 범위. 단, 에코브리지처럼 3차도 유찰될 가능성 있음.
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-dot" style="background:#1D9E75;"></div>
+    <div class="timeline-body">
+      <div class="timeline-title">4차(06.15) — 최적 구간 <span class="badge badge-green">적극 추천</span></div>
+      최저가 2.106억(34%). 적정 입찰가 2.4~2.7억 → 실투입금 3,764~4,302만.<br>
+      수익률 17~25%, 월 순현금흐름 +63~78만. 에코브리지(5~6차) 선례 대비 훨씬 이른 타이밍.<br>
+      <b style="font-weight:500;">경쟁 최소 + 안전마진 최대. 임장 선행 후 이 차수 타겟 권고.</b>
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-dot" style="background:#534AB7;"></div>
+    <div class="timeline-body">
+      <div class="timeline-title">복층·테라스 업종 전략 <span class="badge badge-purple">기회</span></div>
+      층고 7.2m 복층구조 + 테라스 = 일반 상가와 차별화.<br>
+      카페·베이커리·스튜디오·공방·필라테스 등 체험형 업종이 적합.<br>
+      낙찰 후 업종 타겟 사전 접촉 → 공실 최소화·월세 프리미엄(@8.0만 이상) 기대.
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-dot" style="background:#E24B4A;"></div>
+    <div class="timeline-body">
+      <div class="timeline-title">입찰 전 최종 체크리스트 <span class="badge badge-red">필수</span></div>
+      1. <b style="font-weight:500;">임장 필수</b> — 건물 활성도·공실 현황·테라스 상태·경쟁 매물 직접 확인<br>
+      2. <b style="font-weight:500;">미납관리비 정확 금액</b> — 리버테라스 관리사무소 확인<br>
+      3. <b style="font-weight:500;">경락잔금대출 80% 사전 상담</b> — 투기과열지구 해당(대출 제한 여부 재확인)<br>
+      4. <b style="font-weight:500;">업종 사전 가능 여부</b> — 전 업종 의원, 카페·스튜디오 등 용도변경 가능 여부 확인<br>
+      5. <b style="font-weight:500;">잠재 임차인 사전 접촉</b> — 인근 카페·학원·스튜디오 수요 탐문<br>
+      6. <b style="font-weight:500;">에코브리지 낙찰자((주)YK리얼리티) 매입 동향</b> — 인근 추가 매입 가능성 참고
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PART 10: 종합 평가 ==================== -->
+<div style="background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;border:0.5px solid var(--color-border-tertiary);">
+  <div style="font-size:14px;font-weight:500;margin-bottom:10px;">종합 평가 <span class="badge badge-warn">임장 전 예비 분석</span></div>
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:12px;">
+    <div style="text-align:center;">
+      <div style="font-size:12px;color:var(--color-text-secondary);">입지</div>
+      <div class="bar-bg"><div class="bar" style="width:65%;background:#378ADD;"></div></div>
+      <div style="font-size:12px;color:var(--color-text-secondary);">65</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:12px;color:var(--color-text-secondary);">권리</div>
+      <div class="bar-bg"><div class="bar" style="width:95%;background:#1D9E75;"></div></div>
+      <div style="font-size:12px;color:var(--color-text-secondary);">95</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:12px;color:var(--color-text-secondary);">수익성</div>
+      <div class="bar-bg"><div class="bar" style="width:62%;background:#EF9F27;"></div></div>
+      <div style="font-size:12px;color:var(--color-text-secondary);">62</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:12px;color:var(--color-text-secondary);">출구</div>
+      <div class="bar-bg"><div class="bar" style="width:58%;background:#378ADD;"></div></div>
+      <div style="font-size:12px;color:var(--color-text-secondary);">58</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:12px;color:var(--color-text-secondary);">예산</div>
+      <div class="bar-bg"><div class="bar" style="width:72%;background:#EF9F27;"></div></div>
+      <div style="font-size:12px;color:var(--color-text-secondary);">72</div>
+    </div>
+  </div>
+  <div style="font-size:13px;color:var(--color-text-secondary);line-height:1.8;border-top:0.5px solid var(--color-border-tertiary);padding-top:10px;">
+    <b style="font-weight:500;color:var(--color-text-primary);">핵심 강점:</b>
+    권리관계 단순(전부 소멸·공실·명도 불필요), 미사역 역세권, 층고 7.2m 복층·테라스 차별화 구조, 감정가 대비 4차(34%)까지의 가격 하락 여력.<br><br>
+
+    <b style="font-weight:500;color:var(--color-text-primary);">핵심 리스크:</b>
+    인근 에코브리지 5~6차 유찰 선례 — 이 지역 3층 상가 시장 수요가 구조적으로 얕음. 2차·3차 입찰 시 가격 매력 부족. 투기과열지구 지정으로 대출 조건 사전 확인 필수. 인근 공실 매물(2027.03 입주) 경쟁.<br><br>
+
+    <b style="font-weight:500;color:var(--color-text-primary);">최종 판단 (임장 전):</b>
+    2차(04.06)는 <b style="font-weight:500;color:var(--color-text-danger);">SKIP</b>. 임장 선행 후 <b style="font-weight:500;color:var(--color-text-warning);">3차(05.11) 2.7~3.0억 조건부 검토</b>, 
+    <b style="font-weight:500;color:var(--color-text-success);">4차(06.15) 2.4~2.7억 적극 추천</b>.<br>
+    복층·테라스 특성을 살린 카페·스튜디오 업종 임차인 사전 확보가 수익성·출구전략의 핵심 변수.
+    <b style="font-weight:500;color:var(--color-text-danger);">투기과열지구 경락잔금대출 80% LTV 가능 여부를 반드시 사전 확인해야 합니다.</b>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
