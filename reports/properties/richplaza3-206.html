@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>최종 비딩 리포트 — 리치프라자3 206호</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; background: #f0f2f5; color: #1a1a2e; padding: 16px; -webkit-text-size-adjust: 100%; }
+.page { max-width: 800px; margin: 0 auto; }
+
+.hdr { background: #0f3460; border-radius: 12px; padding: 22px 24px; margin-bottom: 12px; color: #fff; }
+.hdr-tag { font-size: 10px; font-weight: 700; letter-spacing: 2px; color: rgba(255,255,255,0.4); text-transform: uppercase; margin-bottom: 6px; }
+.hdr-title { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 3px; }
+.hdr-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-bottom: 16px; }
+.hdr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.hdr-item { background: rgba(255,255,255,0.1); border-radius: 8px; padding: 10px 12px; }
+.hdr-lbl { font-size: 10px; color: rgba(255,255,255,0.45); margin-bottom: 3px; font-weight: 600; }
+.hdr-val { font-size: 15px; font-weight: 800; color: #fff; }
+.hdr-val-g { font-size: 15px; font-weight: 800; color: #4ade80; }
+.hdr-val-y { font-size: 15px; font-weight: 800; color: #fbbf24; }
+.hdr-val-r { font-size: 15px; font-weight: 800; color: #f87171; }
+
+.bid-confirmed { background: #085041; border-radius: 12px; padding: 18px 22px; margin-bottom: 12px; color: #fff; text-align: center; }
+.bid-confirmed-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; opacity: 0.75; text-transform: uppercase; margin-bottom: 6px; }
+.bid-confirmed-amount { font-size: 32px; font-weight: 900; letter-spacing: -1px; margin-bottom: 4px; }
+.bid-confirmed-sub { font-size: 13px; opacity: 0.85; }
+
+.card { background: #fff; border: 0.5px solid #dde3ec; border-radius: 12px; padding: 16px 18px; margin-bottom: 10px; }
+.card-title { font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.card-title::before { content: ''; width: 3px; height: 13px; background: #378ADD; border-radius: 2px; flex-shrink: 0; }
+
+.badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 20px; font-weight: 600; white-space: nowrap; }
+.badge-g { background: #E1F5EE; color: #085041; }
+.badge-r { background: #FCEBEB; color: #A32D2D; }
+.badge-w { background: #FAEEDA; color: #7a4f00; }
+.badge-b { background: #EBF3FC; color: #1a4a7a; }
+
+/* 임차인 박스 */
+.tenant-box { background: #E1F5EE; border: 1.5px solid #1D9E75; border-radius: 10px; padding: 14px 16px; margin-bottom: 12px; }
+
+.calc-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 0.5px solid #dde3ec; font-size: 13px; }
+.calc-row:last-child { border-bottom: none; }
+.calc-lbl { color: #5a6a7a; }
+.calc-val { font-weight: 600; color: #1a1a2e; }
+.calc-total-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #085041; border-radius: 8px; margin-top: 10px; }
+.calc-total-lbl { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.7); }
+.calc-total-val { font-size: 18px; font-weight: 800; color: #4ade80; }
+
+.metrics-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.metric-box { background: #f4f6f8; border-radius: 8px; padding: 12px 14px; text-align: center; }
+.metric-lbl { font-size: 10px; color: #5a6a7a; font-weight: 600; margin-bottom: 5px; }
+.metric-val-g { font-size: 20px; font-weight: 800; color: #085041; }
+.metric-val-b { font-size: 20px; font-weight: 800; color: #1a4a7a; }
+.metric-val { font-size: 20px; font-weight: 800; color: #1a1a2e; }
+.metric-sub { font-size: 11px; color: #5a6a7a; margin-top: 3px; }
+
+.exit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+.exit-box { border-radius: 8px; padding: 12px 14px; }
+.exit-lbl { font-size: 10px; font-weight: 700; margin-bottom: 5px; }
+.exit-val { font-size: 18px; font-weight: 800; }
+.exit-sub { font-size: 11px; margin-top: 4px; line-height: 1.5; }
+
+.tw { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.sh { text-align: center; font-size: 11px; color: #5a6a7a; padding: 4px 0; margin-bottom: 3px; }
+table { width: 100%; border-collapse: collapse; min-width: 480px; }
+th { background: #f4f6f8; color: #5a6a7a; font-size: 10px; font-weight: 700; padding: 8px 6px; border-bottom: 0.5px solid #dde3ec; text-align: center; white-space: nowrap; }
+td { padding: 8px 6px; border-bottom: 0.5px solid #dde3ec; text-align: center; font-size: 12px; white-space: nowrap; color: #1a1a2e; }
+tr:last-child td { border-bottom: none; }
+td:first-child { text-align: left; white-space: normal; }
+.row-best { background: #E1F5EE; }
+.row-good { background: #EAF3DE; }
+.row-warn { background: #FAEEDA; }
+.row-bad  { background: #FCEBEB; }
+
+.mbar { margin: 8px 0; }
+.mbar-hd { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 3px; }
+.mbar-track { background: #e2e8f0; border-radius: 6px; height: 10px; overflow: hidden; }
+.mbar-fill { height: 100%; border-radius: 6px; }
+.mbar-sub { font-size: 11px; color: #5a6a7a; margin-top: 2px; }
+
+.info-b { border-radius: 8px; padding: 11px 14px; font-size: 12px; line-height: 1.7; margin-bottom: 10px; }
+.info-b-blue { background: #EBF3FC; color: #1a4a7a; }
+.info-b-warn { background: #FAEEDA; color: #7a4f00; }
+.info-b-green { background: #E1F5EE; color: #085041; }
+.info-b-red { background: #FCEBEB; color: #A32D2D; }
+
+.cl { display: flex; flex-direction: column; gap: 6px; }
+.ci { display: flex; align-items: flex-start; gap: 9px; padding: 9px 11px; background: #f4f6f8; border-radius: 8px; font-size: 13px; color: #1a1a2e; }
+.cdot { width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800; margin-top: 1px; }
+.cdot-r { background: #FCEBEB; color: #A32D2D; }
+.cdot-w { background: #FAEEDA; color: #7a4f00; }
+.cdot-g { background: #E1F5EE; color: #085041; }
+
+@media (min-width: 580px) {
+  .hdr-grid { grid-template-columns: repeat(4, 1fr); }
+  .metrics-grid { grid-template-columns: repeat(4, 1fr); }
+  .exit-grid { grid-template-columns: repeat(4, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- 헤더 -->
+<div class="hdr">
+  <div class="hdr-tag">최종 비딩 리포트 · Final Bid Report</div>
+  <div class="hdr-title">🏢 수원 광교 리치프라자3 206호</div>
+  <div class="hdr-sub">2024타경85450(8) · 수원시 영통구 이의동 · 2층 33.74평 · 수원지방법원 17계 · 4차 2026.04.13</div>
+  <div class="hdr-grid">
+    <div class="hdr-item"><div class="hdr-lbl">감정가</div><div class="hdr-val">6.23억</div></div>
+    <div class="hdr-item"><div class="hdr-lbl">4차 최저가 (34%)</div><div class="hdr-val-y">2.137억</div></div>
+    <div class="hdr-item"><div class="hdr-lbl">전용면적</div><div class="hdr-val">33.74평 (111.54㎡)</div></div>
+    <div class="hdr-item"><div class="hdr-lbl">임차 현황</div><div class="hdr-val-g">LG럭셔리뷰티 영업중</div></div>
+  </div>
+</div>
+
+<!-- 확정 입찰가 -->
+<div class="bid-confirmed">
+  <div class="bid-confirmed-label">✅ 확정 입찰가</div>
+  <div class="bid-confirmed-amount">306,155,000원</div>
+  <div class="bid-confirmed-sub">3.0616억 · 감정가 대비 49.1% · 4차 최저가 대비 +43.3%</div>
+</div>
+
+<!-- 임차인 현황 -->
+<div class="card">
+  <div class="card-title">임차인 현황 — 현 임차 유지 전제</div>
+  <div class="tenant-box">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div>
+        <div style="font-size:10px;color:#085041;font-weight:700;margin-bottom:4px;">임차인</div>
+        <div style="font-size:16px;font-weight:800;color:#085041;">㈜LG럭셔리뷰티 광교점</div>
+        <div style="font-size:11px;color:#5a6a7a;margin-top:3px;">사업등록 2021.01.14 · 5년차 안정 임차</div>
+      </div>
+      <div>
+        <div style="font-size:10px;color:#085041;font-weight:700;margin-bottom:4px;">임대 조건 (현 계약 유지)</div>
+        <div style="font-size:16px;font-weight:800;color:#085041;">보증금 2,000만 / 월 180만</div>
+        <div style="font-size:11px;color:#5a6a7a;margin-top:3px;">대항력 없음 · 낙찰 즉시 수익 발생</div>
+      </div>
+    </div>
+  </div>
+  <div class="info-b info-b-green" style="margin-bottom:0;">
+    경매개시(2024.10) 3년 전 입주한 장기 안정 임차인. 낙찰 후 현 조건 그대로 승계 시 <b>당일부터 월 180만 임대수익 발생.</b>
+    보증금 2,000만은 배당에서 처리 예정이므로 낙찰자 인수 의무 없음 (배당예상표 재확인 필요).
+  </div>
+</div>
+
+<!-- 취득 원가 계산 -->
+<div class="card">
+  <div class="card-title">취득 원가 계산 (확정 입찰가 기준)</div>
+  <div class="calc-row"><span class="calc-lbl">낙찰가</span><span class="calc-val">306,155,000원 (3.0616억)</span></div>
+  <div class="calc-row"><span class="calc-lbl">취등록세 (4.6%)</span><span class="calc-val">14,083,000원 (약 1,408만)</span></div>
+  <div class="calc-row"><span class="calc-lbl">미납관리비</span><span class="calc-val" style="color:#085041;">0원 (영업중 납부 추정)</span></div>
+  <div class="calc-row" style="padding-top:8px;border-top:1.5px solid #0f3460;font-weight:700;"><span>총 취득원가</span><span style="color:#1a1a2e;">320,238,000원 (3.2024억)</span></div>
+
+  <div style="margin-top:14px;padding-top:12px;border-top:0.5px solid #dde3ec;">
+    <div style="font-size:12px;font-weight:700;margin-bottom:8px;color:#1a1a2e;">실투입금 계산 (내 돈 얼마?)</div>
+    <div class="calc-row"><span class="calc-lbl">총 취득원가</span><span class="calc-val">3.2024억</span></div>
+    <div class="calc-row"><span class="calc-lbl">경락잔금대출 (80%)</span><span class="calc-val" style="color:#1a4a7a;">− 2.449억</span></div>
+    <div class="calc-row"><span class="calc-lbl">임차 보증금 (배당 처리)</span><span class="calc-val" style="color:#5a6a7a;">− 0원 (배당 예정)</span></div>
+    <div class="calc-row"><span class="calc-lbl">이자 예비비 (2개월)</span><span class="calc-val">+ 188만</span></div>
+  </div>
+  <div class="calc-total-row">
+    <span class="calc-total-lbl">실투입금 (내 돈)</span>
+    <span class="calc-total-val">7,352만원</span>
+  </div>
+  <div style="font-size:11px;color:#5a6a7a;margin-top:8px;line-height:1.6;">
+    * 대출이자 월 94만 (2.449억 × 4.6% ÷ 12)<br>
+    * 보증금 2,000만은 배당 처리 예정. 배당 부족 시 낙찰자 추가 부담 가능 — 배당예상표 확인 필수<br>
+    * 미납관리비 영업중 납부 추정이나 관리사무소 재확인 권장
+  </div>
+</div>
+
+<!-- 수익 지표 -->
+<div class="card">
+  <div class="card-title">수익성 지표 (현 임차 월 180만 유지 기준)</div>
+  <div class="metrics-grid">
+    <div class="metric-box">
+      <div class="metric-lbl">월 순현금흐름</div>
+      <div class="metric-val-g">+86만</div>
+      <div class="metric-sub">월세 180만 − 이자 94만</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-lbl">연 순현금흐름</div>
+      <div class="metric-val-g">+1,032만</div>
+      <div class="metric-sub">86만 × 12개월</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-lbl">매매수익률</div>
+      <div class="metric-val-g">6.6%</div>
+      <div class="metric-sub">연2,160만 ÷ 3.2024억</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-lbl">실투자수익률</div>
+      <div class="metric-val-g">14.0%</div>
+      <div class="metric-sub">연1,032만 ÷ 7,352만</div>
+    </div>
+  </div>
+
+  <div style="margin-top:12px;padding-top:12px;border-top:0.5px solid #dde3ec;">
+    <div style="font-size:12px;font-weight:700;margin-bottom:8px;">임대 재계약 시 수익률 변화</div>
+    <div class="metrics-grid">
+      <div class="metric-box" style="background:#EBF3FC;">
+        <div class="metric-lbl" style="color:#1a4a7a;">월 순현금흐름 (재계약)</div>
+        <div class="metric-val-b">+106만</div>
+        <div class="metric-sub" style="color:#1a4a7a;">월세 200만 − 이자 94만</div>
+      </div>
+      <div class="metric-box" style="background:#EBF3FC;">
+        <div class="metric-lbl" style="color:#1a4a7a;">실투자수익률 (재계약)</div>
+        <div class="metric-val-b">17.3%</div>
+        <div class="metric-sub" style="color:#1a4a7a;">연1,272만 ÷ 7,352만</div>
+      </div>
+      <div class="metric-box" style="background:#EBF3FC;">
+        <div class="metric-lbl" style="color:#1a4a7a;">매매수익률 (재계약)</div>
+        <div class="metric-val-b">7.5%</div>
+        <div class="metric-sub" style="color:#1a4a7a;">연2,400만 ÷ 3.2024억</div>
+      </div>
+      <div class="metric-box" style="background:#EBF3FC;">
+        <div class="metric-lbl" style="color:#1a4a7a;">cap6% 매도가 (재계약 200만)</div>
+        <div class="metric-val-b">4.00억</div>
+        <div class="metric-sub" style="color:#1a4a7a;">연2,400만 ÷ 6%</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 출구전략 -->
+<div class="card">
+  <div class="card-title">출구전략 — cap rate 6.0% 기준 매도가 케이스별 분석</div>
+
+  <div class="info-b info-b-green" style="margin-bottom:12px;">
+    <b>💡 법인 입찰 — 법인세 10% 단일 세율 (보유기간 무관)</b><br>
+    개인 양도세(2년 미만 60~70% 중과)와 달리 법인은 조기 매도도 10% 동일 적용.<br>
+    총취득원가 <b>3.2024억</b> (낙찰 3.0616억 + 취등록세 1,408만)
+  </div>
+
+  <div class="exit-grid">
+    <div class="exit-box" style="background:#FAEEDA;border-left:3px solid #EF9F27;">
+      <div class="exit-lbl" style="color:#7a4f00;">CASE 1 — 현임차 유지 ★</div>
+      <div class="exit-val" style="color:#7a4f00;">3.600억</div>
+      <div class="exit-sub" style="color:#7a4f00;">월180만 / 연2,160만÷6%<br>세후 +3,578만</div>
+    </div>
+    <div class="exit-box" style="background:#E1F5EE;border-left:3px solid #1D9E75;">
+      <div class="exit-lbl" style="color:#085041;">CASE 2 — 재계약 200만</div>
+      <div class="exit-val" style="color:#085041;">4.000억</div>
+      <div class="exit-sub" style="color:#085041;">월200만 / 연2,400만÷6%<br>세후 +7,178만</div>
+    </div>
+    <div class="exit-box" style="background:#E1F5EE;border-left:3px solid #085041;">
+      <div class="exit-lbl" style="color:#085041;">CASE 3 — 재계약 219만</div>
+      <div class="exit-val" style="color:#085041;">4.380억</div>
+      <div class="exit-sub" style="color:#085041;">월219만(@6.5만) / 연2,628만÷6%<br>세후 +1.060억</div>
+    </div>
+    <div class="exit-box" style="background:#f4f6f8;border-left:3px solid #c4ccd6;">
+      <div class="exit-lbl" style="color:#5a6a7a;">참고 — cap5% 재계약</div>
+      <div class="exit-val" style="color:#5a6a7a;">4.800억</div>
+      <div class="exit-sub" style="color:#5a6a7a;">월200만 / 연2,400만÷5%<br>참고 (세후 +1.42억)</div>
+    </div>
+  </div>
+
+  <div class="sh">← 좌우로 스크롤하세요 →</div>
+  <div class="tw">
+    <table>
+      <thead>
+        <tr>
+          <th>케이스</th><th>월세</th><th>매도가(cap6%)</th>
+          <th>세전차익</th><th>법인세<br>(10%)</th><th>세후 순차익</th>
+          <th>임대수입<br>(1년)</th><th>총 세후수익<br>(매도+임대 1년)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-warn">
+          <td><b>CASE 1 ★</b><br><span style="font-size:10px;">현임차 180만</span></td><td>180만</td><td style="font-weight:700;">3.600억</td>
+          <td style="color:#7a4f00;font-weight:700;">+3,976만</td>
+          <td style="color:#A32D2D;">-398만</td>
+          <td style="color:#7a4f00;font-weight:800;">+3,578만</td>
+          <td style="color:#085041;">+1,032만</td>
+          <td style="color:#7a4f00;font-weight:700;">약 +4,610만 ✅</td>
+        </tr>
+        <tr class="row-good">
+          <td><b>CASE 2</b><br><span style="font-size:10px;">재계약 200만</span></td><td>200만</td><td style="font-weight:700;">4.000억</td>
+          <td style="color:#085041;font-weight:700;">+7,976만</td>
+          <td style="color:#A32D2D;">-798만</td>
+          <td style="color:#085041;font-weight:800;">+7,178만</td>
+          <td style="color:#085041;">+1,272만</td>
+          <td style="color:#085041;font-weight:700;">약 +8,450만 ✅✅</td>
+        </tr>
+        <tr class="row-best">
+          <td><b>CASE 3</b><br><span style="font-size:10px;">재계약 219만 @6.5만</span></td><td>219만</td><td style="font-weight:700;">4.380억</td>
+          <td style="color:#085041;font-weight:700;">+1.178억</td>
+          <td style="color:#A32D2D;">-1,178만</td>
+          <td style="color:#085041;font-weight:800;">+1.060억</td>
+          <td style="color:#085041;">+1,428만</td>
+          <td style="color:#085041;font-weight:700;">약 +1.203억 ✅✅✅</td>
+        </tr>
+        <tr style="background:#f4f6f8;opacity:0.8;">
+          <td><span style="color:#5a6a7a;">참고 — cap5%</span><br><span style="font-size:10px;">재계약 200만</span></td><td style="color:#5a6a7a;">200만</td><td style="color:#5a6a7a;font-weight:700;">4.800억</td>
+          <td style="color:#5a6a7a;font-weight:700;">+1.598억</td>
+          <td style="color:#5a6a7a;">-1,598만</td>
+          <td style="color:#5a6a7a;font-weight:700;">+1.438억</td>
+          <td style="color:#5a6a7a;">+1,272만</td>
+          <td style="color:#5a6a7a;font-weight:700;">약 +1.565억</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="font-size:11px;color:#5a6a7a;margin-top:8px;line-height:1.6;">
+    * 세전차익 = 매도가 − 총취득원가(3.2024억) / 중개수수료 미포함<br>
+    * 양도세: 1년 미만 70% 중과 / 2~3년 기본세율 약25~30% 추정 (세무사 확인 권장)<br>
+    * <b>법인세 10% 단일 적용 — 보유기간 관계없이 동일</b> (지방소득세 1% 별도 시 실효 11%)<br>
+    * 임대수입 = 월 순현금흐름 × 12개월 기준<br>
+    * <b style="color:#085041;">CASE 3 (재계약 219만) 1년 보유 기준 총 세후수익 약 +1.203억이 목표</b>
+  </div>
+</div>
+
+<!-- 안전마진 시각화 -->
+<div class="card">
+  <div class="card-title">매도 케이스별 수익 시각화 (법인세 10% 세후 기준)</div>
+  <div class="mbar">
+    <div class="mbar-hd"><span style="font-weight:700;">CASE 1 — 현임차 유지 (180만)</span><span style="color:#7a4f00;font-weight:700;">세후 +3,578만 ✅</span></div>
+    <div class="mbar-track"><div class="mbar-fill" style="width:35%;background:#EF9F27;"></div></div>
+    <div class="mbar-sub">총취득원가 3.2024억 vs 매도가 3.600억</div>
+  </div>
+  <div class="mbar">
+    <div class="mbar-hd"><span style="font-weight:700;">CASE 2 — 재계약 200만</span><span style="color:#085041;font-weight:700;">세후 +7,178만 ✅✅</span></div>
+    <div class="mbar-track"><div class="mbar-fill" style="width:60%;background:#1D9E75;"></div></div>
+    <div class="mbar-sub">총취득원가 3.2024억 vs 매도가 4.000억</div>
+  </div>
+  <div class="mbar">
+    <div class="mbar-hd"><span style="font-weight:700;">CASE 3 — 재계약 219만 (@6.5만)</span><span style="color:#085041;font-weight:700;">세후 +1.060억 ✅✅✅</span></div>
+    <div class="mbar-track"><div class="mbar-fill" style="width:80%;background:#1D9E75;"></div></div>
+    <div class="mbar-sub">총취득원가 3.2024억 vs 매도가 4.380억</div>
+  </div>
+  <div class="mbar">
+    <div class="mbar-hd"><span style="font-weight:700;">참고 — cap5% 재계약 200만</span><span style="color:#5a6a7a;font-weight:700;">세후 +1.438억 (참고)</span></div>
+    <div class="mbar-track"><div class="mbar-fill" style="width:95%;background:#c4ccd6;"></div></div>
+    <div class="mbar-sub">총취득원가 3.2024억 vs 매도가 4.800억 (낙관적 장기 목표)</div>
+  </div>
+  <div class="info-b info-b-green" style="margin-top:10px;margin-bottom:0;">
+    <b>✅ 법인세 10%로 CASE 1 (현임차)만으로도 1년 보유 총 세후수익 +4,610만.</b>
+    재계약 달성(CASE 2) 시 +8,450만. 시세 재계약(CASE 3) 달성 시 약 +1.2억.<br>
+    <b>법인 특성상 보유기간 제약 없이 시장 상황에 따라 유연하게 매도 결정 가능.</b>
+  </div>
+</div>
+
+<!-- 보유 기간별 시뮬레이션 -->
+<div class="card">
+  <div class="card-title">보유 기간별 총 수익 시뮬레이션 — 법인세 10% 적용</div>
+  <div class="sh">← 좌우로 스크롤하세요 →</div>
+  <div class="tw">
+    <table style="min-width:440px;">
+      <thead>
+        <tr><th>보유 기간</th><th>임대 누적수입</th><th>매도가(케이스)</th><th>세전 총수익</th><th>법인세(10%)</th><th>세후 총수익</th></tr>
+      </thead>
+      <tbody>
+        <tr class="row-good">
+          <td><b>1년 (CASE 1)</b></td><td>1,032만</td><td>3.600억 / 현임차</td>
+          <td style="color:#7a4f00;font-weight:700;">+5,008만</td>
+          <td style="color:#A32D2D;">-501만</td>
+          <td style="color:#7a4f00;font-weight:700;">약 +4,507만 ✅</td>
+        </tr>
+        <tr class="row-best">
+          <td><b>1년 (CASE 2)</b></td><td>1,272만</td><td>4.000억 / 재계약200만</td>
+          <td style="color:#085041;font-weight:700;">+9,248만</td>
+          <td style="color:#A32D2D;">-925만</td>
+          <td style="color:#085041;font-weight:700;">약 +8,323만 ✅✅</td>
+        </tr>
+        <tr class="row-best">
+          <td><b>1년 (CASE 3)</b></td><td>1,428만</td><td>4.380억 / 재계약219만</td>
+          <td style="color:#085041;font-weight:700;">+1.321억</td>
+          <td style="color:#A32D2D;">-1,321만</td>
+          <td style="color:#085041;font-weight:700;">약 +1.189억 ✅✅✅</td>
+        </tr>
+        <tr class="row-best">
+          <td><b>2년 (CASE 3)</b></td><td>2,856만</td><td>4.380억 / 재계약219만</td>
+          <td style="color:#085041;font-weight:700;">+1.463억</td>
+          <td style="color:#A32D2D;">-1,463만</td>
+          <td style="color:#085041;font-weight:700;">약 +1.317억 ✅✅✅</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="font-size:11px;color:#5a6a7a;margin-top:6px;">
+    * <b>법인세 10% 단일 적용 — 보유기간 무관</b> (지방소득세 1% 별도 시 실효 11%)<br>
+    * 임대 누적수입: CASE1 86만/월, CASE2 106만/월, CASE3 119만/월 기준<br>
+    * <b style="color:#085041;">법인 특성상 1년 보유도 CASE3 기준 세후 +1.189억 달성 — 개인 대비 압도적 우위</b>
+  </div>
+</div>
+
+<!-- 최종 전략 요약 -->
+<div style="background:#0f3460;border-radius:12px;padding:20px 22px;color:#fff;margin-bottom:10px;">
+  <div style="font-size:15px;font-weight:800;margin-bottom:14px;">🎯 최종 전략 요약</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
+    <div style="background:rgba(255,255,255,0.12);border-radius:8px;padding:10px 12px;text-align:center;">
+      <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,0.55);margin-bottom:4px;">확정 입찰가</div>
+      <div style="font-size:18px;font-weight:800;color:#4ade80;">3.0616억</div>
+    </div>
+    <div style="background:rgba(255,255,255,0.12);border-radius:8px;padding:10px 12px;text-align:center;">
+      <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,0.55);margin-bottom:4px;">실투입금</div>
+      <div style="font-size:18px;font-weight:800;color:#fff;">7,352만</div>
+    </div>
+    <div style="background:rgba(255,255,255,0.12);border-radius:8px;padding:10px 12px;text-align:center;">
+      <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,0.55);margin-bottom:4px;">목표 매도가 (재계약 cap6%)</div>
+      <div style="font-size:18px;font-weight:800;color:#4ade80;">4.000억</div>
+    </div>
+    <div style="background:rgba(255,255,255,0.12);border-radius:8px;padding:10px 12px;text-align:center;">
+      <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,0.55);margin-bottom:4px;">목표 세후 차익 (2년)</div>
+      <div style="font-size:18px;font-weight:800;color:#4ade80;">+7,230만</div>
+    </div>
+  </div>
+  <div style="font-size:13px;line-height:1.8;color:rgba(255,255,255,0.88);">
+    <b style="color:#4ade80;">Phase 1 (낙찰 당일):</b> LG럭셔리뷰티 현 임차 조건(월 180만) 그대로 승계 확정. 당일부터 임대수익 발생.<br>
+    <b style="color:#4ade80;">Phase 2 (6개월~1년):</b> 임차인과 재계약 협의. 시세(@6.5~7만/평) 기준 월 200만+ 상향 목표.<br>
+    <b style="color:#fbbf24;">Phase 3 (2년 후 매도 목표):</b> 재계약 임차인 유지 상태 수익형 매물로 매각. <b style="color:#4ade80;">목표 매도가 4.00억 (재계약 cap6%) / 세후 +7,230만.</b> 낙관 시 4.80억 (cap5%) 세후 +1.44억.<br>
+    <b style="color:#93c5fd;">핵심:</b> 이 물건은 <b>2년+ 보유 후 재계약 상태에서 매도</b>가 최적. 재계약만 달성하면 cap6% 기준으로도 충분한 수익 구조.
+  </div>
+</div>
+
+<!-- 체크리스트 -->
+<div class="card">
+  <div class="card-title">입찰 당일 체크리스트 (2026.04.13)</div>
+  <div class="cl">
+    <div class="ci"><div class="cdot cdot-r">1</div><div><b>보증금 2,137만 현금 준비</b> — 4차 최저가 기준 10% / 입찰 당일 법원 납부</div></div>
+    <div class="ci"><div class="cdot cdot-r">2</div><div><b>투기과열지구 경락잔금대출 80% LTV 사전 확인 완료</b> — 은행 2~3곳 / 미확보 시 실투입금 급증</div></div>
+    <div class="ci"><div class="cdot cdot-r">3</div><div><b>배당예상표 재확인</b> — LG럭셔리뷰티 보증금 2,000만 배당 처리 여부</div></div>
+    <div class="ci"><div class="cdot cdot-w">4</div><div><b>임장 완료</b> — LG럭셔리뷰티 영업 상태 · 건물 현황 · 광교역 도보 거리 확인</div></div>
+    <div class="ci"><div class="cdot cdot-w">5</div><div><b>입찰표 작성</b> — 금액: 306,155,000원 (삼억육백일십오만오천원)</div></div>
+    <div class="ci"><div class="cdot cdot-w">6</div><div><b>17계 접수 창구 확인</b> — 207호 동시 입찰 여부 감안하여 접수 순서 조율</div></div>
+    <div class="ci"><div class="cdot cdot-g">7</div><div>낙찰 후 LG럭셔리뷰티 현 임차 승계 협의 → 임대료 안정화 → 2년+ 보유 후 매도</div></div>
+  </div>
+</div>
+
+<div style="text-align:center;font-size:11px;color:#5a6a7a;padding:10px 0 16px;">
+  최종 비딩 리포트 · 2024타경85450(8) 리치프라자3 206호 · 작성일 2026.04.07<br>
+  모든 수치는 추정치 포함 — 입찰 전 대출·배당예상표 반드시 재확인 / 양도세는 세무사 상담 권장
+</div>
+</div>
+</body>
+</html>
