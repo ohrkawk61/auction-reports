@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>경매 파이프라인 대시보드 v2.6 낙찰확정</title>
+<style>
+:root{
+  --color-text-primary:#1a1a2e;--color-text-secondary:#5a6a7a;
+  --color-text-success:#085041;--color-text-danger:#A32D2D;
+  --color-text-warning:#7a4f00;--color-text-info:#1a4a7a;
+  --color-bg:#f0f2f5;--color-card:#fff;
+  --color-success-bg:#E1F5EE;--color-danger-bg:#FCEBEB;
+  --color-warning-bg:#FAEEDA;--color-info-bg:#EBF3FC;
+  --color-secondary-bg:#f4f6f8;--color-tertiary-bg:#e2e8f0;
+  --color-border:#dde3ec;--color-border-mid:#c4ccd6;
+  --radius-lg:14px;--radius-md:9px;--radius-sm:6px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;background:var(--color-bg);color:var(--color-text-primary);padding:16px;-webkit-text-size-adjust:100%;}
+.page{max-width:1080px;margin:0 auto;}
+.badge{display:inline-block;font-size:11px;padding:2px 9px;border-radius:20px;font-weight:500;white-space:nowrap;}
+.badge-green{background:var(--color-success-bg);color:var(--color-text-success);}
+.badge-red{background:var(--color-danger-bg);color:var(--color-text-danger);}
+.badge-warn{background:var(--color-warning-bg);color:var(--color-text-warning);}
+.badge-blue{background:var(--color-info-bg);color:var(--color-text-info);}
+.badge-purple{background:#EEEDFE;color:#3C3489;}
+.badge-gray{background:var(--color-tertiary-bg);color:var(--color-text-secondary);}
+.dday{display:inline-block;font-size:12px;font-weight:700;padding:4px 10px;border-radius:20px;white-space:nowrap;}
+.dday-urgent{background:var(--color-danger-bg);color:var(--color-text-danger);}
+.dday-soon{background:var(--color-warning-bg);color:var(--color-text-warning);}
+.dday-ok{background:var(--color-success-bg);color:var(--color-text-success);}
+.dday-gray{background:var(--color-tertiary-bg);color:var(--color-text-secondary);}
+
+.header{margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid var(--color-border-mid);}
+.header-inner{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;}
+.header-title{font-size:18px;font-weight:700;letter-spacing:-0.5px;}
+.header-badge{font-size:11px;background:#EEEDFE;color:#3C3489;padding:3px 10px;border-radius:12px;font-weight:600;}
+.header-meta{font-size:12px;color:var(--color-text-secondary);line-height:1.8;margin-top:6px;}
+.header-meta b{color:var(--color-text-primary);font-weight:600;}
+.section-label{font-size:11px;font-weight:700;color:var(--color-text-secondary);letter-spacing:0.8px;text-transform:uppercase;margin:22px 0 10px;}
+.zone-header{display:flex;align-items:center;gap:8px;margin:22px 0 10px;}
+.zone-title{font-size:13px;font-weight:700;white-space:nowrap;}
+.zone-bar{flex:1;height:2px;border-radius:2px;}
+.zone-bar-active{background:#1D9E75;}
+.zone-bar-watch{background:#EF9F27;}
+
+/* Active Grid - 모바일 1열 → PC 3열 */
+.active-grid{display:grid;grid-template-columns:1fr;gap:12px;}
+.active-card{background:var(--color-card);border:0.5px solid var(--color-border);border-radius:var(--radius-lg);padding:14px;position:relative;overflow:hidden;}
+.active-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.ac-g::before{background:#1D9E75;}.ac-p::before{background:#534AB7;}
+.ac-b::before{background:#378ADD;}.ac-o::before{background:#EF9F27;}
+.ac-empty::before{background:transparent;}
+.ac-header{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:10px;}
+.ac-name{font-size:13px;font-weight:700;line-height:1.4;}
+.ac-sub{font-size:10px;color:var(--color-text-secondary);margin-top:2px;}
+.ac-metrics{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:9px;}
+.ac-metric{background:var(--color-secondary-bg);border-radius:var(--radius-sm);padding:6px 8px;}
+.ac-metric-label{font-size:9px;color:var(--color-text-secondary);margin-bottom:2px;}
+.ac-metric-val{font-size:13px;font-weight:700;}
+.ac-divider{border-top:0.5px solid var(--color-border);margin:8px 0;}
+.ac-row{display:flex;justify-content:space-between;align-items:center;font-size:11px;padding:3px 0;}
+.ac-row-label{color:var(--color-text-secondary);}
+.ac-rec{margin-top:9px;padding:8px 10px;border-radius:var(--radius-sm);font-size:11px;line-height:1.5;}
+.rec-go{background:var(--color-success-bg);color:var(--color-text-success);}
+.rec-pp{background:#EEEDFE;color:#3C3489;}
+.rec-bb{background:var(--color-info-bg);color:var(--color-text-info);}
+.rec-oo{background:var(--color-warning-bg);color:var(--color-text-warning);}
+
+/* Watchlist */
+.watch-grid{display:grid;grid-template-columns:1fr;gap:10px;}
+.watch-card{background:var(--color-card);border:0.5px solid var(--color-border);border-radius:var(--radius-lg);padding:13px;position:relative;overflow:hidden;}
+.watch-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:#EF9F27;}
+.wc-header{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:9px;}
+.wc-name{font-size:12px;font-weight:700;line-height:1.4;}
+.wc-sub{font-size:10px;color:var(--color-text-secondary);margin-top:2px;}
+.wc-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-bottom:9px;}
+.wm{background:var(--color-secondary-bg);border-radius:var(--radius-sm);padding:6px 7px;}
+.wm-label{font-size:9px;color:var(--color-text-secondary);margin-bottom:2px;}
+.wm-val{font-size:12px;font-weight:700;}
+.wc-rows{border-top:0.5px solid var(--color-border);padding-top:7px;display:flex;flex-direction:column;gap:4px;}
+.wc-row{display:flex;justify-content:space-between;align-items:center;font-size:11px;}
+.wc-row-label{color:var(--color-text-secondary);}
+.wc-rec{margin-top:9px;padding:7px 9px;border-radius:var(--radius-sm);font-size:11px;line-height:1.5;background:var(--color-warning-bg);color:var(--color-text-warning);}
+
+/* Tables */
+.tbl-wrap{background:var(--color-card);border:0.5px solid var(--color-border);border-radius:var(--radius-lg);overflow:hidden;}
+.scroll-hint{text-align:center;font-size:11px;color:var(--color-text-secondary);padding:6px;border-bottom:0.5px solid var(--color-border);}
+.tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.stbl{width:100%;border-collapse:collapse;min-width:560px;}
+.stbl th{background:var(--color-secondary-bg);color:var(--color-text-secondary);font-size:10px;font-weight:600;padding:7px 10px;border-bottom:0.5px solid var(--color-border);text-align:center;white-space:nowrap;}
+.stbl th:first-child,.stbl th:nth-child(2){text-align:left;}
+.stbl td{padding:7px 10px;border-bottom:0.5px solid var(--color-border);font-size:11px;text-align:center;white-space:nowrap;}
+.stbl td:first-child,.stbl td:nth-child(2){text-align:left;}
+.stbl tr:last-child td{border-bottom:none;}
+.ctbl{width:100%;border-collapse:collapse;min-width:620px;}
+.ctbl th{background:var(--color-secondary-bg);color:var(--color-text-secondary);font-size:10px;font-weight:600;padding:7px 8px;border-bottom:0.5px solid var(--color-border);text-align:center;white-space:nowrap;}
+.ctbl th:first-child{text-align:left;}
+.ctbl td{padding:7px 8px;border-bottom:0.5px solid var(--color-border);font-size:11px;text-align:center;vertical-align:middle;}
+.ctbl td:first-child{text-align:left;font-weight:600;white-space:nowrap;}
+.ctbl tr:last-child td{border-bottom:none;}
+.num-good{color:var(--color-text-success);font-weight:700;}
+.num-warn{color:var(--color-text-warning);font-weight:700;}
+.num-bad{color:var(--color-text-danger);font-weight:600;}
+
+/* Checklist */
+.cl-grid{display:grid;grid-template-columns:1fr;gap:10px;}
+.cl-card{background:var(--color-card);border:0.5px solid var(--color-border);border-radius:var(--radius-lg);padding:13px;}
+.cl-title{font-size:12px;font-weight:700;margin-bottom:9px;padding-bottom:7px;border-bottom:0.5px solid var(--color-border);display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap;}
+.ci{display:flex;align-items:flex-start;gap:7px;padding:5px 0;border-bottom:0.5px solid var(--color-border);font-size:12px;line-height:1.5;}
+.ci:last-child{border-bottom:none;}
+.ci-icon{width:15px;height:15px;border-radius:50%;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;}
+.ci-done{background:var(--color-success-bg);color:var(--color-text-success);}
+.ci-pend{background:var(--color-warning-bg);color:var(--color-text-warning);}
+.ci-urg{background:var(--color-danger-bg);color:var(--color-text-danger);}
+.ci-done-text{color:var(--color-text-secondary);text-decoration:line-through;}
+.ci-urg-text{color:var(--color-text-danger);font-weight:600;}
+
+/* Memo */
+.memo-grid{display:grid;grid-template-columns:1fr;gap:8px;}
+.memo-card{background:var(--color-card);border:0.5px solid var(--color-border);border-radius:var(--radius-lg);padding:11px 13px;}
+.memo-title{font-size:10px;font-weight:700;color:var(--color-text-secondary);margin-bottom:7px;text-transform:uppercase;letter-spacing:0.5px;}
+.mi{font-size:11px;color:var(--color-text-secondary);line-height:1.6;padding:3px 0;border-bottom:0.5px solid var(--color-border);display:flex;gap:5px;}
+.mi:last-child{border-bottom:none;}
+.mi-dot{color:#378ADD;flex-shrink:0;}
+.mi-em{color:var(--color-text-primary);font-weight:600;}
+
+.footer{margin-top:24px;padding-top:14px;border-top:0.5px solid var(--color-border);font-size:11px;color:var(--color-text-secondary);display:flex;flex-direction:column;gap:4px;}
+
+@media(min-width:600px){
+  body{padding:20px;}
+  .active-grid{grid-template-columns:1fr 1fr;}
+  .watch-grid{grid-template-columns:1fr 1fr;}
+  .cl-grid{grid-template-columns:1fr 1fr;}
+  .memo-grid{grid-template-columns:1fr 1fr 1fr;}
+  .footer{flex-direction:row;justify-content:space-between;}
+}
+@media(min-width:960px){
+  body{padding:24px 20px;}
+  .header-inner{align-items:flex-end;}
+  .header-meta{text-align:right;margin-top:0;}
+  .active-grid{grid-template-columns:repeat(3,1fr);}
+  .watch-grid{grid-template-columns:repeat(3,1fr);}
+  .cl-grid{grid-template-columns:repeat(3,1fr);}
+  .memo-grid{grid-template-columns:repeat(6,1fr);}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div class="header-inner">
+    <div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+        <div class="header-title">경매 파이프라인 대시보드</div>
+        <span class="header-badge">🏆 낙찰</span>
+      </div>
+      <div style="font-size:12px;color:var(--color-text-secondary);margin-top:4px;">수도권 근린상가 경매 · PC+모바일 통합</div>
+    </div>
+    <div class="header-meta">
+      <b>업데이트:</b> 2026.04.13<br>
+      <b>전체:</b> 7건 &nbsp;|&nbsp; <b>Active:</b> 6건 &nbsp;|&nbsp; <b>Watchlist:</b> 1건
+    </div>
+  </div>
+</div>
+
+<!-- ⚠ 당일 중복 경보 -->
+<div style="background:var(--color-danger-bg);border-radius:var(--radius-lg);padding:12px 16px;margin-bottom:4px;font-size:13px;color:var(--color-text-danger);line-height:1.7;">
+  <b>⚠ 04.13 수원지법 동일 매각일 경보:</b> 그랑파사쥬 5019호(경매 9계) + 리치프라자3 111호·206호·207호(경매 17계) — 4건 중 최대 동시 입찰 준비 시 보증금 개별 준비. 수원지법 본원 창구 확인 필수.
+</div>
+
+<!-- ACTIVE -->
+<div class="zone-header">
+  <div class="zone-title">🟢 Active — 입찰 임박 / 즉시 준비</div>
+  <div class="zone-bar zone-bar-active"></div>
+  <span class="badge badge-green">D-45 이내 6건</span>
+</div>
+<div class="active-grid">
+
+  <!-- 그랑파사쥬 -->
+  <div class="active-card ac-g">
+    <div class="ac-header">
+      <div><div class="ac-name">동탄2 그랑파사쥬 5019호</div><div class="ac-sub">2024타경11985 · 화성시 · 5층 · 코너 호수뷰</div></div>
+      <div class="dday dday-urgent" id="dd_gp">D-?</div>
+    </div>
+    <div class="ac-metrics">
+      <div class="ac-metric"><div class="ac-metric-label">감정가</div><div class="ac-metric-val">8.73억</div></div>
+      <div class="ac-metric"><div class="ac-metric-label">4차 최저가(34%)</div><div class="ac-metric-val">2.994억</div></div>
+      <div class="ac-metric"><div class="ac-metric-label">추천 입찰가</div><div class="ac-metric-val" style="color:var(--color-text-success);">3.0~3.3억</div></div>
+      <div class="ac-metric"><div class="ac-metric-label">실투입금</div><div class="ac-metric-val">4,870~5,308만</div></div>
+    </div>
+    <div class="ac-divider"></div>
+    <div class="ac-row"><span class="ac-row-label">수익률</span><span style="color:var(--color-text-success);font-weight:700;">12.0~15.3%</span></div>
+    <div class="ac-row"><span class="ac-row-label">임장</span><span class="badge badge-green">완료</span></div>
+    <div class="ac-rec" style="background:#E1F5EE;color:#085041;margin-top:9px;padding:8px 10px;border-radius:6px;font-size:11px;line-height:1.5;"><b>🏆 낙찰 — 310,500,000원 (35.57%)</b><br>입찰 1명 단독 / 매각결정 04.20<br>실투입금 8,772만 / 월+48만</div>
+  </div>
+
+  <!-- 리치프라자3 206호 -->
+  <div class="active-card ac-b">
+    <div class="ac-header">
+      <div><div class="ac-name">수원 광교 리치프라자3 206호 <span class="badge badge-green" style="font-size:9px;">🏆 낙찰완료</span></div><div class="ac-sub">2024타경85450 · 수원 영통구 · 2층 · 광교역 인근</div></div>
+      <div class="dday dday-urgent" id="dd_r2">D-?</div>
+    </div>
+    <div class="ac-metrics">
+      <div class="ac-metric"><div class="ac-metric-label">감정가</div><div class="ac-metric-val">6.23억</div></div>
+      <div class="ac-metric"><div class="ac-metric-label">4차 최저가(34%)</div><div class="ac-metric-val">2.137억</div></div>
+      <div class="ac-metric"><div class="ac-metric-label">추천 입찰가</div><div class="ac-metric-val" style="color:var(--color-text-success);">2.137~2.5억</div></div>
+      <div class="ac-metric"><div class="ac-metric-label">실투입금</div><div class="ac-metric-val">5,623~6,350만</div></div>
+    </div>
+    <div class="ac-divider"></div>
+    <div class="ac-row"><span class="ac-row-label">실투자수익률</span><span style="color:#085041;font-weight:700;">18.1% / 월+86만</span></div>
+    <div class="ac-row"><span class="ac-row-label">임차인</span><span style="color:var(--color-text-success);">LG럭셔리뷰티 영업중</span></div>
+    <div class="ac-row"><span class="ac-row-label">임장</span><span class="badge badge-warn">미완료</span></div>
+    <div class="ac-rec" style="background:#E1F5EE;color:#085041;margin-top:9px;padding:8px 10px;border-radius:6px;font-size:11px;line-height:1.5;"><b>🏆 낙찰 — 306,155,000원 (49.14%)</b><br>입찰 5명 경쟁 / 차순위 252,813,400원<br>실투입금 5,719만 / 매각결정 04.20</div>
+  </div>
+
+  <!-- 청라디오스텔 -->
+  <div class="active-card ac-p">
+    <div class="ac-header">
+      <div><div class="ac-name">인천 청라 청라디오스텔 103호 <span class="badge badge-red" style="font-size:9px;">대항력</span></div><div class="ac-sub">2024타경574472 · 인천 서구 · 1층 코너</div></div>
+      <div class="dday dday-soon" id="dd_cr">D-?</div>
+    </div>
+    <div class="ac-metrics">
+      <div class="ac-metric"><div class="ac-metric-label">감정가</div><div class="ac-metric-val">7.93억</div></div>
+      <div class="ac-metric"><div class="ac-metric-label">6차 최저가(17%)</div><div class="ac-metric-val">1.333억</div></div>
+      <div class="ac-metric"><div class="ac-metric-label">추천 입찰가</div><div class="ac-metric-val" style="color:var(--color-text-success);">1.333~1.7억</div></div>
+      <div class="ac-metric"><div class="ac-metric-label">실투입금</div><div class="ac-metric-val">3,716~4,242만</div></div>
+    </div>
+    <div class="ac-divider"></div>
+    <div class="ac-row"><span class="ac-row-label">수익률</span><span style="color:var(--color-text-success);font-weight:700;">10.2~17.7%</span></div>
+    <div class="ac-row"><span class="ac-row-label">⚠ 인수보증금</span><span style="color:var(--color-text-danger);font-weight:600;">1,500만 인수 가능</span></div>
+    <div class="ac-rec rec-pp"><b>6차 05.07 ★ — 최고 안전마진</b><br>감정가 17% 취득. 파산 대출 확인 선결.</div>
+  </div>
+
+  <!-- 더드림시티 -->
+  <div class="active-card ac-o">
+    <div class="ac-header">
+      <div><div class="ac-name">동탄1 더드림시티 108호 <span class="badge badge-warn" style="font-size:9px;">북향후면</span></div><div class="ac-sub">2024타경13233 · 화성시 능동 · 1층</div></div>
+      <div class="dday dday-soon" id="dd_td">D-?</div>
+    </div>
+    <div class="ac-metrics">
+      <div class="ac-metric"><div class="ac-metric-label">감정가</div><div class="ac-metric-val">3.36억</div></div>
+      <div class="ac-metric"><div class="ac-metric-label">4차 최저가(34%)</div><div class="ac-metric-val">1.152억</div></div>
+      <div class="ac-metric"><div class="ac-metric-label">추천 입찰가(4차)</div><div class="ac-metric-val" style="color:var(--color-text-warning);">1.152~1.3억</div></div>
+      <div class="ac-metric"><div class="ac-metric-label">실투입금</div><div class="ac-metric-val">2,894~3,198만</div></div>
+    </div>
+    <div class="ac-divider"></div>
+    <div class="ac-row"><span class="ac-row-label">수익률(재계약시)</span><span style="color:var(--color-text-warning);font-weight:700;">5.8%</span></div>
+    <div class="ac-row"><span class="ac-row-label">현임차</span><span style="color:var(--color-text-danger);">월50만 → 재계약 필수</span></div>
+    <div class="ac-rec rec-oo"><b>4차 05.08 — 조건부</b><br>임차인 재협상(64만+) 확인 후 진입.</div>
+  </div>
+
+  <!-- 리치프라자3 111호 -->
+  <div class="active-card ac-g" style="--before-color:#1D9E75;">
+    <div class="ac-header">
+      <div><div class="ac-name">수원 광교 리치프라자3 111호 <span class="badge badge-blue" style="font-size:9px;">1층</span></div><div class="ac-sub">2024타경85450 · 수원 영통구 · 1층 · 광교역 인근</div></div>
+      <div class="dday dday-soon" id="dd_r1">D-?</div>
+    </div>
+    <div class="ac-metrics">
+      <div class="ac-metric"><div class="ac-metric-label">감정가</div><div class="ac-metric-val">10.91억</div></div>
+      <div class="ac-metric"><div class="ac-metric-label">4차 최저가(34%)</div><div class="ac-metric-val">3.742억</div></div>
+      <div class="ac-metric"><div class="ac-metric-label">추천 입찰가(5차)</div><div class="ac-metric-val" style="color:var(--color-text-success);">2.62~3.0억</div></div>
+      <div class="ac-metric"><div class="ac-metric-label">실투입금(5차)</div><div class="ac-metric-val">7,724~8,580만</div></div>
+    </div>
+    <div class="ac-divider"></div>
+    <div class="ac-row"><span class="ac-row-label">수익률(5차)</span><span style="color:var(--color-text-success);font-weight:700;">5.5~8.2%</span></div>
+    <div class="ac-row"><span class="ac-row-label">임차인</span><span style="color:var(--color-text-success);">로드밀 카페 영업중</span></div>
+    <div class="ac-row"><span class="ac-row-label">수익환원 출구</span><span style="color:var(--color-text-success);">4.76~5.36억</span></div>
+    <div class="ac-rec rec-go"><b>4차 04.13 실투입금 1억+ — 5차(05.18) 타겟</b><br>1층 역세권 최강 출구. 투기과열 LTV 선결.</div>
+  </div>
+
+  <!-- 리치프라자3 207호 -->
+  <div class="active-card ac-b">
+    <div class="ac-header">
+      <div><div class="ac-name">수원 광교 리치프라자3 207호 <span class="badge badge-warn" style="font-size:9px;">⚠임박임차</span></div><div class="ac-sub">2024타경85450(9) · 수원 영통구 · 2층 · 206호 인접</div></div>
+      <div class="dday dday-urgent" id="dd_r207">D-?</div>
+    </div>
+    <div class="ac-metrics">
+      <div class="ac-metric"><div class="ac-metric-label">감정가</div><div class="ac-metric-val">6.23억</div></div>
+      <div class="ac-metric"><div class="ac-metric-label">4차 최저가(34%)</div><div class="ac-metric-val">2.137억</div></div>
+      <div class="ac-metric"><div class="ac-metric-label">추천 입찰가</div><div class="ac-metric-val" style="color:var(--color-text-warning);">2.137~2.5억</div></div>
+      <div class="ac-metric"><div class="ac-metric-label">실투입금</div><div class="ac-metric-val">5,623만~</div></div>
+    </div>
+    <div class="ac-divider"></div>
+    <div class="ac-row"><span class="ac-row-label">수익률(임차유지)</span><span style="color:var(--color-text-success);font-weight:700;">21.1%</span></div>
+    <div class="ac-row"><span class="ac-row-label">임차인</span><span style="color:var(--color-text-warning);">민트칩스 월200만 (2024.06입주)</span></div>
+    <div class="ac-row"><span class="ac-row-label">수익환원 하한</span><span style="color:var(--color-text-success);">4.80억 (cap5%)</span></div>
+    <div class="ac-rec" style="background:var(--color-warning-bg);color:var(--color-text-warning);margin-top:9px;padding:8px 10px;border-radius:var(--radius-sm);font-size:11px;line-height:1.5;"><b>206호 대안 — 임장 후 판단</b><br>월세 206호 대비 20만↑. 임박설정 임차인 리스크.<br>임장에서 민트칩스 영업 상태 반드시 확인.</div>
+  </div>
+
+  <!-- 빈 슬롯 -->
+  <div class="active-card ac-empty" style="border:1.5px dashed var(--color-border);display:flex;align-items:center;justify-content:center;min-height:80px;opacity:0.25;">
+    <div style="text-align:center;color:var(--color-text-secondary);font-size:12px;"><div style="font-size:18px;margin-bottom:3px;">+</div>다음 Active</div>
+  </div>
+
+</div>
+
+<!-- WATCHLIST -->
+<div class="zone-header">
+  <div class="zone-title">🟡 Watchlist — 관망 중</div>
+  <div class="zone-bar zone-bar-watch"></div>
+  <span class="badge badge-warn">2개 물건</span>
+</div>
+<div class="watch-grid">
+  <div class="watch-card">
+    <div class="wc-header">
+      <div><div class="wc-name">하남 미사 리버테라스 307호 <span class="badge badge-blue" style="font-size:9px;">복층·테라스</span></div><div class="wc-sub">2025타경52126 · 하남시 · 3층 · 미사역 5분</div></div>
+      <div class="dday dday-ok" id="dd_rv">D-?</div>
+    </div>
+    <div class="wc-metrics">
+      <div class="wm"><div class="wm-label">감정가</div><div class="wm-val">6.14억</div></div>
+      <div class="wm"><div class="wm-label">추천입찰(4차)</div><div class="wm-val" style="color:var(--color-text-success);">2.4~2.7억</div></div>
+      <div class="wm"><div class="wm-label">실투입금</div><div class="wm-val">3,764~4,302만</div></div>
+    </div>
+    <div class="wc-rows">
+      <div class="wc-row"><span class="wc-row-label">수익률(4차)</span><span style="color:var(--color-text-success);font-weight:700;">17.5~24.9%</span></div>
+      <div class="wc-row"><span class="wc-row-label">미납관리비</span><span style="color:var(--color-text-warning);">780만(추정)</span></div>
+      <div class="wc-row"><span class="wc-row-label">참고</span><span>에코브리지 28% 선례</span></div>
+    </div>
+    <div class="wc-rec"><b>4차 06.15 타겟</b> — 복층·테라스 차별화. 임장 후 3차(05.11) 재검토. 투기과열 LTV 확인.</div>
+  </div>
+  <div class="watch-card" style="border:1.5px dashed var(--color-border);background:transparent;display:flex;align-items:center;justify-content:center;min-height:80px;opacity:0.25;">
+    <div style="text-align:center;color:var(--color-text-secondary);font-size:12px;"><div style="font-size:18px;margin-bottom:3px;">+</div>다음 Watchlist</div>
+  </div>
+  <div class="watch-card" style="border:1.5px dashed var(--color-border);background:transparent;display:flex;align-items:center;justify-content:center;min-height:80px;opacity:0.25;">
+    <div style="text-align:center;color:var(--color-text-secondary);font-size:12px;"><div style="font-size:18px;margin-bottom:3px;">+</div>다음 Watchlist</div>
+  </div>
+</div>
+
+<!-- 일정 -->
+<div class="section-label">경매 일정 타임라인</div>
+<div class="tbl-wrap">
+  <div class="scroll-hint">← 좌우로 스크롤하세요 →</div>
+  <div class="tbl-scroll">
+    <table class="stbl">
+      <thead><tr><th style="width:80px;">날짜</th><th>물건</th><th style="width:62px;">차수</th><th style="width:80px;">최저가</th><th style="width:52px;">감정比</th><th style="width:62px;">D-day</th><th style="width:120px;">상태</th></tr></thead>
+      <tbody>
+        <tr style="opacity:0.4;"><td style="color:var(--color-text-secondary);">25.09~11</td><td>리치프라자3 111·206호</td><td>1~3차</td><td>각 100→49%</td><td>-</td><td>완료</td><td><span class="badge badge-red">유찰</span></td></tr>
+        <tr style="opacity:0.4;"><td style="color:var(--color-text-secondary);">25.11.04</td><td>청라디오스텔 103호</td><td>1~4차</td><td>7.93→2.72억</td><td>-</td><td>완료</td><td><span class="badge badge-red">유찰</span></td></tr>
+        <tr style="opacity:0.4;"><td style="color:var(--color-text-secondary);">26.01~03</td><td>더드림시티 108호</td><td>1~2차</td><td>3.36→2.35억</td><td>-</td><td>완료</td><td><span class="badge badge-red">유찰</span></td></tr>
+        <tr style="opacity:0.4;"><td style="color:var(--color-text-secondary);">26.02.27</td><td>리버테라스 307호</td><td>1차</td><td>6.14억</td><td>100%</td><td>완료</td><td><span class="badge badge-red">유찰</span></td></tr>
+        <tr style="opacity:0.4;"><td style="color:var(--color-text-secondary);">26.04.02</td><td>청라디오스텔 103호</td><td>5차</td><td>1.904억</td><td>24%</td><td>완료</td><td><span class="badge badge-red">유찰</span></td></tr>
+        <tr style="background:#FFF8F0;"><td style="font-weight:600;color:var(--color-text-warning);">26.04.03</td><td>더드림시티 108호</td><td>3차</td><td>1.646억</td><td>49%</td><td id="s_td3">-</td><td><span class="badge badge-warn">현재 SKIP</span></td></tr>
+        <tr style="background:#FFF8F0;"><td style="font-weight:600;color:var(--color-text-warning);">26.04.06</td><td>리버테라스 307호</td><td>2차</td><td>4.298억</td><td>70%</td><td id="s_rv2">-</td><td><span class="badge badge-warn">현재 SKIP</span></td></tr>
+        <tr style="background:#FFF0F0;"><td style="font-weight:700;color:var(--color-text-danger);">26.04.13</td><td style="font-weight:700;">그랑파사쥬 5019호</td><td style="font-weight:700;">4차 ★</td><td>2.994억</td><td>34%</td><td id="s_gp4" style="font-weight:700;">-</td><td><span class="badge badge-warn">⚪ Watchlist → 5차</span></td></tr>
+        <tr style="background:#EBF3FC;"><td style="font-weight:700;color:var(--color-text-info);">26.04.13</td><td style="font-weight:700;color:var(--color-text-info);">리치프라자3 206호</td><td style="font-weight:700;">4차 ★</td><td>2.137억</td><td>34%</td><td id="s_r2_4" style="font-weight:700;">-</td><td><span class="badge badge-green">입찰 추천</span></td></tr>
+        <tr style="background:#FFF8E8;"><td style="font-weight:600;color:var(--color-text-warning);">26.04.13</td><td style="font-weight:600;color:var(--color-text-warning);">리치프라자3 207호</td><td style="font-weight:600;">4차 △</td><td>2.137억</td><td>34%</td><td id="s_r207_4">-</td><td><span class="badge badge-warn">조건부 (임장 후)</span></td></tr>
+        <tr style="background:#EBF3FC;opacity:0.8;"><td style="color:var(--color-text-info);">26.04.13</td><td style="color:var(--color-text-info);">리치프라자3 111호</td><td>4차</td><td>3.742억</td><td>34%</td><td id="s_r1_4">-</td><td><span class="badge badge-warn">실투입금 과다 → 5차</span></td></tr>
+        <tr><td style="color:var(--color-text-secondary);">26.05.07</td><td style="font-weight:600;">청라디오스텔 103호</td><td style="font-weight:600;">6차 ★</td><td>1.333억</td><td>17%</td><td id="s_cr6">-</td><td><span class="badge badge-green">입찰 추천</span></td></tr>
+        <tr style="background:#FFFBF0;"><td style="font-weight:600;color:var(--color-text-warning);">26.05.08</td><td>더드림시티 108호</td><td style="font-weight:600;">4차 △</td><td>1.152억</td><td>34%</td><td id="s_td4">-</td><td><span class="badge badge-warn">조건부 검토</span></td></tr>
+        <tr><td style="color:var(--color-text-secondary);">26.05.11</td><td>리버테라스 307호</td><td>3차</td><td>3.009억</td><td>49%</td><td id="s_rv3">-</td><td><span class="badge badge-gray">임장 후 판단</span></td></tr>
+        <tr style="background:#F0F9F5;"><td style="font-weight:700;color:#7a4f00;">26.05.18</td><td style="font-weight:700;color:#7a4f00;">그랑파사쥬 5019호</td><td style="font-weight:700;">5차 ✅확정</td><td>3.105억</td><td>36%</td><td id="s_gp5" style="font-weight:700;">-</td><td><span class="badge badge-green">🏆 낙찰 310,500,000원</span></td></tr>
+        <tr style="background:#EBF3FC;"><td style="font-weight:700;color:var(--color-text-success);">26.05.18</td><td style="font-weight:700;color:var(--color-text-success);">리치프라자3 111호</td><td style="font-weight:700;">5차 ★</td><td>2.619억</td><td>24%</td><td id="s_r1_5" style="font-weight:700;">-</td><td><span class="badge badge-green">입찰 추천</span></td></tr>
+        <tr><td style="color:var(--color-text-secondary);">26.06.10</td><td>청라디오스텔 103호</td><td>7차</td><td>9,330만</td><td>12%</td><td id="s_cr7">-</td><td><span class="badge badge-gray">차선</span></td></tr>
+        <tr style="background:#F0F9F5;"><td style="font-weight:700;color:var(--color-text-success);">26.06.15</td><td style="font-weight:700;">리버테라스 307호</td><td style="font-weight:700;">4차 ★</td><td>2.106억</td><td>34%</td><td id="s_rv4" style="font-weight:700;">-</td><td><span class="badge badge-green">입찰 추천</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="section-label">핵심 수치 비교 (7개 물건)</div>
+<div class="tbl-wrap">
+  <div class="scroll-hint">← 좌우로 스크롤하세요 →</div>
+  <div class="tbl-scroll">
+    <table class="ctbl">
+      <thead>
+        <tr>
+          <th style="width:90px;">항목</th>
+          <th>그랑파사쥬<br><span style="font-weight:400;font-size:9px;">5019호 · 화성 동탄2</span></th>
+          <th>리치프라자3<br><span style="font-weight:400;font-size:9px;">206호 · 수원 광교 2층</span></th>
+          <th>리치프라자3<br><span style="font-weight:400;font-size:9px;">207호 · 수원 광교 2층</span></th>
+          <th>청라디오스텔<br><span style="font-weight:400;font-size:9px;">103호 · 인천 청라</span></th>
+          <th>더드림시티<br><span style="font-weight:400;font-size:9px;">108호 · 화성 동탄1</span></th>
+          <th>리치프라자3<br><span style="font-weight:400;font-size:9px;">111호 · 수원 광교 1층</span></th>
+          <th>리버테라스<br><span style="font-weight:400;font-size:9px;">307호 · 하남 미사</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>층/면적</td><td>5층/20.52평</td><td>2층/33.74평</td><td>2층/33.74평</td><td style="color:var(--color-text-success);font-weight:600;">1층/12.15평</td><td style="color:var(--color-text-warning);">1층北/12.74평</td><td style="color:var(--color-text-success);font-weight:600;">1층/18.82평</td><td>3층/21.63평</td></tr>
+        <tr><td>역세권</td><td>버스</td><td style="color:var(--color-text-success);font-weight:600;">광교역 인근</td><td style="color:var(--color-text-success);font-weight:600;">광교역 인근</td><td>버스</td><td>버스</td><td style="color:var(--color-text-success);font-weight:600;">광교역 인근</td><td>미사역 5분</td></tr>
+        <tr><td>임차인</td><td><span class="badge badge-gray">공실</span></td><td><span class="badge badge-green">LG럭셔리뷰티</span></td><td><span class="badge badge-warn">민트칩스⚠</span></td><td><span class="badge badge-green">메종드제니</span></td><td><span class="badge badge-green">리플라워</span></td><td><span class="badge badge-green">로드밀 카페</span></td><td><span class="badge badge-gray">공실</span></td></tr>
+        <tr><td>임차 입주</td><td>-</td><td style="color:var(--color-text-success);">2021.01 안정</td><td style="color:var(--color-text-danger);font-weight:600;">2024.06 임박⚠</td><td>-</td><td>-</td><td>2022.11</td><td>-</td></tr>
+        <tr><td>추천 차수</td><td><b>Watchlist<br>5차★</b></td><td><b style="color:var(--color-text-success);">4차 04.13★</b></td><td><b style="color:var(--color-text-warning);">4차 04.13△</b></td><td><b>6차 05.07★</b></td><td><b>4차 05.08△</b></td><td><b>5차 05.18★</b></td><td><b>4차 06.15</b></td></tr>
+        <tr><td>추천 입찰가</td><td class="num-warn">3.105억 확정</td><td class="num-good">3.0616억 확정</td><td class="num-warn">2.137~2.5억</td><td class="num-good">1.333~1.7억</td><td class="num-warn">1.152~1.3억</td><td class="num-good">2.62~3.0억</td><td class="num-good">2.4~2.7억</td></tr>
+        <tr><td>감정가 대비</td><td>24% (5차)</td><td>34~40%</td><td>34~40%</td><td style="color:var(--color-text-success);font-weight:700;">17~21%</td><td>34%</td><td>24~27%</td><td>34%</td></tr>
+        <tr><td>현 임차 월세</td><td>-</td><td>180만</td><td style="color:var(--color-text-success);font-weight:700;">200만↑</td><td>-</td><td>50만</td><td>150만</td><td>-</td></tr>
+        <tr><td>실투입금</td><td>3,610만~</td><td class="num-good">5,623~6,350만</td><td class="num-good">5,623~6,350만</td><td class="num-good">3,716~4,242만</td><td class="num-good">2,894~3,198만</td><td>7,724~8,580만</td><td>3,764~4,302만</td></tr>
+        <tr><td>실투자수익률</td><td class="num-good">19.1%</td><td class="num-good">14.0~19.0%</td><td class="num-good">21.1%</td><td class="num-good">10.2~17.7%</td><td class="num-warn">3.0~5.8%</td><td class="num-good">5.5~8.2%</td><td class="num-good">17.5~24.9%</td></tr>
+        <tr><td>수익환원하한</td><td>3.46억</td><td>5.25억</td><td style="color:var(--color-text-success);font-weight:700;">4.80억</td><td>2.93억</td><td class="num-bad">1.54억⚠</td><td style="color:var(--color-text-success);font-weight:700;">4.76억</td><td>3.88억</td></tr>
+        <tr><td>임장</td><td><span class="badge badge-green">완료</span></td><td><span class="badge badge-warn">미완료</span></td><td><span class="badge badge-warn">미완료 ⚠필수</span></td><td><span class="badge badge-warn">미완료</span></td><td><span class="badge badge-warn">미완료</span></td><td><span class="badge badge-warn">미완료</span></td><td><span class="badge badge-warn">미완료</span></td></tr>
+        <tr><td>우선순위</td><td class="num-warn">Watchlist</td><td class="num-good">① 즉시★</td><td class="num-warn">② 대안△</td><td class="num-good">③ 즉시★</td><td class="num-warn">④ 조건부</td><td class="num-good">⑤ 5차</td><td class="num-good">⑥ 대기</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 체크리스트 -->
+<div class="section-label">입찰 전 체크리스트</div>
+<div class="cl-grid">
+  <div class="cl-card">
+    <div class="cl-title">그랑파사쥬 5019호 <span class="badge badge-red" style="font-size:9px;">04.13 즉시</span></div>
+    <div class="ci"><div class="ci-icon ci-pend">!</div><span class="ci-urg-text">미납관리비 확인</span></div>
+    <div class="ci"><div class="ci-icon ci-pend">!</div><span class="ci-urg-text">경락잔금대출 80% 상담</span></div>
+    <div class="ci"><div class="ci-icon ci-pend">?</div><span>씨앤에이논술 확장 의향 (031-378-7404)</span></div>
+    <div class="ci"><div class="ci-icon ci-done">✓</div><span class="ci-done-text">임장 완료</span></div>
+    <div class="ci"><div class="ci-icon ci-pend">?</div><span>5019호 단독 여부 재확인</span></div>
+  </div>
+  <div class="cl-card">
+    <div class="cl-title" style="flex-direction:column;align-items:flex-start;gap:4px;">리치프라자3 206호 <span class="badge badge-green" style="font-size:9px;">4차 04.13 즉시 ★</span></div>
+    <div class="ci"><div class="ci-icon ci-urg">!</div><span class="ci-urg-text">투기과열지구 80% LTV 확인 — 1순위</span></div>
+    <div class="ci"><div class="ci-icon ci-urg">!</div><span class="ci-urg-text">임장 필수 — 광교역 도보 거리·건물 위치 확인</span></div>
+    <div class="ci"><div class="ci-icon ci-pend">!</div><span>미납관리비 확인 (관리사무소)</span></div>
+    <div class="ci"><div class="ci-icon ci-pend">!</div><span>배당예상표 — 임차인 보증금 배당 여부</span></div>
+    <div class="ci"><div class="ci-icon ci-pend">?</div><span>LG럭셔리뷰티 영업 지속 의향 탐문</span></div>
+  </div>
+  <div class="cl-card">
+    <div class="cl-title">청라디오스텔 103호 <span class="badge badge-green" style="font-size:9px;">6차 05.07</span></div>
+    <div class="ci"><div class="ci-icon ci-urg">!</div><span class="ci-urg-text">배당예상표 — 보증금 1,500만 인수 여부</span></div>
+    <div class="ci"><div class="ci-icon ci-urg">!</div><span class="ci-urg-text">파산 물건 대출 가능 여부 확인</span></div>
+    <div class="ci"><div class="ci-icon ci-urg">!</div><span class="ci-urg-text">임장 필수 — 1층 코너 위치·가시성</span></div>
+    <div class="ci"><div class="ci-icon ci-pend">!</div><span>미납관리비 확인</span></div>
+    <div class="ci"><div class="ci-icon ci-pend">?</div><span>메종드제니 영업 지속 의향</span></div>
+  </div>
+</div>
+
+<!-- 메모 -->
+<div class="section-label">분석 메모 & 임장 노트</div>
+<div class="memo-grid">
+  <div class="memo-card">
+    <div class="memo-title">그랑파사쥬 <span style="background:#FAEEDA;color:#7a4f00;font-size:8px;padding:1px 4px;border-radius:5px;margin-left:2px;">Watchlist</span></div>
+    <div class="mi"><span class="mi-dot">●</span><span><span class="mi-em">임장 완료 (26.03.29)</span></span></div>
+    <div class="mi"><span class="mi-dot">●</span><span><span class="mi-em">코너 호수뷰</span> 확인</span></div>
+    <div class="mi"><span class="mi-dot">●</span><span><span class="mi-em">씨앤에이논술</span> 031-378-7404 확인 필수</span></div>
+    <div class="mi"><span class="mi-dot">●</span><span><span class="mi-em">✅ 입찰 확정: 310,500,000원</span></span></div>
+    <div class="mi"><span class="mi-dot">●</span><span>실투입금 5,218만 / CASE4 씨앤에이→세후+9,189만</span></div>
+  </div>
+  <div class="memo-card">
+    <div class="memo-title">리치프라자3 206호 <span style="background:#EBF3FC;color:#1a4a7a;font-size:8px;padding:1px 4px;border-radius:5px;margin-left:2px;">1순위★</span></div>
+    <div class="mi"><span class="mi-dot">●</span><span><span class="mi-em">✅ 입찰 확정: 306,155,000원</span></span></div>
+    <div class="mi"><span class="mi-dot">●</span><span><span class="mi-em">LG럭셔리뷰티 영업중</span> 즉시수익</span></div>
+    <div class="mi"><span class="mi-dot">●</span><span>실투입금 7,352만 / 법인세 10% / 매매수익률 6.6%</span></div>
+    <div class="mi"><span class="mi-dot">●</span><span>CASE2 재계약→cap6% 4.00억 세후+7,178만</span></div>
+  </div>
+  <div class="memo-card">
+    <div class="memo-title">리치프라자3 207호 <span style="background:#FAEEDA;color:#7a4f00;font-size:8px;padding:1px 4px;border-radius:5px;margin-left:2px;">NEW⚠</span></div>
+    <div class="mi"><span class="mi-dot">●</span><span><span class="mi-em">206호 대안</span> — 동일날짜 같은 계</span></div>
+    <div class="mi"><span class="mi-dot">●</span><span>민트칩스 <span class="mi-em" style="color:var(--color-text-danger);">2024.06 임박설정 주의</span></span></div>
+    <div class="mi"><span class="mi-dot">●</span><span>월세 200만 ↑ / 수익률 21.1%</span></div>
+    <div class="mi"><span class="mi-dot">●</span><span>임장에서 영업 상태 확인 필수</span></div>
+  </div>
+  <div class="memo-card">
+    <div class="memo-title">청라디오스텔</div>
+    <div class="mi"><span class="mi-dot">●</span><span><span class="mi-em">1층 코너</span> 안전마진 최고</span></div>
+    <div class="mi"><span class="mi-dot">●</span><span><span class="mi-em" style="color:var(--color-text-danger);">대항력·보증금1,500만</span></span></div>
+    <div class="mi"><span class="mi-dot">●</span><span>파산 물건 / 5차 유찰 → 6차 05.07</span></div>
+  </div>
+  <div class="memo-card">
+    <div class="memo-title">더드림시티</div>
+    <div class="mi"><span class="mi-dot">●</span><span><span class="mi-em" style="color:var(--color-text-warning);">북향 후면</span> 가시성 제한</span></div>
+    <div class="mi"><span class="mi-dot">●</span><span>현임차 <span class="mi-em" style="color:var(--color-text-danger);">50만→재계약64만+</span></span></div>
+    <div class="mi"><span class="mi-dot">●</span><span>파산 물건 / 임장 미완료</span></div>
+  </div>
+  <div class="memo-card">
+    <div class="memo-title">리치프라자3 111호 <span style="background:#EBF3FC;color:#1a4a7a;font-size:8px;padding:1px 4px;border-radius:5px;margin-left:2px;">NEW</span></div>
+    <div class="mi"><span class="mi-dot">●</span><span><span class="mi-em">1층 광교역 역세권</span> 최강 출구</span></div>
+    <div class="mi"><span class="mi-dot">●</span><span>4차(1억+) 부담 → <span class="mi-em">5차(05.18) 타겟</span></span></div>
+    <div class="mi"><span class="mi-dot">●</span><span>현장조사: 유사매매 4~5억 / 월세 180만</span></div>
+  </div>
+  <div class="memo-card">
+    <div class="memo-title">리버테라스</div>
+    <div class="mi"><span class="mi-dot">●</span><span><span class="mi-em">에코브리지 28%</span> 선례</span></div>
+    <div class="mi"><span class="mi-dot">●</span><span><span class="mi-em">층고7.2m 복층+테라스</span></span></div>
+    <div class="mi"><span class="mi-dot">●</span><span>투기과열 LTV 확인</span></div>
+    <div class="mi"><span class="mi-dot">●</span><span>임장 미완료</span></div>
+  </div>
+</div>
+
+<div class="footer">
+  <span>경매 파이프라인 대시보드 v2.6 낙찰확정 (PC+모바일 통합) · 업데이트: 2026.04.13 · Claude Sonnet 4.6</span>
+  <span>모든 수치 추정치 포함 — 입찰 전 미납관리비·대출 조건 반드시 재확인</span>
+</div>
+</div>
+
+<script>
+function calcDday(y,m,d){
+  const today=new Date();today.setHours(0,0,0,0);
+  const t=new Date(y,m-1,d);const diff=Math.round((t-today)/86400000);
+  if(diff<0)return{text:'완료',cls:'dday-gray'};
+  if(diff===0)return{text:'D-day',cls:'dday-urgent'};
+  if(diff<=14)return{text:'D-'+diff,cls:'dday-urgent'};
+  if(diff<=60)return{text:'D-'+diff,cls:'dday-soon'};
+  return{text:'D-'+diff,cls:'dday-ok'};
+}
+function setCard(id,y,m,d){const el=document.getElementById(id);if(!el)return;const r=calcDday(y,m,d);el.textContent=r.text;el.className='dday '+r.cls;}
+function setTd(id,y,m,d){
+  const el=document.getElementById(id);if(!el)return;const r=calcDday(y,m,d);el.textContent=r.text;
+  const m2={'dday-urgent':'var(--color-text-danger)','dday-soon':'var(--color-text-warning)','dday-ok':'var(--color-text-success)','dday-gray':'var(--color-text-secondary)'};
+  el.style.color=m2[r.cls]||'';
+}
+setCard('dd_gp',2026,5,18); setCard('dd_r2',2026,4,13);
+setCard('dd_r207',2026,4,13);
+setCard('dd_cr',2026,5,7);  setCard('dd_td',2026,5,8);
+setCard('dd_r1',2026,5,18); setCard('dd_rv',2026,6,15);
+setTd('s_td3',2026,4,3);  setTd('s_rv2',2026,4,6);
+setTd('s_gp4',2026,4,13); setTd('s_r2_4',2026,4,13); setTd('s_r207_4',2026,4,13); setTd('s_r1_4',2026,4,13);
+setTd('s_cr6',2026,5,7);
+setTd('s_td4',2026,5,8);  setTd('s_rv3',2026,5,11);
+setTd('s_gp5',2026,5,18); setTd('s_r1_5',2026,5,18);
+setTd('s_cr7',2026,6,10); setTd('s_rv4',2026,6,15);
+</script>
+</body>
+</html>
