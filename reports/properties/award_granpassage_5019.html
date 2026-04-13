@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>낙찰 보고서 — 그랑파사쥬 5019호</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; background: #f0f2f5; color: #1a1a2e; padding: 16px; }
+.page { max-width: 800px; margin: 0 auto; }
+.win-hdr { background: linear-gradient(135deg,#085041 0%,#0a6b54 100%); border-radius: 12px; padding: 22px 24px; margin-bottom: 12px; color: #fff; }
+.win-tag { font-size: 10px; font-weight: 700; letter-spacing: 2px; color: rgba(255,255,255,0.55); text-transform: uppercase; margin-bottom: 6px; }
+.win-badge { display: inline-block; background: rgba(255,255,255,0.2); border-radius: 20px; padding: 4px 14px; font-size: 12px; font-weight: 700; margin-bottom: 10px; }
+.win-title { font-size: 20px; font-weight: 800; margin-bottom: 3px; }
+.win-sub { font-size: 12px; color: rgba(255,255,255,0.65); margin-bottom: 16px; }
+.win-amount { font-size: 32px; font-weight: 900; color: #4ade80; margin-bottom: 4px; }
+.win-amount-sub { font-size: 13px; color: rgba(255,255,255,0.75); margin-bottom: 16px; }
+.win-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.win-item { background: rgba(255,255,255,0.1); border-radius: 8px; padding: 9px 12px; }
+.win-lbl { font-size: 10px; color: rgba(255,255,255,0.5); font-weight: 600; margin-bottom: 3px; }
+.win-val { font-size: 14px; font-weight: 700; color: #fff; }
+.win-val-g { font-size: 14px; font-weight: 700; color: #4ade80; }
+.win-val-y { font-size: 14px; font-weight: 700; color: #fbbf24; }
+.card { background: #fff; border: 0.5px solid #dde3ec; border-radius: 12px; padding: 16px 18px; margin-bottom: 10px; }
+.card-title { font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.card-title::before { content:''; width:3px; height:13px; background:#1D9E75; border-radius:2px; flex-shrink:0; }
+.badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 20px; font-weight: 600; white-space: nowrap; }
+.badge-g { background:#E1F5EE; color:#085041; }
+.badge-w { background:#FAEEDA; color:#7a4f00; }
+.badge-b { background:#EBF3FC; color:#1a4a7a; }
+.badge-r { background:#FCEBEB; color:#A32D2D; }
+/* LTV 비교 */
+.ltv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.ltv-box { border-radius: 10px; padding: 14px 16px; }
+.ltv-80 { background: #f4f6f8; border: 1.5px solid #dde3ec; }
+.ltv-90 { background: #E1F5EE; border: 2px solid #1D9E75; }
+.ltv-tag { font-size: 10px; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.5px; }
+.ltv-tag-80 { color: #5a6a7a; }
+.ltv-tag-90 { color: #085041; }
+.ltv-row { display: flex; justify-content: space-between; font-size: 12px; padding: 4px 0; border-bottom: 0.5px solid rgba(0,0,0,0.06); }
+.ltv-row:last-child { border-bottom: none; }
+.ltv-lbl { color: #5a6a7a; }
+.ltv-val-n { font-weight: 700; color: #1a1a2e; }
+.ltv-val-g { font-weight: 700; color: #085041; }
+.ltv-val-w { font-weight: 700; color: #7a4f00; }
+.ltv-invest { margin-top: 8px; padding: 8px 10px; border-radius: 7px; text-align: center; }
+.ltv-invest-80 { background: #dde3ec; }
+.ltv-invest-90 { background: #1D9E75; }
+.ltv-invest-lbl { font-size: 10px; font-weight: 700; margin-bottom: 2px; }
+.ltv-invest-lbl-80 { color: #5a6a7a; }
+.ltv-invest-lbl-90 { color: rgba(255,255,255,0.75); }
+.ltv-invest-val { font-size: 18px; font-weight: 800; }
+.ltv-invest-val-80 { color: #1a1a2e; }
+.ltv-invest-val-90 { color: #fff; }
+.calc-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 0.5px solid #dde3ec; font-size: 13px; }
+.calc-row:last-child { border-bottom: none; }
+.calc-lbl { color: #5a6a7a; }
+.calc-val { font-weight: 600; }
+.tw { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.sh { text-align: center; font-size: 11px; color: #5a6a7a; padding: 4px 0; margin-bottom: 3px; }
+table { width: 100%; border-collapse: collapse; min-width: 520px; }
+th { background: #f4f6f8; color: #5a6a7a; font-size: 10px; font-weight: 700; padding: 8px 6px; border-bottom: 0.5px solid #dde3ec; text-align: center; white-space: nowrap; }
+td { padding: 8px 6px; border-bottom: 0.5px solid #dde3ec; text-align: center; font-size: 12px; white-space: nowrap; }
+tr:last-child td { border-bottom: none; }
+td:first-child { text-align: left; font-weight: 600; }
+.rb { background: #E1F5EE; }
+.rg { background: #EAF3DE; }
+.rw { background: #FAEEDA; }
+.info-g { background:#E1F5EE; border-radius:8px; padding:11px 14px; font-size:12px; color:#085041; line-height:1.7; margin-bottom:10px; }
+.info-w { background:#FAEEDA; border-radius:8px; padding:11px 14px; font-size:12px; color:#7a4f00; line-height:1.7; margin-bottom:10px; }
+.tl { display: flex; gap: 12px; padding: 10px 0; border-bottom: 0.5px solid #dde3ec; }
+.tl:last-child { border-bottom: none; }
+.tdot { width:10px; height:10px; border-radius:50%; flex-shrink:0; margin-top:4px; }
+.tbody { font-size:13px; color:#5a6a7a; line-height:1.6; }
+.ttitle { font-weight:700; color:#1a1a2e; margin-bottom:3px; }
+.cl { display: flex; flex-direction: column; gap: 6px; }
+.ci { display: flex; align-items: flex-start; gap: 9px; padding: 9px 11px; background: #f4f6f8; border-radius: 8px; font-size: 13px; }
+.cdot { width:18px; height:18px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:800; margin-top:1px; }
+.cdot-r { background:#FCEBEB; color:#A32D2D; }
+.cdot-w { background:#FAEEDA; color:#7a4f00; }
+.cdot-g { background:#E1F5EE; color:#085041; }
+@media(min-width:580px){ .win-grid{grid-template-columns:repeat(4,1fr);} }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- 헤더 -->
+<div class="win-hdr">
+  <div class="win-tag">낙찰 확정 보고서 · 2026.04.13</div>
+  <div class="win-badge">🎉 낙찰 완료 — ㈜에스링크</div>
+  <div class="win-title">🏪 동탄2 그랑파사쥬 5019호</div>
+  <div class="win-sub">2024타경11985 · 화성시 동탄2 · 5층 코너 호수뷰 · 수원지방법원 9계</div>
+  <div class="win-amount">310,500,000원</div>
+  <div class="win-amount-sub">감정가 8.73억 대비 35.57% · 입찰 1명 단독 · 매각결정기일 2026.04.20</div>
+  <div class="win-grid">
+    <div class="win-item"><div class="win-lbl">감정가</div><div class="win-val">8.73억</div></div>
+    <div class="win-item"><div class="win-lbl">낙찰가</div><div class="win-val-g">3.105억 (35.57%)</div></div>
+    <div class="win-item"><div class="win-lbl">매수인</div><div class="win-val">㈜에스링크</div></div>
+    <div class="win-item"><div class="win-lbl">매각결정기일</div><div class="win-val-y">2026.04.20</div></div>
+  </div>
+</div>
+
+<!-- 취득원가 -->
+<div class="card">
+  <div class="card-title">취득 원가 계산</div>
+  <div class="calc-row"><span class="calc-lbl">낙찰가</span><span class="calc-val">310,500,000원</span></div>
+  <div class="calc-row"><span class="calc-lbl">취등록세 (4.6%)</span><span class="calc-val">14,283,000원 (1,428만)</span></div>
+  <div class="calc-row"><span class="calc-lbl">미납관리비 (공용분 36개월)</span><span class="calc-val" style="color:#A32D2D;">10,440,000원 (1,044만)</span></div>
+  <div class="calc-row" style="font-weight:700; padding-top:10px; margin-top:2px; border-top:1.5px solid #1a1a2e;">
+    <span>총 취득원가</span><span>335,223,000원 (3.352억)</span>
+  </div>
+  <div style="font-size:11px;color:#5a6a7a;margin-top:8px;line-height:1.6;">
+    * 대출이자: LTV 80% → 월 952,000원(95만) / LTV 90% → 월 1,072,000원(107만) (연 4.6%)<br>
+    * 미납관리비 관리사무소 감면 협의 시 800만선 가능
+  </div>
+</div>
+
+<!-- LTV 80% vs 90% 비교 -->
+<div class="card">
+  <div class="card-title">대출 LTV 80% vs 90% 비교 <span class="badge badge-g">핵심 의사결정</span></div>
+  <div class="ltv-grid">
+    <div class="ltv-box ltv-80">
+      <div class="ltv-tag ltv-tag-80">LTV 80% — 기본</div>
+      <div class="ltv-row"><span class="ltv-lbl">대출금</span><span class="ltv-val-n">2.484억</span></div>
+      <div class="ltv-row"><span class="ltv-lbl">월 이자</span><span class="ltv-val-n">95만</span></div>
+      <div class="ltv-row"><span class="ltv-lbl">예비비(이자2개월)</span><span class="ltv-val-n">190만</span></div>
+      <div class="ltv-row"><span class="ltv-lbl">월 순현금흐름</span><span class="ltv-val-w">+48만</span></div>
+      <div class="ltv-row"><span class="ltv-lbl">매매수익률</span><span class="ltv-val-n">5.2%</span></div>
+      <div class="ltv-row"><span class="ltv-lbl">실투자수익률</span><span class="ltv-val-n">6.7%</span></div>
+      <div class="ltv-invest ltv-invest-80">
+        <div class="ltv-invest-lbl ltv-invest-lbl-80">실투입금</div>
+        <div class="ltv-invest-val ltv-invest-val-80">8,772만원</div>
+      </div>
+    </div>
+    <div class="ltv-box ltv-90">
+      <div class="ltv-tag ltv-tag-90">LTV 90% ★ 레버리지 극대화</div>
+      <div class="ltv-row"><span class="ltv-lbl">대출금</span><span class="ltv-val-g">2.795억</span></div>
+      <div class="ltv-row"><span class="ltv-lbl">월 이자</span><span class="ltv-val-w">107만</span></div>
+      <div class="ltv-row"><span class="ltv-lbl">예비비(이자2개월)</span><span class="ltv-val-g">214만</span></div>
+      <div class="ltv-row"><span class="ltv-lbl">월 순현금흐름</span><span class="ltv-val-w">+36만</span></div>
+      <div class="ltv-row"><span class="ltv-lbl">매매수익률</span><span class="ltv-val-g">5.2%</span></div>
+      <div class="ltv-row"><span class="ltv-lbl">실투자수익률</span><span class="ltv-val-g">7.8%</span></div>
+      <div class="ltv-invest" style="background:#1D9E75;">
+        <div class="ltv-invest-lbl" style="color:rgba(255,255,255,0.75);">실투입금</div>
+        <div class="ltv-invest-val" style="color:#fff;">5,691만원</div>
+      </div>
+    </div>
+  </div>
+  <div style="background:#EBF3FC;border-radius:8px;padding:11px 14px;font-size:12px;color:#1a4a7a;line-height:1.7;">
+    <b>LTV 90% 선택 시 효과:</b> 실투입금 3,081만 감소 (8,772만 → 5,691만)<br>
+    월 현금흐름 48만 → 36만으로 12만 감소하나, <b>절약된 3,081만을 다음 물건 투자에 재활용 가능.</b><br>
+    단, LTV 90% 가능 여부는 은행별 상이 — 경락잔금대출 특성상 70~80%가 일반적. <b>은행 사전 확인 필수.</b>
+  </div>
+</div>
+
+<!-- 수익성 지표 비교 -->
+<div class="card">
+  <div class="card-title">수익성 지표 비교 (기준 월세 144만 @7.0만/평, 법인세 10%)</div>
+  <div class="sh">← 좌우로 스크롤 →</div>
+  <div class="tw">
+    <table>
+      <thead>
+        <tr><th>구분</th><th>대출</th><th>월이자</th><th>실투입금</th><th>월 순CF</th><th>연 순CF</th><th>매매수익률</th><th>실투자수익률</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>LTV 80%</td><td>2.484억</td><td>95만</td><td style="color:#7a4f00;font-weight:700;">8,772만</td><td>+48만</td><td>+576만</td><td>5.2%</td><td style="color:#7a4f00;font-weight:700;">6.7%</td></tr>
+        <tr class="rb"><td><b>LTV 90% ★</b></td><td>2.795억</td><td>107만</td><td style="color:#085041;font-weight:700;">5,691만</td><td>+36만</td><td>+432만</td><td>5.2%</td><td style="color:#085041;font-weight:700;">7.8%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="info-w" style="margin-top:10px;margin-bottom:0;">
+    <b>⚠ 공실 상태 진입 — 임차인 확보가 최우선</b><br>
+    씨앤에이논술(031-378-7404) 즉시 접촉. 공실 기간 중 LTV 80% 이자 95만 / 90% 이자 107만 고정 지출.
+  </div>
+</div>
+
+<!-- 엑시트 전략 -->
+<div class="card">
+  <div class="card-title">엑시트 전략 — cap4.5% / 법인세 10%</div>
+  <div class="sh">← 좌우로 스크롤 →</div>
+  <div class="tw">
+    <table>
+      <thead>
+        <tr><th>케이스</th><th>월세</th><th>매도가<br>(cap4.5%)</th><th>세전차익</th><th>법인세(10%)</th><th>세후순차익</th><th>1년임대수입<br>(LTV80%)</th><th>1년임대수입<br>(LTV90%)</th><th>1년총세후<br>(LTV90%)</th></tr>
+      </thead>
+      <tbody>
+        <tr class="rw"><td>CASE2 현실 @7.0만</td><td>144만</td><td style="font-weight:700;">3.840억</td><td style="color:#7a4f00;font-weight:700;">+4,877만</td><td style="color:#A32D2D;">-488만</td><td style="color:#7a4f00;font-weight:800;">+4,389만</td><td style="color:#5a6a7a;">+576만</td><td style="color:#5a6a7a;">+432만</td><td style="color:#7a4f00;font-weight:700;">+4,821만</td></tr>
+        <tr class="rg"><td>CASE3 기본 @7.5만</td><td>154만</td><td style="font-weight:700;">4.107억</td><td style="color:#085041;font-weight:700;">+7,544만</td><td style="color:#A32D2D;">-754만</td><td style="color:#085041;font-weight:800;">+6,790만</td><td style="color:#5a6a7a;">+588만</td><td style="color:#5a6a7a;">+564만</td><td style="color:#085041;font-weight:700;">+7,354만 ✅</td></tr>
+        <tr class="rb"><td>CASE4 씨앤에이 @8.0만</td><td>164만</td><td style="font-weight:700;">4.373억</td><td style="color:#085041;font-weight:700;">+1.021억</td><td style="color:#A32D2D;">-1,021만</td><td style="color:#085041;font-weight:800;">+9,189만</td><td style="color:#5a6a7a;">+828만</td><td style="color:#5a6a7a;">+828만</td><td style="color:#085041;font-weight:700;">+1.001억 ✅✅</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="font-size:11px;color:#5a6a7a;margin-top:8px;line-height:1.6;">
+    * 세전차익 = 매도가 − 총취득원가(3.352억) / 중개수수료 미포함<br>
+    * 법인세 10% 단일 (보유기간 무관) · 지방소득세 1% 별도 시 실효 11%<br>
+    * <b style="color:#085041;">씨앤에이 확보(CASE4) + LTV90% 기준 1년 보유 총 세후수익 약 +1억</b>
+  </div>
+</div>
+
+<!-- 액션 플랜 -->
+<div class="card">
+  <div class="card-title">낙찰 후 즉시 액션 플랜</div>
+  <div class="tl"><div class="tdot" style="background:#A32D2D;"></div><div class="tbody"><div class="ttitle">D+1 — 매각결정기일(04.20) 대비 / 대출 최종 결정 <span class="badge badge-r">필수</span></div>LTV 90% 가능 여부 은행 즉시 확인. 80% vs 90% 선택 확정 후 대출 실행 준비.<br>매각결정기일 이의신청 기간 확인. 단독 낙찰이므로 리스크 낮음.</div></div>
+  <div class="tl"><div class="tdot" style="background:#7a4f00;"></div><div class="tbody"><div class="ttitle">D+1 — 씨앤에이논술 즉시 접촉 (031-378-7404) <span class="badge badge-w">최우선</span></div>낙찰 사실 알리고 5019호 확장 의향 협의. 긍정 시 임대 조건 제시 → 소유권이전 후 본계약.</div></div>
+  <div class="tl"><div class="tdot" style="background:#7a4f00;"></div><div class="tbody"><div class="ttitle">D+1~7 — 미납관리비 서면 청구</div>관리사무소 공문 발송 → 정확한 체납액 확인 및 감면 협의. 집합건물법 제18조 명시.</div></div>
+  <div class="tl"><div class="tdot" style="background:#1D9E75;"></div><div class="tbody"><div class="ttitle">D+7~30 — 잔금 납부 및 소유권 이전</div>대출 실행 → 잔금 납부 → 법무사 통해 소유권이전등기. 취등록세 1,428만 법인 납부.</div></div>
+</div>
+
+<!-- 체크리스트 -->
+<div class="card">
+  <div class="card-title">낙찰 후 체크리스트</div>
+  <div class="cl">
+    <div class="ci"><div class="cdot cdot-r">1</div><div><b>LTV 90% 가능 여부 은행 즉시 확인</b> — 가능 시 실투입금 5,691만 / 불가 시 80% 기준 8,772만</div></div>
+    <div class="ci"><div class="cdot cdot-r">2</div><div><b>씨앤에이논술 확장 협의 (031-378-7404)</b> — 낙찰 당일 접촉</div></div>
+    <div class="ci"><div class="cdot cdot-r">3</div><div><b>매각결정기일 (04.20) 이의 여부 확인</b></div></div>
+    <div class="ci"><div class="cdot cdot-w">4</div><div><b>미납관리비 서면 청구</b> — 관리사무소 공문 발송 (감면 협의 포함)</div></div>
+    <div class="ci"><div class="cdot cdot-w">5</div><div><b>법인 명의 소유권 이전</b> — 법무사 위임. 취등록세 1,428만</div></div>
+    <div class="ci"><div class="cdot cdot-g">6</div><div>씨앤에이 협의 지연 시 대안 임차인 탐색 병행 (요가·필라테스·뷰티·의원)</div></div>
+  </div>
+</div>
+
+<div style="text-align:center;font-size:11px;color:#5a6a7a;padding:10px 0 16px;">
+  낙찰 확정 보고서 · 2024타경11985 그랑파사쥬 5019호 · ㈜에스링크 낙찰 · 2026.04.13<br>
+  LTV 80%/90% 비교 포함 · 법인세는 세무사 확인 권장
+</div>
+</div>
+</body>
+</html>
